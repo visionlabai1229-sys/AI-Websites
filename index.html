@@ -43,9 +43,9 @@
     }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-logo:focus-visible { outline: 2px solid rgba(0,194,212,0.5); border-radius: 4px; outline-offset: 3px; }
-    .nav-logo svg { display: block; transition: opacity 0.2s ease; }
-    .nav-logo:hover svg { opacity: 0.85; }
-    .nav-logo:active svg { opacity: 0.7; }
+    .nav-logo img { display: block; transition: opacity 0.2s ease; height: 40px; width: auto; }
+    .nav-logo:hover img { opacity: 0.85; }
+    .nav-logo:active img { opacity: 0.7; }
     .nav-links { list-style: none; display: flex; gap: 34px; margin: 0 auto; }
     .nav-links a {
       color: rgba(255,255,255,0.82); text-decoration: none; font-size: 13px; font-weight: 400;
@@ -214,7 +214,7 @@
 
     /* ─── TYPOGRAPHY ─── */
     .hero-h1 {
-      font-size: clamp(36px,5.2vw,74px); font-weight: 600; line-height: 1.08;
+      font-size: clamp(30px,4vw,58px); font-weight: 600; line-height: 1.14;
       letter-spacing: -0.025em; text-align: center;
       background: linear-gradient(135deg, #ffffff 25%, rgba(0,194,212,0.88) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -223,7 +223,7 @@
     .sec-h2 { font-size: clamp(32px,4.2vw,62px); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; }
     .sec-h2-c { font-size: clamp(32px,4.2vw,62px); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; text-align: center; }
     .sec-h2-xl { font-size: clamp(44px,6.2vw,86px); font-weight: 600; line-height: 1.08; letter-spacing: -0.03em; text-align: center; }
-    .body-sm { font-size: 13.5px; line-height: 1.7; opacity: 0.7; }
+    .body-sm { font-size: 14.5px; line-height: 1.7; opacity: 0.78; }
     .tc { color: #00C2D4; }
     .oc { color: #F08C00; }
 
@@ -233,7 +233,7 @@
 
     /* ─── TEAL RULE ─── */
     .rule {
-      display: inline-block; width: 32px; height: 2px;
+      display: inline-block; width: 40px; height: 2px;
       background: linear-gradient(90deg, #00C2D4, #F08C00); border-radius: 2px; margin-bottom: 16px;
     }
     .rule.rev { background: linear-gradient(90deg, #F08C00, #00C2D4); }
@@ -290,20 +290,7 @@
 <!-- ─── NAV ─── -->
 <nav id="main-nav">
   <a href="#" class="nav-logo" aria-label="VisionLab AI" onclick="document.getElementById('s0').scrollIntoView({behavior:'smooth'});return false;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 40" height="40" aria-hidden="true">
-      <defs>
-        <linearGradient id="lg-teal" x1="2" y1="2" x2="21" y2="38" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#00CCDF"/><stop offset="100%" stop-color="#006A8A"/>
-        </linearGradient>
-        <linearGradient id="lg-orange" x1="38" y1="2" x2="13" y2="38" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#FFB200"/><stop offset="100%" stop-color="#D96C00"/>
-        </linearGradient>
-      </defs>
-      <path d="M2,2 L16,2 L21,38 L9,38 Z" fill="url(#lg-teal)"/>
-      <path d="M15,2 L17,2 L14,38 L12,38 Z" fill="rgba(0,20,40,0.4)"/>
-      <path d="M13,38 L21,38 L38,2 L30,2 Z" fill="url(#lg-orange)"/>
-      <text x="50" y="28" font-family="Space Grotesk, sans-serif" font-size="19" font-weight="700" fill="#ffffff" letter-spacing="0.3">VISIONLAB <tspan fill="#F08C00" font-weight="400">AI</tspan></text>
-    </svg>
+    <img src="brand_assests/VisionLab_AI_Logo_transparent.png" alt="VisionLab AI">
   </a>
   <ul class="nav-links">
     <li><a href="#" onclick="document.getElementById('s0').scrollIntoView({behavior:'smooth'});return false;">Home</a></li>
@@ -337,16 +324,16 @@
   <!-- ══ S1 HERO ══ -->
   <section id="s0">
     <canvas class="pl" id="hero-p"></canvas>
-    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);text-align:center;z-index:10;width:92%;max-width:700px;">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;width:92%;max-width:800px;">
       <h1 class="hero-h1 hl" style="transition-delay:0.12s;">More Calls Answered.<br><em>More Appointments Booked.</em></h1>
-      <p class="body-sm hl" style="margin:22px auto 36px;max-width:510px;text-align:center;transition-delay:0.36s;">
+      <p class="body-sm hl" style="margin:22px auto 36px;max-width:540px;text-align:center;transition-delay:0.36s;">
         VisionLab AI is a full-service AI agency that helps businesses move faster, automate smarter, and unlock the full potential of artificial intelligence — from strategy to deployment.
       </p>
       <div class="hl" style="transition-delay:0.58s;">
         <a href="#s1" class="btn-pill" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'});return false;">Explore Our Services <span class="arrow">↗</span></a>
       </div>
       <!-- Stats bar -->
-      <div class="hl" style="display:flex;justify-content:center;gap:clamp(24px,4vw,64px);margin-top:52px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.07);transition-delay:0.82s;">
+      <div class="hl" style="display:flex;justify-content:center;gap:clamp(24px,4vw,64px);margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.07);transition-delay:0.82s;">
         <div>
           <div class="stat-num" style="color:#F08C00;">4</div>
           <div class="stat-lbl">Core Capabilities</div>
@@ -478,7 +465,7 @@
         <span class="sec-num ai" style="display:block;">01 — Services</span>
         <div class="rule ai" data-d="1"></div>
         <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai" data-d="2">AI Strategy<br>&amp; Consulting</h2>
-        <p class="body-sm ai" data-d="3" style="max-width:380px;margin-bottom:32px;">We help organizations identify where AI creates the most value and build a clear roadmap to get there. We turn ambition into an executable, measurable transformation strategy.</p>
+        <p class="body-sm ai" data-d="3" style="max-width:420px;margin-bottom:32px;">We help organizations identify where AI creates the most value and build a clear roadmap to get there. We turn ambition into an executable, measurable transformation strategy.</p>
         <div class="ai" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill">Discover More <span class="arrow">↗</span></a></div>
       </div>
     </div>
@@ -504,11 +491,11 @@
   <section id="s4">
     <canvas class="pl" id="dev-p"></canvas>
     <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;padding:0 60px;">
-      <div style="max-width:460px;">
+      <div style="max-width:520px;">
         <span class="sec-num ai" style="display:block;">03 — Services</span>
         <div class="rule ai" data-d="1"></div>
         <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai" data-d="2">Custom AI<br>Development</h2>
-        <p class="body-sm ai" data-d="3" style="max-width:380px;margin-bottom:32px;">From LLM integrations to computer vision and predictive analytics, we build production-ready AI solutions tailored to your business — deployed in your environment, owned entirely by you.</p>
+        <p class="body-sm ai" data-d="3" style="max-width:420px;margin-bottom:32px;">From LLM integrations to computer vision and predictive analytics, we build production-ready AI solutions tailored to your business — deployed in your environment, owned entirely by you.</p>
         <div class="ai" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill">Discover More <span class="arrow">↗</span></a></div>
       </div>
     </div>
