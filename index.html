@@ -771,7 +771,6 @@ sections.forEach((_, i) => {
   dotWrap.appendChild(d);
 });
 const shaderEl = document.getElementById('shader-bg');
-const svcSet = new Set(['s2','s3','s4','s5']);
 
 sections.forEach(s =>
   new IntersectionObserver(entries => {
@@ -779,7 +778,7 @@ sections.forEach(s =>
       if (e.isIntersecting) {
         const idx = [...sections].indexOf(e.target);
         document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-        shaderEl.style.opacity = svcSet.has(e.target.id) ? '0.12' : '1';
+        shaderEl.style.opacity = e.target.id === 's0' ? '1' : '0.10';
       }
     });
   }, { threshold: 0.55, root: scroller }).observe(s)
