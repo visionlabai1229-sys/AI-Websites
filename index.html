@@ -29,7 +29,7 @@
     /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; padding: 22px 40px;
+      display: flex; align-items: center; padding: 6px 40px;
       transition: background 0.45s ease, backdrop-filter 0.45s ease, border-color 0.45s ease, padding 0.3s ease;
       border-bottom: 1px solid transparent;
       pointer-events: none;
@@ -40,11 +40,12 @@
       backdrop-filter: blur(20px) saturate(1.6);
       -webkit-backdrop-filter: blur(20px) saturate(1.6);
       border-bottom-color: rgba(0,194,212,0.1);
-      padding: 13px 40px;
+      padding: 6px 40px;
     }
     .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .nav-logo:focus-visible { outline: 2px solid rgba(0,194,212,0.5); border-radius: 4px; outline-offset: 3px; }
-    .nav-logo img { display: block; transition: opacity 0.2s ease; height: 180px; width: auto; }
+    .nav-logo img { display: block; transition: opacity 0.2s ease, height 0.3s ease; height: 120px; width: auto; }
+    nav.scrolled .nav-logo img { height: 56px; }
     .nav-logo:hover img { opacity: 0.85; }
     .nav-logo:active img { opacity: 0.7; }
     .nav-links { list-style: none; display: flex; gap: 34px; margin: 0 auto; }
