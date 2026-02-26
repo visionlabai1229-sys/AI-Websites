@@ -469,25 +469,24 @@
         <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#00C2D4;opacity:0.85;">AI Website</span>
       </div>
 
-      <!-- Enablement -->
+      <!-- Results -->
       <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
         <div class="h-circle oc" style="display:flex;align-items:center;justify-content:center;">
           <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Head circle -->
-            <circle cx="28" cy="19" r="10" stroke="rgba(240,140,0,0.65)" stroke-width="1.5"/>
-            <!-- Knowledge rays above head -->
-            <line x1="28" y1="4"    x2="28"   y2="9"    stroke="rgba(240,140,0,0.85)" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="20.5" y1="6"  x2="22.2" y2="10.5" stroke="rgba(240,140,0,0.55)" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="35.5" y1="6"  x2="33.8" y2="10.5" stroke="rgba(240,140,0,0.55)" stroke-width="1.2" stroke-linecap="round"/>
-            <!-- Inner brain node -->
-            <circle cx="28" cy="19" r="2.8" fill="rgba(240,140,0,0.52)"/>
-            <!-- Shoulders arc -->
-            <path d="M13 49 C13 38 18 34 28 34 C38 34 43 38 43 49" stroke="rgba(240,140,0,0.45)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <!-- Two secondary nodes (team / enablement) -->
-            <circle cx="19" cy="43" r="2.5" fill="rgba(240,140,0,0.35)"/>
-            <circle cx="37" cy="43" r="2.5" fill="rgba(240,140,0,0.35)"/>
-            <line x1="28" y1="29"   x2="19"  y2="43"   stroke="rgba(240,140,0,0.2)" stroke-width="1" stroke-linecap="round"/>
-            <line x1="28" y1="29"   x2="37"  y2="43"   stroke="rgba(240,140,0,0.2)" stroke-width="1" stroke-linecap="round"/>
+            <!-- Baseline -->
+            <line x1="8" y1="44" x2="48" y2="44" stroke="rgba(240,140,0,0.45)" stroke-width="1.2" stroke-linecap="round"/>
+            <!-- Bar 1 -->
+            <rect x="11" y="33" width="7" height="11" rx="1.5" fill="rgba(240,140,0,0.32)" stroke="rgba(240,140,0,0.5)" stroke-width="0.8"/>
+            <!-- Bar 2 -->
+            <rect x="21" y="25" width="7" height="19" rx="1.5" fill="rgba(240,140,0,0.55)" stroke="rgba(240,140,0,0.72)" stroke-width="0.8"/>
+            <!-- Bar 3 (tallest, fully lit) -->
+            <rect x="31" y="15" width="7" height="29" rx="1.5" fill="rgba(240,140,0,0.82)" stroke="rgba(240,140,0,0.95)" stroke-width="0.8"/>
+            <!-- Dashed trend line -->
+            <path d="M14 33 L24 25 L34 15" stroke="rgba(240,140,0,0.6)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="3 2"/>
+            <!-- Arrow at tip -->
+            <path d="M31 13 L36 13 L36 18" stroke="rgba(240,140,0,0.82)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- Glow dot at top of tall bar -->
+            <circle cx="34" cy="14" r="3" fill="rgba(240,140,0,0.55)"/>
           </svg>
         </div>
         <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#F08C00;opacity:0.85;">Results</span>
@@ -571,8 +570,8 @@
       <span class="sec-num ai" style="display:block;text-align:center;">Our Process</span>
       <h2 style="font-size:clamp(44px,6.2vw,84px);font-weight:600;letter-spacing:-0.03em;margin-bottom:26px;" class="ai" data-d="1">The VisionLab<br><span class="tc">Method</span></h2>
       <p class="body-sm ai" data-d="2" style="text-align:center;max-width:540px;margin:0 auto;">
-        Our proprietary AI implementation framework, purpose-built for modern businesses.<br>
-        Four phases, zero guesswork — consistently delivering results from day one.<br>
+        Our proven AI delivery process, built for service businesses.<br>
+        Four phases, zero guesswork — getting you live and generating results from day one.<br>
         Every engagement follows the same discipline: <span class="tc">Discover</span>, Design, Deploy, <span style="color:#F08C00;">Drive</span>.
       </p>
     </div>
@@ -587,10 +586,30 @@
       We follow a four-phase discipline to deliver AI that works — and keeps working.
     </p>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%;max-width:960px;">
-      <div class="info-card ai" data-d="2"><div class="card-label">Discover</div><div class="card-body">We map your business landscape, identify high-impact AI opportunities, and define a success roadmap aligned to your goals and existing stack.</div></div>
-      <div class="info-card ai" data-d="3"><div class="card-label">Design</div><div class="card-body">We architect bespoke AI solutions, selecting the right models, tools, and integrations to match your use case and technical environment precisely.</div></div>
-      <div class="info-card ai" data-d="4"><div class="card-label">Deploy</div><div class="card-body">We build, test, and launch production-grade AI systems with precision — ensuring reliability, security, and seamless integration with your existing workflows.</div></div>
-      <div class="info-card oc ai" data-d="5"><div class="card-label oc">Drive</div><div class="card-body">We monitor performance, iterate on outputs, and continuously optimize your AI systems to deliver compounding returns and lasting business impact.</div></div>
+      <div class="info-card ai" data-d="2" style="cursor:default;" onmouseenter="this.querySelector('.ci').style.transform='scale(1.18) translateY(-3px)'" onmouseleave="this.querySelector('.ci').style.transform='scale(1) translateY(0)'">
+        <div class="ci" style="margin-bottom:14px;transition:transform 0.38s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="15" cy="15" r="9" stroke="rgba(0,194,212,0.72)" stroke-width="1.5"/><line x1="22" y1="22" x2="31" y2="31" stroke="rgba(0,194,212,0.65)" stroke-width="2" stroke-linecap="round"/><circle cx="15" cy="15" r="4" fill="rgba(0,194,212,0.18)" stroke="rgba(0,194,212,0.42)" stroke-width="0.8"/><line x1="31" y1="5" x2="31" y2="9" stroke="rgba(0,194,212,0.65)" stroke-width="1.2" stroke-linecap="round"/><line x1="29" y1="7" x2="33" y2="7" stroke="rgba(0,194,212,0.65)" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-label">Discover</div><div class="card-body">We map your business landscape, identify high-impact AI opportunities, and define a success roadmap aligned to your goals and existing stack.</div>
+      </div>
+      <div class="info-card ai" data-d="3" style="cursor:default;" onmouseenter="this.querySelector('.ci').style.transform='scale(1.18) translateY(-3px)'" onmouseleave="this.querySelector('.ci').style.transform='scale(1) translateY(0)'">
+        <div class="ci" style="margin-bottom:14px;transition:transform 0.38s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="5" y="7" width="26" height="22" rx="2" stroke="rgba(0,194,212,0.55)" stroke-width="1.2" fill="rgba(0,194,212,0.04)"/><line x1="5" y1="13" x2="31" y2="13" stroke="rgba(0,194,212,0.3)" stroke-width="0.8"/><circle cx="9" cy="10" r="1.5" fill="rgba(0,194,212,0.65)"/><circle cx="13.5" cy="10" r="1.5" fill="rgba(0,194,212,0.4)"/><circle cx="18" cy="10" r="1.5" fill="rgba(0,194,212,0.22)"/><line x1="10" y1="19" x2="26" y2="19" stroke="rgba(0,194,212,0.45)" stroke-width="1" stroke-linecap="round"/><line x1="10" y1="23" x2="20" y2="23" stroke="rgba(0,194,212,0.28)" stroke-width="0.8" stroke-linecap="round"/><path d="M25 17 L29 21 L25 25" stroke="rgba(0,194,212,0.72)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <div class="card-label">Design</div><div class="card-body">We architect bespoke AI solutions, selecting the right models, tools, and integrations to match your use case and technical environment precisely.</div>
+      </div>
+      <div class="info-card ai" data-d="4" style="cursor:default;" onmouseenter="this.querySelector('.ci').style.transform='scale(1.18) translateY(-3px)'" onmouseleave="this.querySelector('.ci').style.transform='scale(1) translateY(0)'">
+        <div class="ci" style="margin-bottom:14px;transition:transform 0.38s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 3 C23 3 29 10 29 19 L18 29 L7 19 C7 10 13 3 18 3Z" stroke="rgba(0,194,212,0.72)" stroke-width="1.4" fill="rgba(0,194,212,0.07)"/><circle cx="18" cy="14" r="4" stroke="rgba(0,194,212,0.88)" stroke-width="1.2" fill="rgba(0,194,212,0.22)"/><path d="M7 21 L3 29 L10 26Z" fill="rgba(0,194,212,0.3)"/><path d="M29 21 L33 29 L26 26Z" fill="rgba(0,194,212,0.3)"/><line x1="15" y1="29" x2="13" y2="34" stroke="rgba(0,194,212,0.45)" stroke-width="1.2" stroke-linecap="round"/><line x1="18" y1="29" x2="18" y2="34" stroke="rgba(0,194,212,0.65)" stroke-width="1.4" stroke-linecap="round"/><line x1="21" y1="29" x2="23" y2="34" stroke="rgba(0,194,212,0.45)" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-label">Deploy</div><div class="card-body">We build, test, and launch production-grade AI systems with precision — ensuring reliability, security, and seamless integration with your existing workflows.</div>
+      </div>
+      <div class="info-card oc ai" data-d="5" style="cursor:default;" onmouseenter="this.querySelector('.ci').style.transform='scale(1.18) translateY(-3px)'" onmouseleave="this.querySelector('.ci').style.transform='scale(1) translateY(0)'">
+        <div class="ci" style="margin-bottom:14px;transition:transform 0.38s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><line x1="5" y1="28" x2="31" y2="28" stroke="rgba(240,140,0,0.45)" stroke-width="1.2" stroke-linecap="round"/><rect x="7" y="20" width="5" height="8" rx="1" fill="rgba(240,140,0,0.35)"/><rect x="14" y="15" width="5" height="13" rx="1" fill="rgba(240,140,0,0.55)"/><rect x="21" y="9" width="5" height="19" rx="1" fill="rgba(240,140,0,0.82)"/><path d="M6 22 L14 17 L22 10" stroke="rgba(240,140,0,0.65)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="3 2"/><path d="M19 8 L23 8 L23 12" stroke="rgba(240,140,0,0.82)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <div class="card-label oc">Drive</div><div class="card-body">We monitor performance, iterate on outputs, and continuously optimize your AI systems to deliver compounding returns and lasting business impact.</div>
+      </div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
   </section>
@@ -600,9 +619,24 @@
     <h2 class="sec-h2 ai" style="font-size:clamp(36px,4.8vw,68px);max-width:800px;margin-bottom:16px;">We Make Our Clients<br>the <span class="tc">Heroes</span></h2>
     <p class="body-sm ai" data-d="1" style="max-width:500px;margin-bottom:42px;">We partner with service businesses to deploy AI systems that answer calls, book appointments, and keep clients coming back — without adding headcount.</p>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:800px;">
-      <div class="info-card ai" data-d="2"><div class="card-label">Dental Clinics</div><div class="card-body">Never miss a patient call again. Our AI receptionist handles new patient inquiries, books appointments, and follows up on missed calls — so your front desk stays focused on care delivery.</div></div>
-      <div class="info-card ai" data-d="3"><div class="card-label">Medical Practices</div><div class="card-body">From automated appointment reminders to post-visit check-ins, we help medical practices reduce no-shows, collect more reviews, and keep their schedules consistently full.</div></div>
-      <div class="info-card oc ai" data-d="4"><div class="card-label oc">Home Services</div><div class="card-body">Plumbers, electricians, HVAC — service calls can't wait. Our AI answers every call instantly, captures job details, and books the next available slot even when you're on another job.</div></div>
+      <div class="info-card ai" data-d="2" style="cursor:default;" onmouseenter="this.querySelector('.ci').style.transform='scale(1.18) translateY(-3px)'" onmouseleave="this.querySelector('.ci').style.transform='scale(1) translateY(0)'">
+        <div class="ci" style="margin-bottom:14px;transition:transform 0.38s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M10 8 C10 4 14 4 18 7 C22 4 26 4 26 8 C26 13 24 19 22 26 C21 30 20 33 18 33 C16 33 15 30 14 26 C12 19 10 13 10 8Z" stroke="rgba(0,194,212,0.75)" stroke-width="1.4" fill="rgba(0,194,212,0.06)"/><line x1="18" y1="22" x2="18" y2="33" stroke="rgba(0,194,212,0.28)" stroke-width="0.8" stroke-linecap="round"/><path d="M14 11 L15 9" stroke="rgba(0,194,212,0.72)" stroke-width="1.2" stroke-linecap="round"/><path d="M12 16 L11 14" stroke="rgba(0,194,212,0.45)" stroke-width="1" stroke-linecap="round"/><path d="M22 11 L23 9" stroke="rgba(0,194,212,0.5)" stroke-width="1" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-label">Dental Clinics</div><div class="card-body">Never miss a patient call again. Our AI receptionist handles new patient inquiries, books appointments, and follows up on missed calls — so your front desk stays focused on care delivery.</div>
+      </div>
+      <div class="info-card ai" data-d="3" style="cursor:default;" onmouseenter="this.querySelector('.ci').style.transform='scale(1.18) translateY(-3px)'" onmouseleave="this.querySelector('.ci').style.transform='scale(1) translateY(0)'">
+        <div class="ci" style="margin-bottom:14px;transition:transform 0.38s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="26" cy="26" r="5.5" stroke="rgba(0,194,212,0.75)" stroke-width="1.4" fill="rgba(0,194,212,0.08)"/><path d="M8 8 L8 18 C8 24 14 26 18 26 L20.5 26" stroke="rgba(0,194,212,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="6" cy="8" r="2.5" fill="rgba(0,194,212,0.5)"/><circle cx="10" cy="8" r="2.5" fill="rgba(0,194,212,0.5)"/><circle cx="26" cy="26" r="2" fill="rgba(0,194,212,0.65)"/><line x1="6" y1="8" x2="10" y2="8" stroke="rgba(0,194,212,0.25)" stroke-width="1"/></svg>
+        </div>
+        <div class="card-label">Medical Practices</div><div class="card-body">From automated appointment reminders to post-visit check-ins, we help medical practices reduce no-shows, collect more reviews, and keep their schedules consistently full.</div>
+      </div>
+      <div class="info-card oc ai" data-d="4" style="cursor:default;" onmouseenter="this.querySelector('.ci').style.transform='scale(1.18) translateY(-3px)'" onmouseleave="this.querySelector('.ci').style.transform='scale(1) translateY(0)'">
+        <div class="ci" style="margin-bottom:14px;transition:transform 0.38s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M4 19 L18 5 L32 19" stroke="rgba(240,140,0,0.72)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="19" width="22" height="14" rx="1.5" stroke="rgba(240,140,0,0.6)" stroke-width="1.3" fill="rgba(240,140,0,0.06)"/><rect x="14" y="24" width="8" height="9" rx="1" stroke="rgba(240,140,0,0.5)" stroke-width="1" fill="rgba(240,140,0,0.12)"/><path d="M27 15 C29 13 29 10 27 8" stroke="rgba(240,140,0,0.55)" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M30 17 C33 14 33 9 30 6" stroke="rgba(240,140,0,0.32)" stroke-width="0.9" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="card-label oc">Home Services</div><div class="card-body">Plumbers, electricians, HVAC — service calls can't wait. Our AI answers every call instantly, captures job details, and books the next available slot even when you're on another job.</div>
+      </div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
   </section>
@@ -1075,64 +1109,93 @@ mkP('hero-p', { n:90, rMax:1.1, spd:0.1, alpha:0.28, color:'0,194,212' });
   })();
 })();
 
-// ══ ENABLEMENT — Neural Network (orange) ══
+// ══ RESULTS — Rising Metrics Dashboard (orange) ══
 (function() {
   const cv = document.getElementById('training-p'); if (!cv) return;
   const ctx = cv.getContext('2d');
-  let W, H, t=0, nodes=[], conns=[];
-  function buildGraph(){
-    nodes=[]; conns=[];
-    const cx=W*0.33,cy=H*0.5,r1=Math.min(W,H)*0.14,r2=Math.min(W,H)*0.27;
-    nodes.push({x:cx,y:cy,r:7,ph:0});
-    for(let i=0;i<5;i++){const a=(i/5)*Math.PI*2+0.4;nodes.push({x:cx+Math.cos(a)*r1,y:cy+Math.sin(a)*r1*0.88,r:5,ph:i*0.9});}
-    for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2+0.1;nodes.push({x:cx+Math.cos(a)*r2,y:cy+Math.sin(a)*r2*0.82,r:3.5,ph:i*0.65});}
-    for(let i=1;i<=5;i++){
-      const n0=nodes[0],ni=nodes[i];
-      conns.push({f:0,t:i,cpx:(n0.x+ni.x)/2+(Math.random()-.5)*30,cpy:(n0.y+ni.y)/2+(Math.random()-.5)*30,sigs:[]});
-    }
-    for(let i=1;i<=5;i++){
-      for(let j=6;j<=13;j++){
-        if(Math.random()<0.5){const nf=nodes[i],nt=nodes[j];conns.push({f:i,t:j,cpx:(nf.x+nt.x)/2+(Math.random()-.5)*25,cpy:(nf.y+nt.y)/2+(Math.random()-.5)*25,sigs:[]});}
-      }
-    }
-    for(let i=6;i<=13;i++){
-      const j=6+((i-6+2)%8);
-      if(Math.random()<0.4){const nf=nodes[i],nt=nodes[j];conns.push({f:i,t:j,cpx:(nf.x+nt.x)/2+(Math.random()-.5)*20,cpy:(nf.y+nt.y)/2+(Math.random()-.5)*20,sigs:[]});}
-    }
-  }
-  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;buildGraph();}
+  let W, H, t = 0, barPhase = 0;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
   window.addEventListener('resize',resize,{passive:true}); resize();
+  const BAR_H = [0.25,0.40,0.56,0.67,0.80,0.94];
   (function tick(){
     ctx.clearRect(0,0,W,H);
-    // Connections
-    conns.forEach(c=>{
-      const fn=nodes[c.f],tn=nodes[c.t]; if(!fn||!tn)return;
-      ctx.beginPath();ctx.moveTo(fn.x,fn.y);ctx.quadraticCurveTo(c.cpx,c.cpy,tn.x,tn.y);
-      ctx.strokeStyle='rgba(240,140,0,0.22)';ctx.lineWidth=1;ctx.stroke();
-      if(Math.random()<0.004)c.sigs.push({p:0});
-      for(let i=c.sigs.length-1;i>=0;i--){
-        const s=c.sigs[i];s.p+=0.011;
-        if(s.p>1){c.sigs.splice(i,1);continue;}
-        const u=1-s.p,v=s.p;
-        const bx=u*u*fn.x+2*u*v*c.cpx+v*v*tn.x;
-        const by=u*u*fn.y+2*u*v*c.cpy+v*v*tn.y;
-        ctx.beginPath();ctx.arc(bx,by,2.5,0,Math.PI*2);
-        ctx.fillStyle=`rgba(240,140,0,${0.9*Math.sin(s.p*Math.PI)})`;ctx.fill();
+    barPhase = Math.min(1, barPhase + 0.006);
+    const cx=W*0.34, cy=H*0.5;
+    const chartW=Math.min(W*0.38,270), chartH=Math.min(H*0.48,200);
+    const chartX=cx-chartW/2, chartY=cy-chartH/2;
+    // Ambient glow
+    const gl=ctx.createRadialGradient(cx,cy,0,cx,cy,chartW*0.7);
+    gl.addColorStop(0,'rgba(240,140,0,0.05)'); gl.addColorStop(1,'rgba(240,140,0,0)');
+    ctx.beginPath(); ctx.arc(cx,cy,chartW*0.7,0,Math.PI*2); ctx.fillStyle=gl; ctx.fill();
+    // Grid lines
+    for(let i=0;i<=4;i++){
+      const gy=chartY+chartH-(i/4)*chartH;
+      ctx.beginPath(); ctx.moveTo(chartX,gy); ctx.lineTo(chartX+chartW,gy);
+      ctx.strokeStyle=`rgba(240,140,0,${i===0?0.28:0.07})`; ctx.lineWidth=i===0?1.1:0.6; ctx.stroke();
+    }
+    // Bars
+    const nBars=6, bw=(chartW*0.70)/nBars, bgap=chartW*0.04;
+    const startX=chartX+chartW*0.07, baseY=chartY+chartH;
+    for(let i=0;i<nBars;i++){
+      const bh=BAR_H[i]*chartH*barPhase;
+      const bx=startX+i*(bw+bgap), by=baseY-bh;
+      const isLast=i===nBars-1;
+      const bg=ctx.createLinearGradient(bx,by,bx,baseY);
+      bg.addColorStop(0,isLast?'rgba(240,140,0,0.92)':`rgba(240,140,0,${0.38+i*0.08})`);
+      bg.addColorStop(1,'rgba(240,140,0,0.1)');
+      ctx.beginPath(); ctx.roundRect(bx,by,bw-1,bh,[2,2,0,0]);
+      ctx.fillStyle=bg; ctx.fill();
+      ctx.strokeStyle=`rgba(240,140,0,${0.28+i*0.1})`; ctx.lineWidth=0.8; ctx.stroke();
+      // Top cap glow on last bar
+      if(isLast && barPhase>0.9){
+        const pulse=0.5+0.5*Math.sin(t*0.055);
+        ctx.beginPath(); ctx.roundRect(bx,by-2,bw-1,5,[2,2,0,0]);
+        ctx.fillStyle=`rgba(240,140,0,${0.5+pulse*0.4})`; ctx.fill();
       }
-    });
-    // Nodes
-    nodes.forEach((n,i)=>{
-      const pulse=Math.sin(t*0.025+n.ph);
-      const gR=n.r*(2.5+pulse*0.8);
-      const ng=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,gR*2.8);
-      ng.addColorStop(0,`rgba(240,140,0,${0.55+pulse*0.2})`); ng.addColorStop(1,'rgba(240,140,0,0)');
-      ctx.beginPath();ctx.arc(n.x,n.y,gR*2.8,0,Math.PI*2);ctx.fillStyle=ng;ctx.fill();
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-      ctx.fillStyle=i===0?'#F08C00':`rgba(255,178,0,${0.75+pulse*0.25})`;
-      if(i===0){ctx.shadowBlur=18;ctx.shadowColor='rgba(240,140,0,0.9)';}
-      else{ctx.shadowBlur=6;ctx.shadowColor='rgba(240,140,0,0.5)';}
-      ctx.fill(); ctx.shadowBlur=0;
-      if(i===0){const rr=(t*0.45)%44;ctx.beginPath();ctx.arc(n.x,n.y,n.r+rr,0,Math.PI*2);ctx.strokeStyle=`rgba(240,140,0,${0.35*(1-rr/44)})`;ctx.lineWidth=1;ctx.stroke();}
+    }
+    // Dashed trend line
+    ctx.beginPath(); ctx.setLineDash([4,3]);
+    for(let i=0;i<nBars;i++){
+      const bh=BAR_H[i]*chartH*barPhase;
+      const bx=startX+i*(bw+bgap)+bw/2, by=baseY-bh;
+      i===0?ctx.moveTo(bx,by):ctx.lineTo(bx,by);
+    }
+    ctx.strokeStyle='rgba(240,140,0,0.6)'; ctx.lineWidth=1.4; ctx.stroke();
+    ctx.setLineDash([]);
+    // Trend dots
+    for(let i=0;i<nBars;i++){
+      const bh=BAR_H[i]*chartH*barPhase;
+      const bx=startX+i*(bw+bgap)+bw/2, by=baseY-bh;
+      ctx.beginPath(); ctx.arc(bx,by,3,0,Math.PI*2);
+      ctx.fillStyle=`rgba(240,140,0,${i===nBars-1?0.95:0.65})`; ctx.fill();
+    }
+    // Up arrow after bars fill
+    if(barPhase>0.9){
+      const opa=(barPhase-0.9)/0.1;
+      ctx.save(); ctx.translate(chartX+chartW-6,chartY+8);
+      ctx.strokeStyle=`rgba(240,140,0,${opa})`; ctx.lineWidth=2;
+      ctx.lineCap='round'; ctx.lineJoin='round';
+      ctx.beginPath(); ctx.moveTo(0,8); ctx.lineTo(0,0); ctx.lineTo(-5,5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(5,5); ctx.stroke();
+      ctx.restore();
+    }
+    // Floating metric badges (right of chart)
+    const badges=[
+      {label:'24/7',sub:'Coverage',offX:chartW*0.46,offY:-chartH*0.2},
+      {label:'3×',sub:'More Bookings',offX:chartW*0.46,offY:chartH*0.12},
+    ];
+    badges.forEach((b,i)=>{
+      const bob=Math.sin(t*0.028+i*1.8)*4;
+      ctx.save(); ctx.translate(cx+b.offX,cy+b.offY+bob);
+      ctx.beginPath(); ctx.roundRect(-32,-23,64,46,7);
+      ctx.fillStyle='rgba(240,140,0,0.08)'; ctx.fill();
+      ctx.strokeStyle='rgba(240,140,0,0.4)'; ctx.lineWidth=1; ctx.stroke();
+      ctx.textAlign='center';
+      ctx.font='bold 15px Space Grotesk,sans-serif'; ctx.fillStyle='rgba(240,140,0,0.95)';
+      ctx.fillText(b.label,0,5);
+      ctx.font='9px Space Grotesk,sans-serif'; ctx.fillStyle='rgba(255,255,255,0.42)';
+      ctx.fillText(b.sub,0,18);
+      ctx.restore();
     });
     t++; requestAnimationFrame(tick);
   })();
