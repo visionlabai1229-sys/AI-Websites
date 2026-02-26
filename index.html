@@ -263,6 +263,44 @@
     .team-name { font-weight: 600; font-size: 13.5px; margin-bottom: 4px; }
     .team-role { font-size: 11.5px; opacity: 0.52; line-height: 1.4; }
 
+    /* ─── PRICING CARDS ─── */
+    .pricing-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(0,194,212,0.12); border-radius: 12px;
+      padding: 28px 22px 22px; cursor: pointer; position: relative; display: flex; flex-direction: column;
+      box-shadow: 0 2px 18px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,194,212,0.04);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.35s var(--spring), background 0.3s ease;
+    }
+    .pricing-card:hover {
+      border-color: rgba(0,194,212,0.28);
+      box-shadow: 0 8px 36px rgba(0,0,0,0.36), 0 0 0 1px rgba(0,194,212,0.08), 0 0 28px rgba(0,194,212,0.07);
+      transform: translateY(-4px);
+    }
+    .pricing-card.active {
+      background: rgba(0,194,212,0.06); border-color: rgba(0,194,212,0.55);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,194,212,0.18), 0 0 36px rgba(0,194,212,0.14);
+      transform: translateY(-6px);
+    }
+    .pricing-card:focus-visible { outline: 2px solid rgba(0,194,212,0.5); outline-offset: 3px; }
+    .pricing-card:active { opacity: 0.88; }
+    .most-popular-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(90deg, #00C2D4, rgba(0,194,212,0.7));
+      color: #080c14; font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; padding: 4px 13px; border-radius: 100px; white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(0,194,212,0.4);
+    }
+    .pricing-tier-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #00C2D4; margin-bottom: 10px; }
+    .pricing-price { font-size: clamp(32px,3.6vw,48px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: #fff; margin-bottom: 4px; }
+    .pricing-per-min { font-size: 11px; opacity: 0.46; margin-bottom: 20px; line-height: 1.5; }
+    .pricing-setup { font-size: 11.5px; opacity: 0.52; margin-bottom: 20px; }
+    .pricing-divider { width: 100%; height: 1px; background: rgba(0,194,212,0.1); margin-bottom: 18px; }
+    .pricing-feature-list { list-style: none; flex: 1; margin-bottom: 22px; display: flex; flex-direction: column; gap: 9px; }
+    .pricing-feature-list li { display: flex; align-items: center; gap: 9px; font-size: 12.5px; line-height: 1.4; }
+    .pricing-feature-list li.included { opacity: 0.88; }
+    .pricing-feature-list li.excluded { opacity: 0.32; }
+    .feat-check { width: 14px; height: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #00C2D4; font-size: 11px; font-weight: 700; }
+    .feat-x { width: 14px; height: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.25); font-size: 11px; }
+
     /* ─── GRAIN ─── */
     .grain {
       position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: 0.022;
@@ -280,6 +318,8 @@
       nav.scrolled { padding: 12px 20px; }
       .nav-links, .nav-tag { display: none; }
       #menu-btn { display: flex; }
+      #s-pricing { padding: 40px 20px 50px !important; overflow-y: auto; }
+      .pricing-grid { grid-template-columns: 1fr !important; gap: 18px !important; max-width: 360px !important; margin: 0 auto; }
     }
   </style>
 </head>
@@ -297,7 +337,8 @@
     <li><a href="#" onclick="document.getElementById('s0').scrollIntoView({behavior:'smooth'});return false;">Home</a></li>
     <li><a href="#" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'});return false;">Services</a></li>
     <li><a href="#" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'});return false;">Our Method</a></li>
-    <li><a href="#" onclick="document.getElementById('s9').scrollIntoView({behavior:'smooth'});return false;">Team</a></li>
+    <li><a href="#" onclick="document.getElementById('s-pricing').scrollIntoView({behavior:'smooth'});return false;">Pricing</a></li>
+    <li><a href="#" onclick="document.getElementById('s9').scrollIntoView({behavior:'smooth'});return false;">About</a></li>
     <li><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer">Get in Touch</a></li>
   </ul>
   <div class="nav-tag">
@@ -312,7 +353,8 @@
   <a href="#" onclick="document.getElementById('s0').scrollIntoView({behavior:'smooth'});return false;">Home</a>
   <a href="#" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'});return false;">Services</a>
   <a href="#" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'});return false;">Our Method</a>
-  <a href="#" onclick="document.getElementById('s9').scrollIntoView({behavior:'smooth'});return false;">Team</a>
+  <a href="#" onclick="document.getElementById('s-pricing').scrollIntoView({behavior:'smooth'});return false;">Pricing</a>
+  <a href="#" onclick="document.getElementById('s9').scrollIntoView({behavior:'smooth'});return false;">About</a>
   <a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer">Get in Touch</a>
 </div>
 
@@ -328,7 +370,7 @@
     <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;width:92%;max-width:800px;">
       <h1 class="hero-h1 hl" style="transition-delay:0.12s;">More Calls Answered.<br><em>More Appointments Booked.</em></h1>
       <p class="body-sm hl" style="margin:22px auto 36px;max-width:540px;text-align:center;transition-delay:0.36s;">
-        VisionLab AI is a full-service AI agency that helps businesses move faster, automate smarter, and unlock the full potential of artificial intelligence — from strategy to deployment.
+        VisionLab AI builds AI-powered systems for service businesses — so your phones are always answered, your schedules stay full, and your team can focus on delivering great service.
       </p>
       <div class="hl" style="transition-delay:0.58s;">
         <a href="#s1" class="btn-pill" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'});return false;">Explore Our Services <span class="arrow">↗</span></a>
@@ -336,12 +378,12 @@
       <!-- Stats bar -->
       <div class="hl" style="display:flex;justify-content:center;gap:clamp(24px,4vw,64px);margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.07);transition-delay:0.82s;">
         <div>
-          <div class="stat-num" style="color:#F08C00;">4</div>
-          <div class="stat-lbl">Core Capabilities</div>
+          <div class="stat-num" style="color:#F08C00;">24/7</div>
+          <div class="stat-lbl">Call Coverage</div>
         </div>
         <div>
-          <div class="stat-num" style="color:#fff;">100%</div>
-          <div class="stat-lbl">Client-Owned IP</div>
+          <div class="stat-num" style="color:#fff;">3×</div>
+          <div class="stat-lbl">More Bookings</div>
         </div>
       </div>
     </div>
@@ -374,7 +416,7 @@
             <line x1="16" y1="40" x2="18" y2="38" stroke="rgba(0,194,212,0.45)" stroke-width="1" stroke-linecap="round"/>
           </svg>
         </div>
-        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#00C2D4;opacity:0.85;">Strategy</span>
+        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#00C2D4;opacity:0.85;">Voice Agent</span>
       </div>
 
       <!-- Automation -->
@@ -399,7 +441,7 @@
             <path d="M39.5 10.5 L36.5 13.5 L40.5 15" stroke="rgba(240,140,0,0.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
           </svg>
         </div>
-        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#F08C00;opacity:0.85;">Automation</span>
+        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#F08C00;opacity:0.85;">Automations</span>
       </div>
 
       <!-- Development -->
@@ -420,7 +462,7 @@
             <line   x1="28" y1="40" x2="28" y2="44.8" stroke="rgba(0,194,212,0.28)" stroke-width="1" stroke-linecap="round"/>
           </svg>
         </div>
-        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#00C2D4;opacity:0.85;">Development</span>
+        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#00C2D4;opacity:0.85;">AI Website</span>
       </div>
 
       <!-- Enablement -->
@@ -444,16 +486,16 @@
             <line x1="28" y1="29"   x2="37"  y2="43"   stroke="rgba(240,140,0,0.2)" stroke-width="1" stroke-linecap="round"/>
           </svg>
         </div>
-        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#F08C00;opacity:0.85;">Enablement</span>
+        <span style="font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#F08C00;opacity:0.85;">Results</span>
       </div>
 
     </div>
-    <h2 class="sec-h2-c ai" data-d="1">One Vision.<br>Four Capabilities.</h2>
+    <h2 class="sec-h2-c ai" data-d="1">One Agency.<br>Three Solutions.</h2>
     <p class="body-sm ai" data-d="2" style="text-align:center;margin-top:22px;max-width:600px;">
-      VisionLab AI delivers end-to-end intelligence across four core capabilities:
-      <span class="tc">Strategy</span>, <span style="color:#F08C00;">Automation</span>,
-      <span class="tc">Development</span>, and <span style="color:#F08C00;">Enablement</span>.
-      Each one a pillar of lasting competitive advantage — built to compound over time.
+      VisionLab AI delivers three AI-powered systems purpose-built for service businesses:
+      a <span class="tc">AI Voice Receptionist</span> that never misses a call,
+      a <span style="color:#F08C00;">Patient Retention Suite</span> that keeps clients coming back,
+      and an <span class="tc">AI Website</span> that converts visitors into booked appointments.
     </p>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
   </section>
@@ -463,11 +505,11 @@
     <canvas class="pl" id="strategy-p"></canvas>
     <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;padding:0 60px;">
       <div style="max-width:560px;">
-        <span class="sec-num ai" style="display:block;">01 — Services</span>
+        <span class="sec-num ai" style="display:block;">01 — Products</span>
         <div class="rule ai" data-d="1"></div>
-        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai" data-d="2">AI Strategy<br>&amp; Consulting</h2>
-        <p class="body-sm ai" data-d="3" style="max-width:420px;margin-bottom:32px;">We help organizations identify where AI creates the most value and build a clear roadmap to get there. We turn ambition into an executable, measurable transformation strategy.</p>
-        <div class="ai" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill">Discover More <span class="arrow">↗</span></a></div>
+        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai" data-d="2">AI Voice<br>Receptionist</h2>
+        <p class="body-sm ai" data-d="3" style="max-width:420px;margin-bottom:32px;">Your AI receptionist answers every call, 24/7 — qualifying new clients, booking appointments, and handling routine inquiries so your front desk can focus on in-person service. Powered by Retell AI + Twilio, integrated with your booking system.</p>
+        <div class="ai" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill">Book a Free Demo <span class="arrow">↗</span></a></div>
       </div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
@@ -478,11 +520,11 @@
     <canvas class="pl" id="auto-p"></canvas>
     <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:flex-end;padding:0 60px;">
       <div style="max-width:520px;text-align:right;">
-        <span class="sec-num ai fr" style="display:block;">02 — Services</span>
+        <span class="sec-num ai fr" style="display:block;">02 — Products</span>
         <div class="rule rev ai fr" data-d="1" style="margin-left:auto;"></div>
-        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai fr" data-d="2">Intelligent<br>Automation</h2>
-        <p class="body-sm ai fr" data-d="3" style="max-width:420px;margin-bottom:32px;margin-left:auto;">We design and deploy intelligent workflow automation that eliminates bottlenecks, accelerates operations, and frees your team to focus on high-value work — from simple triggers to complex multi-agent pipelines.</p>
-        <div style="display:flex;justify-content:flex-end;" class="ai fr" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-orange">Discover More <span class="arrow">↗</span></a></div>
+        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai fr" data-d="2">Patient Retention<br>Suite</h2>
+        <p class="body-sm ai fr" data-d="3" style="max-width:420px;margin-bottom:32px;margin-left:auto;">Our automation stack keeps clients engaged between visits — automated appointment reminders reduce no-shows, post-visit review requests build your reputation, and re-booking flows turn missed calls into rescheduled appointments.</p>
+        <div style="display:flex;justify-content:flex-end;" class="ai fr" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-orange">See How It Works <span class="arrow">↗</span></a></div>
       </div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
@@ -493,11 +535,11 @@
     <canvas class="pl" id="dev-p"></canvas>
     <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;padding:0 60px;">
       <div style="max-width:520px;">
-        <span class="sec-num ai" style="display:block;">03 — Services</span>
+        <span class="sec-num ai" style="display:block;">03 — Products</span>
         <div class="rule ai" data-d="1"></div>
-        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai" data-d="2">Custom AI<br>Development</h2>
-        <p class="body-sm ai" data-d="3" style="max-width:420px;margin-bottom:32px;">From LLM integrations to computer vision and predictive analytics, we build production-ready AI solutions tailored to your business — deployed in your environment, owned entirely by you.</p>
-        <div class="ai" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill">Discover More <span class="arrow">↗</span></a></div>
+        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai" data-d="2">AI-Powered<br>Website</h2>
+        <p class="body-sm ai" data-d="3" style="max-width:420px;margin-bottom:32px;">A conversion-optimized website built to turn visitors into booked appointments — with AI chat, instant call booking, and integrations with your scheduling platform. Designed for service businesses that want their online presence to actually generate revenue.</p>
+        <div class="ai" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill">View Examples <span class="arrow">↗</span></a></div>
       </div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
@@ -508,11 +550,11 @@
     <canvas class="pl" id="training-p"></canvas>
     <div style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:flex-end;padding:0 60px;">
       <div style="max-width:520px;text-align:right;">
-        <span class="sec-num ai fr" style="display:block;">04 — Services</span>
+        <span class="sec-num ai fr" style="display:block;">04 — Why Us</span>
         <div class="rule rev ai fr" data-d="1" style="margin-left:auto;"></div>
-        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai fr" data-d="2">AI Training<br>&amp; Enablement</h2>
-        <p class="body-sm ai fr" data-d="3" style="max-width:420px;margin-bottom:32px;margin-left:auto;">We upskill your teams with the knowledge, tools, and confidence to operate at the frontier of AI — from prompt engineering to building internal AI workflows. We make your people AI-ready.</p>
-        <div style="display:flex;justify-content:flex-end;" class="ai fr" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-orange">Discover More <span class="arrow">↗</span></a></div>
+        <h2 style="font-size:clamp(28px,3.4vw,49px);font-weight:600;line-height:1.1;letter-spacing:-0.025em;margin-bottom:20px;" class="ai fr" data-d="2">Built for Service<br>Businesses</h2>
+        <p class="body-sm ai fr" data-d="3" style="max-width:420px;margin-bottom:32px;margin-left:auto;">Unlike generic AI tools, VisionLab AI builds and manages everything for you — we handle setup, integration, and ongoing optimization. Our systems are trained on your business, priced on a flat monthly retainer, and designed to pay for themselves in the first month.</p>
+        <div style="display:flex;justify-content:flex-end;" class="ai fr" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-orange">Start the Conversation <span class="arrow">↗</span></a></div>
       </div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
@@ -552,23 +594,101 @@
   <!-- ══ S9 WE MAKE OUR CLIENTS THE HEROES ══ -->
   <section id="s8" style="display:flex;flex-direction:column;justify-content:center;padding:60px;">
     <h2 class="sec-h2 ai" style="font-size:clamp(36px,4.8vw,68px);max-width:800px;margin-bottom:16px;">We Make Our Clients<br>the <span class="tc">Heroes</span></h2>
-    <p class="body-sm ai" data-d="1" style="max-width:500px;margin-bottom:42px;">We partner with ambitious teams to build AI systems that deliver real results — turning strategic vision into measurable business outcomes.</p>
+    <p class="body-sm ai" data-d="1" style="max-width:500px;margin-bottom:42px;">We partner with service businesses to deploy AI systems that answer calls, book appointments, and keep clients coming back — without adding headcount.</p>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:800px;">
-      <div class="info-card ai" data-d="2"><div class="card-label">Startups</div><div class="card-body">We help early-stage companies build AI into their product from day one — moving fast without sacrificing quality, security, or strategic clarity.</div></div>
-      <div class="info-card ai" data-d="3"><div class="card-label">Enterprises</div><div class="card-body">We integrate AI across complex systems and teams, delivering scalable solutions that drive efficiency, innovation, and sustainable competitive advantage.</div></div>
-      <div class="info-card oc ai" data-d="4"><div class="card-label oc">Agencies</div><div class="card-body">We serve as your AI partner behind the scenes — helping you deliver cutting-edge AI capabilities to your own clients under your brand.</div></div>
+      <div class="info-card ai" data-d="2"><div class="card-label">Dental Clinics</div><div class="card-body">Never miss a patient call again. Our AI receptionist handles new patient inquiries, books appointments, and follows up on missed calls — so your front desk stays focused on care delivery.</div></div>
+      <div class="info-card ai" data-d="3"><div class="card-label">Medical Practices</div><div class="card-body">From automated appointment reminders to post-visit check-ins, we help medical practices reduce no-shows, collect more reviews, and keep their schedules consistently full.</div></div>
+      <div class="info-card oc ai" data-d="4"><div class="card-label oc">Home Services</div><div class="card-body">Plumbers, electricians, HVAC — service calls can't wait. Our AI answers every call instantly, captures job details, and books the next available slot even when you're on another job.</div></div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
   </section>
 
-  <!-- ══ S10 MEET THE TEAM ══ -->
+  <!-- ══ S-PRICING SIMPLE TRANSPARENT PRICING ══ -->
+  <section id="s-pricing" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 60px;">
+    <span class="sec-num ai" style="display:block;text-align:center;">Pricing</span>
+    <h2 class="sec-h2-c ai" data-d="1" style="margin-bottom:44px;">Simple, Transparent <span class="tc">Pricing</span></h2>
+
+    <div class="pricing-grid ai" data-d="2" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:960px;">
+
+      <!-- STARTER -->
+      <div class="pricing-card" tabindex="0" role="button" aria-pressed="false" data-tier="starter">
+        <div class="pricing-tier-label">Starter</div>
+        <div class="pricing-price">$397<span style="font-size:16px;font-weight:500;opacity:0.65;">/mo</span></div>
+        <div class="pricing-per-min">Pay-per-min · $0.15/min</div>
+        <div class="pricing-setup">Setup: $750</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-feature-list">
+          <li class="included"><span class="feat-check">✓</span>Appointment booking</li>
+          <li class="included"><span class="feat-check">✓</span>After-hours handling</li>
+          <li class="included"><span class="feat-check">✓</span>FAQ &amp; call routing</li>
+          <li class="excluded"><span class="feat-x">—</span>SMS follow-up</li>
+          <li class="excluded"><span class="feat-x">—</span>CRM / n8n integration</li>
+          <li class="excluded"><span class="feat-x">—</span>Monthly reporting</li>
+          <li class="excluded"><span class="feat-x">—</span>Multi-location</li>
+          <li class="excluded"><span class="feat-x">—</span>Priority support</li>
+        </ul>
+        <a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill" style="justify-content:center;font-size:13px;" onclick="event.stopPropagation();">Get Started <span class="arrow">↗</span></a>
+      </div>
+
+      <!-- GROWTH (default active) -->
+      <div class="pricing-card active" tabindex="0" role="button" aria-pressed="true" data-tier="growth">
+        <div class="most-popular-badge">Most Popular</div>
+        <div class="pricing-tier-label">Growth</div>
+        <div class="pricing-price">$597<span style="font-size:16px;font-weight:500;opacity:0.65;">/mo</span></div>
+        <div class="pricing-per-min">300 min included · $0.12/min after</div>
+        <div class="pricing-setup">Setup: $1,500</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-feature-list">
+          <li class="included"><span class="feat-check">✓</span>Appointment booking</li>
+          <li class="included"><span class="feat-check">✓</span>After-hours handling</li>
+          <li class="included"><span class="feat-check">✓</span>FAQ &amp; call routing</li>
+          <li class="included"><span class="feat-check">✓</span>SMS follow-up</li>
+          <li class="included"><span class="feat-check">✓</span>CRM / n8n integration</li>
+          <li class="included"><span class="feat-check">✓</span>Monthly reporting</li>
+          <li class="excluded"><span class="feat-x">—</span>Multi-location</li>
+          <li class="excluded"><span class="feat-x">—</span>Priority support</li>
+        </ul>
+        <a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill" style="justify-content:center;font-size:13px;" onclick="event.stopPropagation();">Get Started <span class="arrow">↗</span></a>
+      </div>
+
+      <!-- ELITE -->
+      <div class="pricing-card" tabindex="0" role="button" aria-pressed="false" data-tier="elite">
+        <div class="pricing-tier-label" style="color:#F08C00;">Elite</div>
+        <div class="pricing-price">$897<span style="font-size:16px;font-weight:500;opacity:0.65;">/mo</span></div>
+        <div class="pricing-per-min">600 min included · $0.10/min after</div>
+        <div class="pricing-setup">Setup: $2,500</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-feature-list">
+          <li class="included"><span class="feat-check">✓</span>Appointment booking</li>
+          <li class="included"><span class="feat-check">✓</span>After-hours handling</li>
+          <li class="included"><span class="feat-check">✓</span>FAQ &amp; call routing</li>
+          <li class="included"><span class="feat-check">✓</span>SMS follow-up</li>
+          <li class="included"><span class="feat-check">✓</span>CRM / n8n integration</li>
+          <li class="included"><span class="feat-check">✓</span>Monthly reporting</li>
+          <li class="included"><span class="feat-check" style="color:#F08C00;">✓</span>Multi-location</li>
+          <li class="included"><span class="feat-check" style="color:#F08C00;">✓</span>Priority support</li>
+        </ul>
+        <a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-orange" style="justify-content:center;font-size:13px;" onclick="event.stopPropagation();">Get Started <span class="arrow">↗</span></a>
+      </div>
+
+    </div>
+
+    <p class="ai" data-d="3" style="font-size:11.5px;opacity:0.38;margin-top:18px;text-align:center;letter-spacing:0.02em;">
+      Setup fee from $750 — waived for qualifying first clients in exchange for a case study.
+    </p>
+
+    <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
+  </section>
+
+  <!-- ══ S10 ABOUT ══ -->
   <section id="s9" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 60px;">
-    <span class="sec-num ai" style="display:block;text-align:center;">The People</span>
-    <h2 class="sec-h2-c ai" data-d="1" style="font-size:clamp(42px,5.8vw,76px);margin-bottom:44px;">Meet the Team</h2>
+    <span class="sec-num ai" style="display:block;text-align:center;">The Founder</span>
+    <h2 class="sec-h2-c ai" data-d="1" style="font-size:clamp(42px,5.8vw,76px);margin-bottom:44px;">About</h2>
     <div style="display:flex;justify-content:center;">
-      <div class="ai" data-d="2" style="text-align:center;width:200px;">
+      <div class="ai" data-d="2" style="text-align:center;width:280px;">
         <div class="team-photo-border" style="width:204px;height:204px;margin:0 auto;"><div class="team-photo-wrap" style="width:100%;height:100%;"><img src="stephen-rivas.png" alt="Stephen Rivas"></div></div>
-        <div class="team-name">Stephen Rivas</div><div class="team-role">Founder</div>
+        <div class="team-name">Stephen Rivas</div><div class="team-role">Founder &amp; CEO</div>
+        <p class="body-sm ai" data-d="3" style="max-width:320px;margin:14px auto 0;text-align:center;opacity:0.65;">Stephen builds, deploys, and manages AI systems for service businesses — working directly with every client from setup through ongoing optimization. His mission: give local service businesses access to enterprise-grade AI at a price that makes sense.</p>
       </div>
     </div>
     <div class="scroll-indicator"><div class="scroll-ring"><div class="scroll-dot"></div></div></div>
@@ -579,7 +699,7 @@
     <span class="sec-num ai" style="display:block;text-align:center;">Start Here</span>
     <h2 class="sec-h2-xl ai" data-d="1">Let's Build <span style="color:#F08C00;">Together</span></h2>
     <p class="body-sm ai" data-d="2" style="text-align:center;max-width:570px;margin:24px auto 40px;">
-      We collaborate with forward-thinking companies to design, build, and scale AI solutions that create lasting competitive advantage. Reach out to VisionLab AI to start the conversation.
+      Ready to stop missing calls and start booking more appointments? Book a free 15-minute call with Stephen — we'll walk you through exactly what an AI receptionist could do for your business.
     </p>
     <div class="ai" data-d="3">
       <a href="https://cal.com/stephen-rivas-cjfwbc/15min" target="_blank" rel="noopener noreferrer" class="btn-pill btn-orange" style="font-size:14px;padding:13px 28px;">Book a Free Call <span class="arrow">↗</span></a>
@@ -654,6 +774,22 @@ const animObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1, root: scroller });
 document.querySelectorAll('.ai').forEach(el => animObs.observe(el));
+
+// ══ PRICING CARD SELECTION ══
+document.querySelectorAll('.pricing-card').forEach(card => {
+  function selectCard() {
+    document.querySelectorAll('.pricing-card').forEach(c => {
+      c.classList.remove('active');
+      c.setAttribute('aria-pressed', 'false');
+    });
+    card.classList.add('active');
+    card.setAttribute('aria-pressed', 'true');
+  }
+  card.addEventListener('click', selectCard);
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectCard(); }
+  });
+});
 
 // ══ HERO LOAD ══
 window.addEventListener('load', () => {
