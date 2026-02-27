@@ -67,6 +67,9 @@
     .nav-tag { text-align: right; white-space: nowrap; }
     .nav-tag-top { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; line-height: 1; color: #F08C00; text-transform: uppercase; }
     .nav-tag-sub { font-size: 10px; opacity: 0.45; font-weight: 400; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; }
+    .nav-phone { font-size: 12px; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 500; letter-spacing: 0.03em; margin-left: 28px; white-space: nowrap; transition: color 0.2s ease; }
+    .nav-phone:hover { color: #00C2D4; }
+    @media (max-width: 768px) { .nav-phone { display: none; } }
 
     /* ─── HAMBURGER ─── */
     #menu-btn {
@@ -466,6 +469,7 @@
     <div class="nav-tag-top">AI-First</div>
     <div class="nav-tag-sub">Agency</div>
   </div>
+  <a href="tel:+13653604080" class="nav-phone">(365) 360-4080</a>
   <button id="menu-btn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -871,6 +875,7 @@
       </div>
       <a href="https://www.linkedin.com/in/stephen-r-7b7849380" target="_blank" rel="noopener noreferrer" class="fl-link">Follow on LinkedIn ↗</a>
       <div style="display:flex;gap:22px;">
+        <a href="tel:+13653604080" class="fl-link">(365) 360-4080</a>
         <a href="privacy-policy.html" class="fl-link">Privacy Policy ↗</a>
       </div>
     </div>
