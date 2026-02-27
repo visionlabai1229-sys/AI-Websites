@@ -156,6 +156,16 @@
     }
     .btn-orange::before { background: rgba(240,140,0,0.1); }
     .btn-orange:hover { border-color: #F08C00; color: #FFB200; }
+    .btn-demo {
+      border-color: rgba(0,194,212,0.45); color: #00C2D4; background: rgba(0,194,212,0.07);
+    }
+    .btn-demo::before { background: rgba(0,194,212,0.12); }
+    .btn-demo:hover { border-color: #00C2D4; color: #fff; }
+    .btn-demo:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+    .btn-demo.calling { border-color: rgba(220,80,80,0.5); color: #ff8080; background: rgba(220,80,80,0.1); animation: pulse-ring 1.6s ease infinite; }
+    .btn-demo.calling::before { background: rgba(220,80,80,0.1); }
+    .btn-demo.calling:hover { border-color: rgba(220,80,80,0.8); color: #ffaaaa; }
+    @keyframes pulse-ring { 0%,100% { box-shadow: 0 0 0 0 rgba(220,80,80,0.25); } 50% { box-shadow: 0 0 0 8px rgba(220,80,80,0); } }
 
     /* ─── ENTRANCE ANIMATIONS ─── */
     .ai {
@@ -497,8 +507,9 @@
       <p class="body-sm hl" style="margin:22px auto 36px;max-width:540px;text-align:center;transition-delay:0.36s;">
         VisionLab AI builds AI-powered systems for service businesses — so your phones are always answered, your schedules stay full, and your team can focus on delivering great service.
       </p>
-      <div class="hl" style="transition-delay:0.58s;">
+      <div class="hl" style="transition-delay:0.58s;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
         <a href="#s1" class="btn-pill" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'});return false;">Explore Our Services <span class="arrow">↗</span></a>
+        <button id="demo-call-btn" class="btn-pill btn-demo">Talk to Our AI <span class="arrow">↗</span></button>
       </div>
       <!-- Stats bar -->
       <div class="hl" style="display:flex;justify-content:center;gap:clamp(24px,4vw,64px);margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.07);transition-delay:0.82s;">
@@ -1502,6 +1513,52 @@ mkP('method-p', { n:260, rMax:1.1, spd:0.09, alpha:0.32, color:'0,194,212',
   }
   requestAnimationFrame(render);
 })();
+</script>
+
+<!-- ─── RETELL AI DEMO CALL ─── -->
+<script type="module">
+import { RetellWebClient } from 'https://esm.sh/@retellai/retell-client-js-sdk@latest';
+
+const PROXY_URL = 'https://visionlabai.app.n8n.cloud/webhook/retell-web-call';
+const btn = document.getElementById('demo-call-btn');
+const client = new RetellWebClient();
+let isActive = false;
+
+async function startDemo() {
+  btn.textContent = 'Connecting…';
+  btn.disabled = true;
+  try {
+    const res = await fetch(PROXY_URL);
+    if (!res.ok) throw new Error('Proxy error ' + res.status);
+    const { access_token } = await res.json();
+    await client.startCall({ accessToken: access_token });
+  } catch (err) {
+    console.error('Demo call failed:', err);
+    resetBtn();
+  }
+}
+
+function resetBtn() {
+  isActive = false;
+  btn.disabled = false;
+  btn.classList.remove('calling');
+  btn.innerHTML = 'Talk to Our AI <span class="arrow">↗</span>';
+}
+
+btn.addEventListener('click', () => {
+  if (isActive) { client.stopCall(); return; }
+  startDemo();
+});
+
+client.on('call_started', () => {
+  isActive = true;
+  btn.disabled = false;
+  btn.classList.add('calling');
+  btn.innerHTML = 'End Call <span class="arrow">✕</span>';
+});
+
+client.on('call_ended', resetBtn);
+client.on('error', (err) => { console.error('Retell error:', err); resetBtn(); });
 </script>
 </body>
 </html>
