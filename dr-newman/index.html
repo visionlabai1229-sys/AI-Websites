@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Michael M. Newman — Neuroscience Coach & Natural Medicine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sage: #7C9A72;
+      --sage-light: #9ab890;
+      --sage-dark: #1C2B1A;
+      --warm: #C07A5A;
+      --warm-light: #e8d5b5;
+      --ink: #1A1714;
+      --mist: #F5F0E8;
+      --surface: #F9F6F2;
+      --white: #FDFAF7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--surface);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      font-weight: 300;
+    }
+
+    h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    /* Line reveal animation */
+    .reveal-line {
+      overflow: hidden;
+      display: block;
+    }
+    .reveal-line span {
+      display: block;
+      transform: translateY(105%);
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-line.visible span {
+      transform: translateY(0);
+    }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(28,43,26,0.0);
+      backdrop-filter: blur(0px);
+      border-bottom: 1px solid transparent;
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(28,43,26,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom-color: rgba(124,154,114,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span {
+      color: var(--warm);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover { color: rgba(255,255,255,0.95); }
+
+    .nav-cta {
+      background: var(--warm);
+      color: white !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 100px;
+      font-size: 0.82rem !important;
+      font-weight: 500 !important;
+      transition: background 0.2s ease, transform 0.15s ease !important;
+      box-shadow: 0 2px 12px rgba(192,122,90,0.35);
+    }
+
+    .nav-cta:hover {
+      background: #d4896a !important;
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2rem 5rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--sage-dark);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -5%;
+      width: 65%;
+      height: 130%;
+      background: radial-gradient(ellipse at center, rgba(124,154,114,0.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -5%;
+      width: 50%;
+      height: 60%;
+      background: radial-gradient(ellipse at center, rgba(192,122,90,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Organic floating shape */
+    .hero-blob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(700px, 80vw);
+      height: min(700px, 80vw);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.08;
+      animation: blobFloat 12s ease-in-out infinite;
+    }
+
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      33% { transform: translate(-50%, -52%) scale(1.04) rotate(4deg); }
+      66% { transform: translate(-50%, -48%) scale(0.97) rotate(-3deg); }
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage-light);
+      margin-bottom: 1.25rem;
+      opacity: 0.85;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+      line-height: 1.05;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--warm-light);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--sage);
+      color: white;
+      padding: 0.875rem 2rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 4px 16px rgba(74,124,111,0.3), 0 1px 4px rgba(74,124,111,0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--sage-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(74,124,111,0.35), 0 2px 6px rgba(74,124,111,0.2);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      color: var(--sage-dark);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.875rem 0;
+      border-bottom: 1.5px solid rgba(74,124,111,0.3);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      color: var(--sage);
+      border-color: var(--sage);
+    }
+
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image-outer {
+      position: relative;
+      border-radius: 50% 50% 2rem 2rem;
+      overflow: hidden;
+      box-shadow:
+        0 32px 80px rgba(0,0,0,0.4),
+        0 8px 24px rgba(0,0,0,0.25),
+        0 0 0 1px rgba(124,154,114,0.15);
+    }
+
+    .hero-image-outer img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: brightness(0.92) contrast(1.05);
+    }
+
+    .hero-image-outer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(28,43,26,0.1) 0%, transparent 30%, transparent 55%, rgba(28,43,26,0.7) 100%),
+        linear-gradient(to right, rgba(28,43,26,0.2) 0%, transparent 40%);
+    }
+
+    .hero-image-tint {
+      position: absolute;
+      inset: 0;
+      background: rgba(124,154,114,0.08);
+      mix-blend-mode: color;
+      z-index: 1;
+      border-radius: 50% 50% 2rem 2rem;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background: rgba(28,43,26,0.9);
+      border: 1px solid rgba(124,154,114,0.25);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 2;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-badge-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .hero-badge-text {
+      font-size: 0.78rem;
+      line-height: 1.3;
+    }
+
+    .hero-badge-text strong {
+      display: block;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.82rem;
+    }
+
+    .hero-badge-text span {
+      color: rgba(255,255,255,0.45);
+    }
+
+    .hero-cred-strip {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .cred-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .cred-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--warm);
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* Metrics strip */
+    .metrics-strip {
+      display: flex;
+      gap: clamp(2rem, 4vw, 4rem);
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+    }
+
+    .metric-item .metric-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--warm-light);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-item .metric-lbl {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+
+    /* Social proof placeholder strip */
+    .social-proof-strip {
+      margin-top: 2rem;
+    }
+
+    .social-proof-strip .sp-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 1rem;
+    }
+
+    .sp-testimonial {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .sp-testimonial .sp-author {
+      display: block;
+      margin-top: 0.75rem;
+      font-style: normal;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.04em;
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-heading {
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+
+    .section-subtext {
+      font-size: 1rem;
+      color: #5a6b68;
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* About */
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-story p {
+      font-size: 1rem;
+      color: #4a5a57;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-story p:last-child { margin-bottom: 0; }
+
+    .about-story strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .about-highlight {
+      background: var(--mist);
+      border-left: 3px solid var(--sage);
+      border-radius: 0 0.75rem 0.75rem 0;
+      padding: 1.5rem 1.75rem;
+      margin: 1.75rem 0;
+    }
+
+    .about-highlight p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--sage-dark);
+      line-height: 1.5;
+      margin: 0 !important;
+    }
+
+    .credentials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .cred-card {
+      background: var(--mist);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(74,124,111,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cred-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(74,124,111,0.1);
+    }
+
+    .cred-card-abbr {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--sage);
+      margin-bottom: 0.25rem;
+    }
+
+    .cred-card-name {
+      font-size: 0.78rem;
+      color: #6a7e7a;
+      line-height: 1.4;
+    }
+
+    /* Services */
+    .services {
+      background: var(--mist);
+      position: relative;
+    }
+
+    .services::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--white);
+      clip-path: ellipse(55% 100% at 50% 0%);
+    }
+
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+      align-items: end;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(74,124,111,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sage), var(--sage-light));
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(74,124,111,0.12), 0 4px 12px rgba(74,124,111,0.08);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(74,124,111,0.12), rgba(74,124,111,0.06));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.15rem;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: #6a7e7a;
+      line-height: 1.65;
+    }
+
+    .service-free-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--sage);
+      background: rgba(74,124,111,0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+    }
+
+    /* Approach */
+    .approach {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .approach::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 60%;
+      height: 120%;
+      background: radial-gradient(ellipse, rgba(74,124,111,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .approach::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -5%;
+      width: 40%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(200,169,126,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .approach .section-inner { position: relative; z-index: 1; }
+
+    .approach .section-eyebrow { color: var(--warm); }
+    .approach .section-heading { color: white; }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .approach-left .section-subtext {
+      color: rgba(255,255,255,0.6);
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+    }
+
+    .approach-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .approach-step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      background: rgba(74,124,111,0.25);
+      border: 1px solid rgba(74,124,111,0.4);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.95rem;
+      color: var(--sage-light);
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0;
+    }
+
+    .step-content p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    .approach-right-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.75rem;
+      padding: 2.5rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .modalities-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 1.5rem;
+    }
+
+    .modalities-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+    }
+
+    .modality-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.875rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .modality-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--sage-light);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .modality-item span {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Media */
+    .media {
+      background: white;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .media-card {
+      border: 1px solid rgba(74,124,111,0.1);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .media-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(74,124,111,0.1);
+      border-color: rgba(74,124,111,0.25);
+    }
+
+    .media-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: rgba(74,124,111,0.08);
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .media-card h4 {
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.45;
+      margin-bottom: 0.5rem;
+    }
+
+    .media-card p {
+      font-size: 0.82rem;
+      color: #8a9e9a;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--sage-dark) 0%, #1e3d35 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 200%;
+      background: radial-gradient(ellipse, rgba(74,124,111,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-section .section-inner { position: relative; z-index: 1; }
+
+    .cta-section .section-eyebrow { color: var(--warm-light); }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: white;
+      margin-bottom: 1.25rem;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-section p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--warm);
+      color: var(--ink);
+      padding: 1rem 2.25rem;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 4px 20px rgba(200,169,126,0.4);
+    }
+
+    .cta-btn:hover {
+      background: #d4b68a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(200,169,126,0.45);
+    }
+
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-note {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--ink);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      color: white;
+    }
+
+    .footer-logo span { color: var(--warm); }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-inner,
+      .about-grid,
+      .approach-grid,
+      .services-header { grid-template-columns: 1fr; gap: 3rem; }
+
+      .hero-image-wrap { order: -1; }
+      .hero-image-outer img { height: 380px; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .media-grid { grid-template-columns: 1fr; }
+      .credentials-grid { grid-template-columns: 1fr 1fr; }
+
+      .nav-links { display: none; }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Newman <span>Integrative</span> Health</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
+      <a href="#media">Media</a>
+      <a href="#consult" class="nav-cta">Free Consultation</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Floating organic blob -->
+    <svg class="hero-blob" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 300,50 C 420,50 530,130 550,250 C 570,370 500,490 380,530 C 260,570 130,510 80,400 C 30,290 70,150 170,90 C 220,60 260,50 300,50 Z" fill="none" stroke="rgba(124,154,114,1)" stroke-width="1.5"/>
+      <path d="M 300,80 C 410,75 510,150 525,265 C 540,380 475,480 365,515 C 255,550 140,495 95,390 C 50,285 88,160 185,100 C 230,72 268,82 300,80 Z" fill="rgba(124,154,114,0.06)"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Neuroscience Coach · Doctor of Natural Medicine</p>
+        <h1>
+          <span class="reveal-line"><span>Your nervous system</span></span>
+          <span class="reveal-line"><span>is not broken.</span></span>
+          <span class="reveal-line"><span><em>Just unlearned.</em></span></span>
+        </h1>
+        <p class="hero-desc">
+          Dr. Newman bridges neuroscience and integrative medicine — turning chronic stress into lasting resilience.
+        </p>
+        <div class="hero-actions">
+          <a href="#consult" class="btn-primary">
+            Book a Free 30-Minute Call
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <a href="#approach" class="btn-secondary">
+            See the approach
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </a>
+        </div>
+        <div class="hero-cred-strip">
+          <span class="cred-pill">Ph.D. Neuroscience of Stress</span>
+          <span class="cred-pill">FAIS Fellow</span>
+          <span class="cred-pill">Board-Certified HHP</span>
+          <span class="cred-pill">London, Ontario</span>
+        </div>
+
+        <!-- Metrics strip -->
+        <div class="metrics-strip">
+          <div class="metric-item">
+            <div class="metric-num">30+</div>
+            <div class="metric-lbl">Published Articles</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-num">[X]</div>
+            <div class="metric-lbl">Clients Helped</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-num">[X]yrs</div>
+            <div class="metric-lbl">In Practice</div>
+          </div>
+        </div>
+
+        <!-- Social proof placeholder -->
+        <div class="social-proof-strip">
+          <p class="sp-label">What clients say</p>
+          <div class="sp-testimonial">
+            "[Testimonial from a real client — replace this with their words.]"
+            <span class="sp-author">— [Client Name], [Location or context]</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="hero-image-wrap">
+        <div class="hero-image-outer">
+          <img src="headshot.jpg" alt="Dr. Michael M. Newman" />
+          <div class="hero-image-tint"></div>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-icon">🧠</div>
+          <div class="hero-badge-text">
+            <strong>30+ Published Articles</strong>
+            <span>The Hearty Soul & beyond</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-story">
+          <p class="section-eyebrow">The Origin Story</p>
+          <h2 class="section-heading">
+            <span class="reveal-line"><span>He lived through</span></span>
+            <span class="reveal-line"><span>it first.</span></span>
+          </h2>
+          <p>
+            Dr. Newman didn't arrive at stress medicine through a textbook. He personally experienced severe anxiety — and resolved it not through medication, but through targeted changes in sleep, nutrition, and nervous system regulation.
+          </p>
+          <div class="about-highlight">
+            <p>"The brain is not a fixed organ. It can be rewired. My job is to show you how."</p>
+          </div>
+          <p>
+            Today, his clinical practice focuses on <strong>Stress Response Dysfunctions</strong> — the underlying neurological patterns behind generalized anxiety, burnout, and chronic illness. His approach combines neuroscience, cognitive behavioral therapy, NLP, and clinical nutrition into a single, coherent system.
+          </p>
+          <p>
+            He is a Fellow of the American Institute of Stress, a board-certified Holistic Health Practitioner, and has contributed over 30 research articles to leading integrative health publications.
+          </p>
+        </div>
+        <div>
+          <p class="section-eyebrow" style="margin-bottom: 1.5rem;">Credentials</p>
+          <div class="credentials-grid">
+            <div class="cred-card">
+              <div class="cred-card-abbr">Ph.D.</div>
+              <div class="cred-card-name">Neuroscience of Stress, Quantum University of Integrative Medicine</div>
+            </div>
+            <div class="cred-card">
+              <div class="cred-card-abbr">DNM</div>
+              <div class="cred-card-name">Doctor of Natural Medicine</div>
+            </div>
+            <div class="cred-card">
+              <div class="cred-card-abbr">HHP</div>
+              <div class="cred-card-name">Board-Certified Holistic Health Practitioner, AADP</div>
+            </div>
+            <div class="cred-card">
+              <div class="cred-card-abbr">FAIS</div>
+              <div class="cred-card-name">Fellow, American Institute of Stress</div>
+            </div>
+            <div class="cred-card">
+              <div class="cred-card-abbr">CBT</div>
+              <div class="cred-card-name">Certified Cognitive Behavioral Therapist</div>
+            </div>
+            <div class="cred-card">
+              <div class="cred-card-abbr">NLP</div>
+              <div class="cred-card-name">Master Neuro-Linguistic Programming</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <div class="services-header">
+        <div>
+          <p class="section-eyebrow">What We Offer</p>
+          <h2 class="section-heading">Programs built around your nervous system.</h2>
+        </div>
+        <p class="section-subtext">
+          Every program is rooted in neuroscience and tailored to where you are. Whether you're managing daily anxiety or recovering from burnout, there is a path forward.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🤝</div>
+          <h3>Free Discovery Call</h3>
+          <p>A 30-minute conversation to understand where you are, where you want to be, and whether Dr. Newman's approach is the right fit for you.</p>
+          <span class="service-free-tag">No cost · No commitment</span>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🧠</div>
+          <h3>1-on-1 Neuroscience Coaching</h3>
+          <p>Personalized sessions targeting the root neurological patterns behind your anxiety, stress response, or burnout. Science-backed. Practically applied.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📋</div>
+          <h3>6-Week Transformation Program</h3>
+          <p>A structured program synthesizing CBT, NLP, clinical nutrition, and neuroscience. Designed for lasting change, not temporary relief.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🥗</div>
+          <h3>Clinical Nutrition Consulting</h3>
+          <p>Food directly impacts your nervous system. Dr. Newman's nutrition protocols are designed to support brain health, reduce inflammation, and regulate the stress response.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏠</div>
+          <h3>Home Visit Sessions</h3>
+          <p>For clients in the London, Ontario area, Dr. Newman offers in-person sessions in the comfort of your own home — removing barriers to getting started.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💬</div>
+          <h3>Ongoing Support & Accountability</h3>
+          <p>Real results require consistency. Dr. Newman works with you between sessions to ensure you stay on track and continue making progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach" id="approach">
+    <div class="section-inner">
+      <div class="approach-grid">
+        <div class="approach-left">
+          <p class="section-eyebrow">The Method</p>
+          <h2 class="section-heading" style="color: white;">Pro-Consciousness Medicine</h2>
+          <p class="section-subtext">
+            Most approaches treat symptoms. Dr. Newman treats the underlying stress response dysfunction — the root cause driving anxiety, burnout, and chronic illness.
+          </p>
+          <div class="approach-steps">
+            <div class="approach-step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>Identify the pattern</h4>
+                <p>Map the neurological triggers and stress response cycles specific to you.</p>
+              </div>
+            </div>
+            <div class="approach-step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>Retrain the nervous system</h4>
+                <p>Use CBT, NLP, and neuroscience tools to interrupt and rewire the pattern.</p>
+              </div>
+            </div>
+            <div class="approach-step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>Support with nutrition</h4>
+                <p>Clinical nutrition protocols that reduce inflammation and support brain function.</p>
+              </div>
+            </div>
+            <div class="approach-step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h4>Build lasting resilience</h4>
+                <p>Integrate new patterns into daily life so results hold long-term.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="approach-right-card">
+          <p class="modalities-title">Integrated Modalities</p>
+          <div class="modalities-list">
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Neuroscience of Resilience</span>
+            </div>
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Cognitive Behavioral Therapy (CBT)</span>
+            </div>
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Master Neuro-Linguistic Programming</span>
+            </div>
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Clinical & Holistic Nutrition</span>
+            </div>
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Natural & Integrative Medicine</span>
+            </div>
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Stress Response Dysfunction (SRD)</span>
+            </div>
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Sleep Optimization</span>
+            </div>
+            <div class="modality-item">
+              <div class="modality-dot"></div>
+              <span>Eastern + Western Medicine Integration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA -->
+  <section class="media" id="media">
+    <div class="section-inner">
+      <p class="section-eyebrow">Published Work & Media</p>
+      <h2 class="section-heading">Research-backed. Widely read.</h2>
+      <div class="media-grid">
+        <div class="media-card">
+          <span class="media-tag">Article</span>
+          <h4>The Neuroscience of How Exercise Rewires the Anxious Brain</h4>
+          <p>Vital Voyage Blog — How movement changes the brain's response to stress at a neurological level.</p>
+        </div>
+        <div class="media-card">
+          <span class="media-tag">Publication</span>
+          <h4>30+ Articles on Brain Health & Integrative Medicine</h4>
+          <p>The Hearty Soul — One of Canada's leading health publications. Covering stress, nutrition, and nervous system health.</p>
+        </div>
+        <div class="media-card">
+          <span class="media-tag">Speaker</span>
+          <h4>The Podcast Show London 2023</h4>
+          <p>Featured speaker. Topics: neuroscience of stress, integrative health, and Pro-Consciousness Medicine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="consult">
+    <div class="section-inner">
+      <p class="section-eyebrow">Start Here</p>
+      <h2>30 minutes. No cost. No pressure.</h2>
+      <p>
+        Book a free discovery call with Dr. Newman to discuss where you are, what's keeping you stuck, and whether this approach is the right fit.
+      </p>
+      <a href="mailto:info@newmanintegrativehealth.com" class="cta-btn">
+        Book Your Free Consultation
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <p class="cta-note">London, Ontario · In-person & virtual sessions available</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Newman <span>Integrative</span> Health</div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#approach">Approach</a>
+        <a href="#consult">Book a Call</a>
+      </div>
+      <p class="footer-copy">© 2026 Newman Integrative Health · London, Ontario</p>
+    </div>
+  </footer>
+
+
+<script>
+  // ── Line reveal for headings ───────────────────────────────────
+  const lineRevealEls = document.querySelectorAll('.reveal-line');
+  const lineObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 120);
+        lineObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  lineRevealEls.forEach(el => lineObserver.observe(el));
+
+  // Trigger hero lines immediately on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero h1 .reveal-line').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), 400 + i * 140);
+      });
+    }, 100);
+  });
+
+  // ── Scroll reveal ──────────────────────────────────────────────
+  const revealEls = document.querySelectorAll(
+    '.about-grid, .services-grid .service-card, .approach-grid, .media-card, .cred-card, .approach-step, .modality-item, .hero-badge'
+  );
+
+  revealEls.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = `opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.05}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.05}s`;
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── Hero content fade in on load ───────────────────────────────
+  const heroContent = document.querySelector('.hero-content');
+  const heroImage = document.querySelector('.hero-image-wrap');
+  heroContent.style.opacity = '0';
+  heroContent.style.transform = 'translateY(20px)';
+  heroImage.style.opacity = '0';
+  heroImage.style.transform = 'translateY(20px)';
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      heroContent.style.transition = 'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+      heroContent.style.opacity = '1';
+      heroContent.style.transform = 'translateY(0)';
+    }, 100);
+    setTimeout(() => {
+      heroImage.style.transition = 'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+      heroImage.style.opacity = '1';
+      heroImage.style.transform = 'translateY(0)';
+    }, 300);
+  });
+
+  // ── Parallax on hero image ─────────────────────────────────────
+  const heroImg = document.querySelector('.hero-image-outer');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (scrollY < window.innerHeight) {
+      heroImg.style.transform = `translateY(${scrollY * 0.12}px)`;
+    }
+  }, { passive: true });
+
+  // ── Nav scroll shadow ──────────────────────────────────────────
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  // ── Neural-botanical branching canvas ─────────────────────────
+  const hero = document.querySelector('.hero');
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+  hero.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resizeCanvas() {
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', () => { resizeCanvas(); initBranches(); });
+
+  // Warm cream + light sage — visible against dark green
+  const CREAM  = [232, 213, 181]; // #e8d5b5
+  const SAGE_L = [154, 184, 144]; // light sage
+  let branches = [];
+  let nodes    = [];
+
+  function rand(min, max) { return min + Math.random() * (max - min); }
+
+  class Branch {
+    constructor(x, y, angle, depth, color, speed) {
+      this.x = x; this.y = y;
+      this.angle = angle;
+      this.depth = depth;
+      this.color = color;
+      this.speed = speed || rand(1.2, 2.2);
+      this.length = 0;
+      this.maxLength = rand(60, 160) * (1 - depth * 0.14);
+      this.width = Math.max(0.4, 2.8 - depth * 0.35);
+      this.alpha = (rand(0.35, 0.65) * (1 - depth * 0.1));
+      this.wobble = rand(-0.018, 0.018);
+      this.done = false;
+      this.spawned = false;
+    }
+
+    grow() {
+      if (this.done) return;
+      for (let s = 0; s < 3; s++) {
+        this.angle += this.wobble + rand(-0.004, 0.004);
+        const nx = this.x + Math.cos(this.angle) * this.speed;
+        const ny = this.y + Math.sin(this.angle) * this.speed;
+        const [r,g,b] = this.color;
+        const fade = 1 - (this.length / (this.maxLength * 1.2));
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(nx, ny);
+        ctx.strokeStyle = `rgba(${r},${g},${b},${this.alpha * fade})`;
+        ctx.lineWidth = this.width * Math.max(0.3, fade);
+        ctx.lineCap = 'round';
+        ctx.stroke();
+        this.x = nx; this.y = ny;
+        this.length += this.speed;
+
+        // Synapse dot
+        if (Math.random() < 0.012) {
+          const nr = rand(1.5, 4);
+          ctx.beginPath();
+          ctx.arc(nx, ny, nr, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${r},${g},${b},${this.alpha * fade * 0.9})`;
+          ctx.fill();
+          // Glow ring around synapse
+          ctx.beginPath();
+          ctx.arc(nx, ny, nr * 2.2, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${r},${g},${b},${this.alpha * fade * 0.2})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+
+        if (this.length >= this.maxLength) {
+          this.done = true;
+          if (!this.spawned && this.depth < 8) {
+            this.spawned = true;
+            const n = Math.random() < 0.6 ? 2 : (Math.random() < 0.4 ? 3 : 1);
+            for (let i = 0; i < n; i++) {
+              const spread = rand(0.25, 0.7) * (Math.random() < 0.5 ? 1 : -1);
+              const col = Math.random() < 0.35 ? SAGE_L : CREAM;
+              branches.push(new Branch(this.x, this.y, this.angle + spread, this.depth + 1, col));
+            }
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  function initBranches() {
+    branches = []; nodes = [];
+    ctx.clearRect(0, 0, W, H);
+    // Seeds from all edges — roots and dendrites growing inward
+    const PI = Math.PI;
+    const seeds = [
+      // Left edge — growing right
+      { x: 0, y: H * 0.3,  angle: rand(-0.4, 0.4) },
+      { x: 0, y: H * 0.6,  angle: rand(-0.3, 0.3) },
+      { x: 0, y: H * 0.85, angle: rand(-0.25, 0.25) },
+      // Right edge — growing left
+      { x: W, y: H * 0.25, angle: PI + rand(-0.4, 0.4) },
+      { x: W, y: H * 0.55, angle: PI + rand(-0.3, 0.3) },
+      { x: W, y: H * 0.8,  angle: PI + rand(-0.25, 0.25) },
+      // Bottom edge — growing up
+      { x: W * 0.1, y: H, angle: -PI/2 + rand(-0.4, 0.4) },
+      { x: W * 0.3, y: H, angle: -PI/2 + rand(-0.35, 0.35) },
+      { x: W * 0.5, y: H, angle: -PI/2 + rand(-0.3, 0.3) },
+      { x: W * 0.7, y: H, angle: -PI/2 + rand(-0.35, 0.35) },
+      { x: W * 0.9, y: H, angle: -PI/2 + rand(-0.4, 0.4) },
+      // Top edge — growing down
+      { x: W * 0.2, y: 0,  angle: PI/2 + rand(-0.35, 0.35) },
+      { x: W * 0.6, y: 0,  angle: PI/2 + rand(-0.35, 0.35) },
+      { x: W * 0.9, y: 0,  angle: PI/2 + rand(-0.3, 0.3) },
+    ];
+    seeds.forEach((s, i) => {
+      const col = i % 3 === 0 ? SAGE_L : CREAM;
+      branches.push(new Branch(s.x, s.y, s.angle, 0, col, rand(1.5, 2.5)));
+    });
+  }
+
+  initBranches();
+
+  function animateBranches() {
+    const active = branches.filter(b => !b.done);
+    active.forEach(b => b.grow());
+    if (branches.some(b => !b.done)) {
+      requestAnimationFrame(animateBranches);
+    } else {
+      // Breathing pulse
+      let t = 0;
+      (function breathe() {
+        t += 0.008;
+        canvas.style.opacity = (0.7 + Math.sin(t) * 0.05).toFixed(3);
+        requestAnimationFrame(breathe);
+      })();
+    }
+  }
+  animateBranches();
+
+  // ── Counter animation ─────────────────────────────────────────
+  const badge = document.querySelector('.hero-badge-text strong');
+  let counted = false;
+
+  const badgeObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !counted) {
+      counted = true;
+      let count = 0;
+      const target = 30;
+      const interval = setInterval(() => {
+        count++;
+        badge.textContent = count + '+ Published Articles';
+        if (count >= target) clearInterval(interval);
+      }, 40);
+    }
+  }, { threshold: 0.5 });
+  badgeObserver.observe(badge);
+
+  // ── Service card glow on hover ────────────────────────────────
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(74,124,111,0.06) 0%, white 60%)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.background = 'white';
+    });
+  });
+
+  // ── Smooth scroll for nav links ───────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
