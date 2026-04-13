@@ -1,9 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="vg" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="vg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#00C2D4"/>
+      <stop offset="40%" stop-color="#2EC4E0"/>
       <stop offset="100%" stop-color="#F08C00"/>
     </linearGradient>
   </defs>
-  <polygon points="5,5 50,90 95,5 82,5 50,65 18,5" fill="url(#vg)"/>
+  <!-- Left thick arm of V -->
+  <polygon points="4,8 24,8 52,72 38,72" fill="url(#vg)"/>
+  <!-- Right thin arm of V -->
+  <polygon points="96,8 76,8 52,72 62,72" fill="url(#vg)"/>
 </svg>
