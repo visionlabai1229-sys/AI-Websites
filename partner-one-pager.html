@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisionLab AI × Build Solutions — White-Label Partnership</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #0CC5C5;
+      --teal-dim: rgba(12, 197, 197, 0.75);
+      --teal-glow: rgba(12, 197, 197, 0.12);
+      --teal-border: rgba(12, 197, 197, 0.22);
+      --orange: #F97316;
+      --orange-glow: rgba(249, 115, 22, 0.12);
+      --bg: #08090E;
+      --surface-1: #0F1117;
+      --surface-2: #14171F;
+      --surface-3: #1A1E29;
+      --surface-4: #1F2333;
+      --border: rgba(255,255,255,0.07);
+      --border-mid: rgba(255,255,255,0.10);
+      --text: #F0F2F5;
+      --text-muted: rgba(240,242,245,0.45);
+      --text-sub: rgba(240,242,245,0.65);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      margin: 0;
+      padding: 40px 20px;
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--surface-1);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 0 0 1px rgba(12, 197, 197, 0.04),
+        0 8px 32px rgba(0, 0, 0, 0.55),
+        0 32px 80px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--surface-2);
+      padding: 52px 56px 44px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -60px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(12, 197, 197, 0.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 25%;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .header-logo {
+      height: 96px;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+
+    .header-eyebrow {
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0 0 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-title span {
+      color: var(--teal);
+    }
+
+    .header-subtitle {
+      font-size: 15px;
+      color: var(--text-sub);
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-meta-item {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .header-meta-item strong {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    /* ── BODY ── */
+    .body {
+      padding: 48px 56px;
+      background: var(--surface-1);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 44px;
+    }
+
+    .section-label {
+      font-family: 'Sora', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 20px;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 0 44px;
+    }
+
+    /* ── STEPS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .step {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--surface-4);
+      color: var(--teal);
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      border: 1px solid var(--teal-border);
+    }
+
+    .step-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.65;
+    }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .pricing-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .pricing-card-header {
+      padding: 18px 22px 14px;
+      background: var(--surface-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-card.retail .pricing-card-header {
+      background: linear-gradient(135deg, #0E1A1A 0%, #0C1420 100%);
+      border-bottom: 1px solid var(--teal-border);
+    }
+
+    .pricing-card-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: var(--teal-glow);
+      border: 1px solid var(--teal-border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+
+    .pricing-card-name {
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .pricing-card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .pricing-card-body {
+      padding: 18px 22px;
+      background: var(--surface-2);
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .price-row:last-child {
+      border-bottom: none;
+    }
+
+    .price-row-label {
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    .price-row-value {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .price-row-value.teal {
+      color: var(--teal);
+    }
+
+    .price-row-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-left: 3px;
+    }
+
+    /* ── MARGIN CALLOUT ── */
+    .margin-callout {
+      background: linear-gradient(135deg, #0B1A1A 0%, #0C1620 100%);
+      border: 1px solid var(--teal-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .margin-callout-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .margin-callout-text {
+      font-size: 13px;
+      color: rgba(12, 197, 197, 0.85);
+      line-height: 1.6;
+    }
+
+    .margin-callout-text strong {
+      font-weight: 700;
+      font-family: 'Sora', sans-serif;
+      color: var(--teal);
+    }
+
+    /* ── INCLUDED GRID ── */
+    .included-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .included-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .included-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--teal-glow);
+      border: 1px solid var(--teal-border);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .included-dot svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    /* ── TERMS TABLE ── */
+    .terms-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .terms-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terms-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .terms-table td {
+      padding: 11px 0;
+      vertical-align: top;
+    }
+
+    .terms-table td:first-child {
+      color: var(--text-muted);
+      font-weight: 500;
+      width: 38%;
+    }
+
+    .terms-table td:last-child {
+      color: var(--text-sub);
+      font-weight: 400;
+    }
+
+    /* ── TRIAL BANNER ── */
+    .trial-banner {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trial-banner::before {
+      content: '';
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(12, 197, 197, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .trial-banner-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    .trial-banner-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+
+    .trial-banner-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .trial-banner-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 500px;
+    }
+
+    .trial-banner-stat {
+      text-align: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .trial-banner-stat-value {
+      font-family: 'Sora', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .trial-banner-stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* ── NEXT STEPS ── */
+    .next-steps {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .next-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .next-step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--surface-3);
+      border: 1px solid var(--teal-border);
+      color: var(--teal);
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--surface-2);
+      border-top: 1px solid var(--border);
+      padding: 24px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-left strong {
+      display: block;
+      color: var(--text-sub);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .footer-right {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-right a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <img src="brand_assests/VisionLab_AI_Logo_transparent.png" alt="VisionLab AI" class="header-logo" />
+      <p class="header-eyebrow">White-Label Partnership Agreement</p>
+      <h1 class="header-title">VisionLab AI <span>×</span> Build Solutions</h1>
+      <p class="header-subtitle">AI voice receptionist infrastructure — built by us, sold under your brand.</p>
+      <div class="header-meta">
+        <div class="header-meta-item">
+          <strong>Prepared for</strong>
+          Jillyn Johnson, Build Solutions
+        </div>
+        <div class="header-meta-item">
+          <strong>From</strong>
+          Stephen Rivas, VisionLab AI
+        </div>
+        <div class="header-meta-item">
+          <strong>Date</strong>
+          March 23, 2026
+        </div>
+        <div class="header-meta-item">
+          <strong>Model</strong>
+          White-Label
+        </div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- HOW IT WORKS -->
+      <div class="section">
+        <p class="section-label">The Model</p>
+        <h2 class="section-title">You close. I build. Salons see Build Solutions.</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-title">You close the salon</div>
+            <div class="step-desc">You present the system under Build Solutions. You invoice them. You own the relationship. VisionLab AI is invisible.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-title">You send me intake</div>
+            <div class="step-desc">Salon name, hours, services, Cal.com login, live transfer number. That's it — I handle everything else from there.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-title">Live in 48 hours</div>
+            <div class="step-desc">I build, test, and activate the agent. I text you when it's live. I maintain it and fix issues same-day.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- PRICING -->
+      <div class="section">
+        <p class="section-label">Wholesale Pricing</p>
+        <h2 class="section-title">What you pay VisionLab AI — per salon, per month</h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <!-- Wholesale Card -->
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <div class="pricing-card-badge">Your Wholesale Rate</div>
+              <div class="pricing-card-name">AI Voice Receptionist</div>
+              <div class="pricing-card-desc">Full system — built, maintained, and supported by VisionLab AI</div>
+            </div>
+            <div class="pricing-card-body">
+              <div class="price-row">
+                <span class="price-row-label">Monthly (per salon)</span>
+                <span class="price-row-value teal">$397<span class="price-row-sub">/mo</span></span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Included minutes</span>
+                <span class="price-row-value">500 min/mo</span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Usage overage</span>
+                <span class="price-row-value">$0.30<span class="price-row-sub">/min after 500</span></span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Setup — salon #1</span>
+                <span class="price-row-value teal">$0 <span class="price-row-sub">waived</span></span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Setup — salon #2+</span>
+                <span class="price-row-value">$750<span class="price-row-sub"> one-time</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suggested Retail Card -->
+          <div class="pricing-card retail">
+            <div class="pricing-card-header">
+              <div class="pricing-card-badge">Suggested Retail to Salons</div>
+              <div class="pricing-card-name">What You Charge</div>
+              <div class="pricing-card-desc">Your pricing — your margin — you decide</div>
+            </div>
+            <div class="pricing-card-body">
+              <div class="price-row">
+                <span class="price-row-label">Monthly (per salon)</span>
+                <span class="price-row-value">$597–697<span class="price-row-sub">/mo</span></span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Your monthly margin</span>
+                <span class="price-row-value teal">~$200–300<span class="price-row-sub">/salon</span></span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Setup to salon</span>
+                <span class="price-row-value">$1,500<span class="price-row-sub"> suggested</span></span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Setup margin — salon #1</span>
+                <span class="price-row-value teal">$1,500 <span class="price-row-sub">all yours</span></span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Setup margin — salon #2+</span>
+                <span class="price-row-value">$750<span class="price-row-sub"> per close</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-callout">
+          <div class="margin-callout-icon">💰</div>
+          <div class="margin-callout-text">
+            <strong>At 5 salons @ $597/mo retail:</strong> You pay me $1,985/mo — you collect $2,985/mo — <strong>$1,000/mo recurring, fully passive.</strong> Plus $750 setup margin every new salon you close.
+          </div>
+        </div>
+
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px; line-height: 1.65;">
+          Month-to-month. No long-term lock-in on either side. Setup fee for salon #1 is waived — this is a launch offer to get the first salon live and prove the system.
+        </p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- WHAT'S INCLUDED -->
+      <div class="section">
+        <p class="section-label">Deliverables</p>
+        <h2 class="section-title">What I deliver per salon</h2>
+        <div class="included-grid">
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            AI voice receptionist (Retell AI) — built and maintained by me
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Dedicated Twilio phone number — provisioned and maintained
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Cal.com booking configuration — I set up, salon owns account
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Stripe deposit integration — salon connects their own account
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            SMS appointment reminders — automated via n8n
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Call logging — every call tracked with full detail
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            GoHighLevel CRM — included at 3+ active salons
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Call reports — post-call webhook data available for client reporting
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Vietnamese voice clone option — ElevenLabs, no extra cost at wholesale
+          </div>
+          <div class="included-item">
+            <div class="included-dot">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0CC5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Same-day support — you message me, I fix it
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 2-WEEK TRIAL -->
+      <div class="section">
+        <p class="section-label">Intro Offer</p>
+        <h2 class="section-title">2-week trial to prove ROI</h2>
+        <div class="trial-banner">
+          <div class="trial-banner-text">
+            <div class="trial-banner-eyebrow">No-Risk Entry</div>
+            <div class="trial-banner-title">First 2 weeks free for each new salon</div>
+            <div class="trial-banner-desc">Give salons a risk-free window to see bookings come in. You cover $0 wholesale during the trial. Once they see 7+ new bookings, the sell-through is easy. Then month-to-month from there.</div>
+          </div>
+          <div class="trial-banner-stat">
+            <div class="trial-banner-stat-value">7</div>
+            <div class="trial-banner-stat-label">new bookings = ROI<br/>at $75 avg ticket</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- TERMS -->
+      <div class="section">
+        <p class="section-label">Terms</p>
+        <h2 class="section-title">How this works between us</h2>
+        <table class="terms-table">
+          <tr>
+            <td>Contract length</td>
+            <td>Month-to-month — no lock-in on either side</td>
+          </tr>
+          <tr>
+            <td>Payment</td>
+            <td>Anniversary billing — monthly billing starts 14 days after go-live, same date each month.</td>
+          </tr>
+          <tr>
+            <td>Branding</td>
+            <td>100% Build Solutions — VisionLab AI never appears to end clients</td>
+          </tr>
+          <tr>
+            <td>Client ownership</td>
+            <td>Yours entirely. You invoice the salon, you hold the relationship.</td>
+          </tr>
+          <tr>
+            <td>Cancellation</td>
+            <td>30 days notice, either party. I deactivate cleanly, no penalties.</td>
+          </tr>
+          <tr>
+            <td>Setup fee</td>
+            <td>Waived for salon #1. $750 per salon from #2 onward.</td>
+          </tr>
+          <tr>
+            <td>Build time</td>
+            <td>48 hours from complete intake to agent live</td>
+          </tr>
+          <tr>
+            <td>Support</td>
+            <td>WhatsApp + email — you message me directly, same-day response</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- NEXT STEPS -->
+      <div class="section" style="margin-bottom: 0;">
+        <p class="section-label">Next Steps</p>
+        <h2 class="section-title">How to get the first salon live</h2>
+        <div class="next-steps">
+          <div class="next-step">
+            <div class="next-step-num">1</div>
+            <div>Reply confirming the model and pricing look right — we'll finalize on tomorrow's call.</div>
+          </div>
+          <div class="next-step">
+            <div class="next-step-num">2</div>
+            <div>Name the first salon — which Aspen account do you want to lead with?</div>
+          </div>
+          <div class="next-step">
+            <div class="next-step-num">3</div>
+            <div>Send intake: salon name + location, hours, services, Cal.com login, live transfer number.</div>
+          </div>
+          <div class="next-step">
+            <div class="next-step-num">4</div>
+            <div>I build and text you when the agent is live — 48 hours from intake received.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /body -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-left">
+        <strong>Stephen Rivas — VisionLab AI</strong>
+        stephen@visionlabai.ca · visionlabai.ca
+      </div>
+      <div class="footer-right">
+        Questions before tomorrow's call?<br/>
+        <a href="mailto:stephen@visionlabai.ca">stephen@visionlabai.ca</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
