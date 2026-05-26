@@ -32,9 +32,21 @@
 - Mobile-first responsive
 
 ## Brand Assets
-- Always check the `brand_assets/` folder before designing. It may contain logos, color guides, style guides, or images.
+- Always check the `brand_assests/` folder before designing (note: folder is spelled `brand_assests` not `brand_assets`).
 - If assets exist there, use them. Do not use placeholders where real assets are available.
 - If a logo is present, use it. If a color palette is defined, use those exact values — do not invent brand colors.
+
+### Logo — Current State
+- **Nav uses:** `brand_assests/VisionLab_AI_Logo_nav.png` at `height:36px` with teal+orange CSS `drop-shadow` glow
+- The original PNGs have solid backgrounds — never use them raw on dark surfaces
+- `VisionLab_AI_Logo_nav.png` = full "VISIONLAB AI", flood-fill bg removed, letter counter holes fixed, dark text → white
+- Dark logo (`VisionLab_AI_Logo_dark.png`) does NOT have "AI" text — always process from the light version
+- See memory `logo-transparent-files.md` for full rebuild instructions
+
+### About Section Photo
+- **Uses:** `stephen-rivas-nobg.png` — background removed with rembg (u2net AI model)
+- Container: transparent background, no border, `overflow:hidden`, `border-radius:12px`
+- To regenerate: `pip3 install rembg onnxruntime` then `from rembg import remove`
 
 ## Anti-Generic Guardrails
 - **Colors:** Never use default Tailwind palette (indigo-500, blue-600, etc.). Pick a custom brand color and derive from it.
