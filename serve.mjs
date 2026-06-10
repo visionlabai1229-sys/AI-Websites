@@ -24,8 +24,29 @@ const MIME = {
   '.woff2': 'font/woff2',
 };
 
+const RETELL_API_KEY = 'key_0937cbf88d07a81dfacb712b0997';
+const DEMO_AGENT_ID = 'agent_53d1895c687078491d33e83f5e';
+
 const server = createServer(async (req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
+
+  if (req.method === 'POST' && urlPath === '/create-web-call') {
+    try {
+      const retellRes = await fetch('https://api.retellai.com/v2/create-web-call', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${RETELL_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ agent_id: DEMO_AGENT_ID })
+      });
+      const data = await retellRes.json();
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+      res.end(JSON.stringify({ access_token: data.access_token, call_id: data.call_id }));
+    } catch(e) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Failed to create web call' }));
+    }
+    return;
+  }
+
   if (urlPath === '/') urlPath = '/index.html';
 
   const filePath = join(__dirname, urlPath);
