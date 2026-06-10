@@ -22,6 +22,10 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://visionlabai.ca/">
 
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="brand_assests/VisionLab_AI_Logo_small.png">
+<link rel="apple-touch-icon" href="brand_assests/VisionLab_AI_Logo_small.png">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXY9F2VDQP"></script>
 <script>
@@ -418,13 +422,13 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
         Explore Our Services
         <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4.5M9 3V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="tel:+13653604080" class="btn-play" id="demo-btn" title="Call AI Demo" style="text-decoration:none;">
-        <svg viewBox="0 0 14 14"><path d="M3 2 L11 7 L3 12Z" fill="currentColor"/></svg>
-      </a>
+      <button type="button" class="btn-play" id="demo-btn" title="Talk to AI demo" style="padding:0;">
+        <svg viewBox="0 0 14 14" id="demo-btn-svg"><path d="M3 2 L11 7 L3 12Z" fill="currentColor"/></svg>
+      </button>
       <span style="font-size:12px;color:var(--muted2);">Call our live AI</span>
     </div>
     <p class="hl" style="margin-top:8px;font-size:11px;color:var(--muted2);letter-spacing:.04em;transition-delay:.54s;">
-      Live AI demo line — call it and hear exactly what your patients will hear.
+      Talk to our AI receptionist live — right in your browser.
     </p>
     <!-- Tech Stack Marquee -->
     <div class="hl" style="margin-top:18px;transition-delay:.58s;">
@@ -1518,6 +1522,60 @@ document.querySelectorAll('.pc').forEach(c=>{
 });
 
 })();
+</script>
+<script type="module">
+import { RetellWebClient } from 'https://esm.sh/@retell-ai/retell-client-js-sdk';
+
+const TOKEN_URL = window.location.hostname === 'localhost'
+  ? '/create-web-call'
+  : 'https://visionlabai.app.n8n.cloud/webhook/create-web-call';
+
+const btn = document.getElementById('demo-btn');
+const svg = document.getElementById('demo-btn-svg');
+
+const PLAY = '<path d="M3 2 L11 7 L3 12Z" fill="currentColor"/>';
+const STOP = '<rect x="3" y="3" width="8" height="8" fill="currentColor"/>';
+
+let client = null;
+let active = false;
+
+function setIcon(type) {
+  svg.innerHTML = type === 'stop' ? STOP : PLAY;
+  btn.style.background = type === 'stop' ? 'rgba(239,68,68,.18)' : '';
+}
+
+async function startCall() {
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  try {
+    const res = await fetch(TOKEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+    const { access_token } = await res.json();
+    client = new RetellWebClient();
+    client.on('call_started', () => {
+      active = true;
+      btn.disabled = false;
+      btn.style.opacity = '';
+      btn.title = 'End call';
+      setIcon('stop');
+    });
+    client.on('call_ended', resetCall);
+    client.on('error', resetCall);
+    await client.startCall({ accessToken: access_token });
+  } catch(e) {
+    resetCall();
+  }
+}
+
+function resetCall() {
+  active = false;
+  if (client) { try { client.stopCall(); } catch(e) {} client = null; }
+  btn.disabled = false;
+  btn.style.opacity = '';
+  btn.title = 'Talk to AI demo';
+  setIcon('play');
+}
+
+btn.addEventListener('click', () => { active ? resetCall() : startCall(); });
 </script>
 </body>
 </html>
