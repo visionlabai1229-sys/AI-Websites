@@ -1552,9 +1552,25 @@ async function startCall() {
     const data = await res.json();
     console.log('[demo] token response', res.status, data);
     const { access_token } = data;
+
+    // Ensure mic permission is actually granted before starting the call.
+    // The SDK enables the mic internally without awaiting/catching errors,
+    // so a denied/failed getUserMedia here would otherwise fail silently.
+    const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    micStream.getTracks().forEach(t => t.stop());
+
     client = new RetellWebClient();
-    client.on('call_started', () => {
+    client.on('call_started', async () => {
       console.log('[demo] call_started');
+      try {
+        await client.room.localParticipant.setMicrophoneEnabled(true);
+        console.log('[demo] microphone enabled');
+      } catch(err) {
+        console.log('[demo] microphone enable failed', err);
+        alert('Could not access your microphone. Please check your browser/system mic permissions and try again.');
+        resetCall();
+        return;
+      }
       active = true;
       btn.disabled = false;
       btn.style.opacity = '';
