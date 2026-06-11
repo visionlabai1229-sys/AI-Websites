@@ -1549,19 +1549,27 @@ async function startCall() {
   btn.style.opacity = '0.5';
   try {
     const res = await fetch(TOKEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' } });
-    const { access_token } = await res.json();
+    const data = await res.json();
+    console.log('[demo] token response', res.status, data);
+    const { access_token } = data;
     client = new RetellWebClient();
     client.on('call_started', () => {
+      console.log('[demo] call_started');
       active = true;
       btn.disabled = false;
       btn.style.opacity = '';
       btn.title = 'End call';
       setIcon('stop');
     });
-    client.on('call_ended', resetCall);
-    client.on('error', resetCall);
+    client.on('call_ended', () => { console.log('[demo] call_ended'); resetCall(); });
+    client.on('error', (e) => { console.log('[demo] error', e); resetCall(); });
     await client.startCall({ accessToken: access_token });
+    console.log('[demo] startCall resolved');
   } catch(e) {
+    console.log('[demo] caught error', e);
+    if (e && (e.name === 'NotAllowedError' || e.name === 'PermissionDeniedError')) {
+      alert('Microphone access is required for the AI demo. Please allow microphone access and try again.');
+    }
     resetCall();
   }
 }
