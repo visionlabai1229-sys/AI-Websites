@@ -289,12 +289,23 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
 .wave span:nth-child(1){animation-delay:0s}.wave span:nth-child(2){animation-delay:.15s}
 .wave span:nth-child(3){animation-delay:.3s}.wave span:nth-child(4){animation-delay:.45s}
 
+#s8{overflow:visible;}
+.roi-bar{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;align-items:center;width:100%;max-width:960px;margin-bottom:32px;background:linear-gradient(135deg,rgba(0,194,212,.06) 0%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,194,212,.18);border-radius:16px;padding:32px 0;box-shadow:0 0 40px rgba(0,194,212,.06),inset 0 1px 0 rgba(255,255,255,.06);}
+.roi-stat{text-align:center;padding:0 32px;}
+.roi-num{font-family:'Instrument Serif',serif;font-size:clamp(26px,2.8vw,38px);color:#fff;letter-spacing:-.03em;line-height:1;font-weight:400;}
+.roi-num.tc{color:var(--teal);text-shadow:0 0 24px rgba(0,194,212,.4);}
+.roi-label{font-size:11.5px;color:rgba(255,255,255,.58);margin-top:8px;line-height:1.55;max-width:150px;margin-left:auto;margin-right:auto;}
+.roi-div{width:1px;height:48px;background:rgba(0,194,212,.18);}
 @media(max-width:640px){
   .nav-links{display:none}
   #hbg{display:flex;margin-left:auto}
   .nav-cta{display:none}
   #dots{display:none}
   section{padding:40px 20px!important}
+  #s8{height:auto;min-height:100vh;}
+  .roi-bar{grid-template-columns:1fr;padding:24px 20px;gap:20px;}
+  .roi-div{width:40px;height:1px;margin:0 auto;}
+  .roi-stat{padding:0 16px;}
 }
 </style>
 </head>
@@ -702,7 +713,24 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
 <!-- ══ S8 PRICING ══ -->
 <section id="s8" style="padding:44px 60px;">
   <span class="sec-label depth-enter" style="display:block;text-align:center;">Pricing</span>
-  <h2 class="sec-h2-c depth-enter" data-d="1" style="margin-bottom:36px;">Simple, Transparent <span class="tc">Pricing</span></h2>
+  <h2 class="sec-h2-c depth-enter" data-d="1" style="margin-bottom:28px;">Simple, Transparent <span class="tc">Pricing</span></h2>
+  <!-- ROI anchor -->
+  <div class="roi-bar depth-enter" data-d="2">
+    <div class="roi-stat">
+      <div class="roi-num">$180K–$400K</div>
+      <div class="roi-label">average annual revenue lost to missed calls</div>
+    </div>
+    <div class="roi-div"></div>
+    <div class="roi-stat">
+      <div class="roi-num tc">3–5 patients</div>
+      <div class="roi-label">typically recovered per month</div>
+    </div>
+    <div class="roi-div"></div>
+    <div class="roi-stat">
+      <div class="roi-num">30 days</div>
+      <div class="roi-label">typical time to positive ROI</div>
+    </div>
+  </div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:960px;">
     <div class="pc depth-enter" data-d="2" tabindex="0" role="button" aria-pressed="false">
       <div class="pc-tier">Starter</div>
