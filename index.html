@@ -69,8 +69,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;gap:32px;padding:20px 52px;
   background:transparent;
   transition:background .5s ease,backdrop-filter .5s ease,border-color .5s ease,padding .3s ease}
-nav.scrolled{background:transparent;backdrop-filter:none;
-  border-bottom:none;padding:14px 52px}
+nav.scrolled{background:rgba(4,6,14,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);padding:14px 52px}
 .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;flex-shrink:0}
 .nav-logo svg{width:24px;height:24px}
 .nav-logoname{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
@@ -107,7 +107,7 @@ nav.scrolled{background:transparent;backdrop-filter:none;
 .dot.active{background:var(--teal);transform:scale(1.55);box-shadow:0 0 10px rgba(0,194,212,.75)}
 
 /* ── SCROLLER ── */
-#scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;
+#scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y proximity;
   scrollbar-width:none;position:relative;z-index:10;perspective:1200px;perspective-origin:50% 50%}
 #scroller::-webkit-scrollbar{display:none}
 
@@ -115,6 +115,16 @@ nav.scrolled{background:transparent;backdrop-filter:none;
 section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   transform-style:preserve-3d}
+
+/* ── HERO CINEMATIC SCROLL STAGE (s0 only) ── */
+/* Tall scroll region + a pinned inner stage, so the hero plays out as a scroll-driven
+   sequence (Mostar/Jack-inspired) instead of a single instant reveal. Exempted from
+   scroll-snap so it scrolls freely; s1 onward resume normal snap behavior. */
+#s0{height:240vh;display:block;overflow:visible;scroll-snap-align:none}
+#s0-stage{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;padding-top:70px;box-sizing:border-box}
+@media(max-width:640px){#s0{height:200vh}#s0-stage{padding-top:90px;gap:10px}}
 
 /* ── SCROLL INDICATOR ── */
 .si{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:10;opacity:.6}
@@ -406,12 +416,13 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
 <!-- SCROLLER -->
 <div id="scroller">
 
-<!-- ══ S0 HERO ══ -->
-<section id="s0" style="padding:0 32px;">
+<!-- ══ S0 HERO — cinematic scroll-driven entrance (giant title settles, reveals CTAs/stats) ══ -->
+<section id="s0" style="padding:0;">
+  <div id="s0-stage">
   <!-- Perspective grid plane -->
   <canvas id="cvHero" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:.45;"></canvas>
   <div class="hero-glow" aria-hidden="true"></div>
-  <div style="position:relative;z-index:5;text-align:center;max-width:940px;width:100%;padding-top:72px;">
+  <div id="heroBeat1" style="position:relative;z-index:5;text-align:center;max-width:1200px;width:100%;padding:0 32px;will-change:transform;">
     <!-- Live badge -->
     <div class="hl" style="display:inline-flex;align-items:center;gap:9px;
         padding:5px 16px 5px 9px;border:1px solid rgba(255,255,255,.07);border-radius:999px;
@@ -427,7 +438,7 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
       Now live — <strong style="color:#fff;font-weight:500;">AI Receptionist</strong>
     </div>
     <!-- Headline -->
-    <h1 class="hl" style="font-size:clamp(32px,4.8vw,68px);font-weight:500;line-height:.95;
+    <h1 class="hl" style="font-size:clamp(42px,7.4vw,116px);font-weight:500;line-height:.95;
         letter-spacing:-.036em;margin:0 auto 14px;transition-delay:.14s;perspective:600px;">
       <div id="heroParallax" style="will-change:transform;">
         <span class="hero-3d-white" style="display:block;">More Calls Answered.</span>
@@ -436,6 +447,9 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
         </span>
       </div>
     </h1>
+  </div>
+  <div id="heroBeat2" style="position:relative;z-index:5;text-align:center;max-width:940px;width:100%;padding:0 32px;will-change:transform,opacity;opacity:0;">
+    <div style="max-width:940px;margin:0 auto;">
     <style>
       .hero-3d-white{
         position:relative;display:block;
@@ -594,6 +608,46 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
       setTimeout(()=>{ measure(); requestAnimationFrame(loop); }, 100);
     })();
 
+    // Cinematic scroll-driven hero choreography (Mostar/Jack-inspired, adapted): the giant
+    // headline (Beat 1) settles down in size/position as the user scrolls through the tall
+    // #s0 region, while the CTAs/marquee/stats (Beat 2) fade and rise into view beneath it.
+    // Ends in the exact same layout as before — same content, same links — just arrived at
+    // via a scroll journey instead of an instant load.
+    (function(){
+      const section = document.getElementById('s0');
+      const beat1 = document.getElementById('heroBeat1');
+      const beat2 = document.getElementById('heroBeat2');
+      const scrollEl = document.getElementById('scroller');
+      if(!section || !beat1 || !beat2 || !scrollEl) return;
+      let smoothed = 0;
+      function getProgress(){
+        const rect = section.getBoundingClientRect();
+        const scrollable = section.offsetHeight - window.innerHeight;
+        if(scrollable <= 0) return 1;
+        return Math.min(Math.max(-rect.top / scrollable, 0), 1);
+      }
+      function raf(){
+        const target = getProgress();
+        smoothed += (target - smoothed) * 0.12;
+        if(Math.abs(target - smoothed) < 0.001) smoothed = target;
+        const b1Scale = 1.22 - smoothed * 0.22;
+        const b1Y = smoothed * -22;
+        beat1.style.transform = `translate3d(0,${b1Y}px,0) scale(${b1Scale})`;
+        const b2 = Math.min(Math.max((smoothed - 0.25) / 0.55, 0), 1);
+        beat2.style.opacity = b2;
+        beat2.style.transform = `translate3d(0,${(1 - b2) * 46}px,0)`;
+        // s0 is now 240vh tall, so the site's normal 55%-visibility observer (tuned for
+        // 100vh sections) can never mark it "active" — keep the dot nav / nebula tint
+        // correct for section 0 directly here while we're still mostly inside it.
+        if(smoothed < 0.85 && typeof setNebula === 'function'){
+          setNebula(0);
+          document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active', i===0));
+        }
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    })();
+
     // Restrained pointer-parallax on the hero headline (lerped, small range — B2B-appropriate)
     (function(){
       const el = document.getElementById('heroParallax');
@@ -620,8 +674,10 @@ section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
       <div><div class="stat-num" style="color:#fff;">3×</div><div class="stat-lbl">More Bookings</div></div>
       <div><div class="stat-num" style="color:var(--teal);text-shadow:0 0 30px rgba(0,194,212,.4);">&lt;60s</div><div class="stat-lbl">Response Time</div></div>
     </div>
+    </div>
   </div>
   <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+  </div><!-- /s0-stage -->
 </section>
 
 <!-- ══ S1 SERVICES OVERVIEW ══ -->
