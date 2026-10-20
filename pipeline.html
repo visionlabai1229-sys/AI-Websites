@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisionLab AI — Lead Pipeline</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: #0a0c10; color: #e2e8f0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+  .stat-card {
+    background: linear-gradient(135deg, #111827 0%, #141d2e 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.04) inset;
+  }
+
+  .tab-btn { transition: color 0.15s ease; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab-btn.active { color: #2dd4bf; border-bottom-color: #2dd4bf; }
+  .tab-btn:hover:not(.active) { color: #94a3b8; }
+
+  .lead-row { border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.1s ease; }
+  .lead-row:hover { background: rgba(255,255,255,0.025); }
+
+  .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+  .badge-sequence { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+  .badge-contact { background: rgba(100,116,139,0.1); color: #64748b; border: 1px solid rgba(100,116,139,0.15); }
+  .badge-replied { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+  .badge-coldcall { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+  .badge-proposal { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }
+  .badge-dental { background: rgba(20,184,166,0.08); color: #2dd4bf; border: 1px solid rgba(20,184,166,0.15); }
+  .badge-medspa { background: rgba(236,72,153,0.08); color: #f472b6; border: 1px solid rgba(236,72,153,0.15); }
+  .badge-ca { background: rgba(239,68,68,0.08); color: #f87171; border: 1px solid rgba(239,68,68,0.12); }
+  .badge-us { background: rgba(99,102,241,0.08); color: #818cf8; border: 1px solid rgba(99,102,241,0.12); }
+
+  .search-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); transition: border-color 0.15s ease; }
+  .search-input:focus { outline: none; border-color: rgba(20,184,166,0.4); background: rgba(255,255,255,0.07); }
+  .search-input::placeholder { color: #334155; }
+
+  .filter-select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #64748b; cursor: pointer; appearance: none; padding-right: 28px; }
+  .filter-select:focus { outline: none; border-color: rgba(20,184,166,0.4); }
+  .filter-select option { background: #111827; color: #e2e8f0; }
+
+  .phone-link { color: #2dd4bf; text-decoration: none; font-weight: 500; }
+  .phone-link:hover { color: #5eead4; }
+  .email-link { color: #475569; text-decoration: none; font-size: 12px; }
+  .email-link:hover { color: #94a3b8; }
+
+  #tableWrap { flex: 1; overflow-y: auto; }
+  #tableWrap::-webkit-scrollbar { width: 5px; }
+  #tableWrap::-webkit-scrollbar-track { background: transparent; }
+  #tableWrap::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+
+  th { position: sticky; top: 0; background: #0d1117; z-index: 5; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 8px 12px; text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #334155; white-space: nowrap; }
+  td { padding: 10px 12px; vertical-align: middle; }
+
+  .select-wrap { position: relative; display: inline-block; }
+  .select-wrap::after { content: '▾'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #475569; pointer-events: none; font-size: 11px; }
+
+  .refresh-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #475569; cursor: pointer; transition: color 0.15s ease, border-color 0.15s ease; }
+  .refresh-btn:hover { color: #94a3b8; border-color: rgba(255,255,255,0.15); }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinning { animation: spin 0.8s linear infinite; }
+
+  .live-dot { width: 6px; height: 6px; background: #34d399; border-radius: 50%; box-shadow: 0 0 6px rgba(52,211,153,0.6); }
+  .live-dot.stale { background: #fbbf24; box-shadow: 0 0 6px rgba(251,191,36,0.6); }
+  .live-dot.error { background: #f87171; box-shadow: 0 0 6px rgba(248,113,113,0.6); }
+
+  .fade-in { animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div style="background:#0d1117;border-bottom:1px solid rgba(255,255,255,0.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div style="width:7px;height:7px;background:#2dd4bf;border-radius:50%;box-shadow:0 0 8px rgba(45,212,191,0.6);"></div>
+    <span style="font-size:14px;font-weight:600;letter-spacing:-0.02em;color:#f1f5f9;">VisionLab AI</span>
+    <span style="color:#334155;font-size:13px;">/</span>
+    <span style="color:#475569;font-size:13px;">Lead Pipeline</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <input id="search" type="text" placeholder="Search clinic, city, phone, email..."
+      class="search-input rounded-lg px-3 py-2 text-sm text-slate-300"
+      style="width:300px;" oninput="renderTable()">
+    <div class="select-wrap">
+      <select id="typeFilter" class="filter-select rounded-lg px-3 py-2 text-sm" onchange="renderTable()" style="width:130px;">
+        <option value="all">All types</option>
+        <option value="dental">Dental</option>
+        <option value="medspa">Med Spa</option>
+      </select>
+    </div>
+    <div class="select-wrap">
+      <select id="geoFilter" class="filter-select rounded-lg px-3 py-2 text-sm" onchange="renderTable()" style="width:140px;">
+        <option value="all">All regions</option>
+        <option value="canada">Canada</option>
+        <option value="us">United States</option>
+      </select>
+    </div>
+    <button class="refresh-btn rounded-lg px-3 py-2 text-sm" onclick="forceRefresh()" style="display:flex;align-items:center;gap:6px;">
+      <span id="refreshIcon" style="font-size:13px;">↻</span>
+      <span>Refresh</span>
+    </button>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div id="liveDot" class="live-dot"></div>
+      <span id="liveLabel" style="font-size:11px;color:#334155;">Loading...</span>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div id="statsBar" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;padding:14px 24px;flex-shrink:0;"></div>
+
+<!-- Tabs -->
+<div style="padding:0 24px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;flex-shrink:0;">
+  <button class="tab-btn active px-4 py-2.5 text-sm font-medium" onclick="setTab('all')" data-tab="all">All Leads</button>
+  <button class="tab-btn px-4 py-2.5 text-sm font-medium" style="color:#64748b;" onclick="setTab('to_contact')" data-tab="to_contact">To Contact</button>
+  <button class="tab-btn px-4 py-2.5 text-sm font-medium" style="color:#64748b;" onclick="setTab('in_sequence')" data-tab="in_sequence">In Sequence</button>
+  <button class="tab-btn px-4 py-2.5 text-sm font-medium" style="color:#64748b;" onclick="setTab('cold_call')" data-tab="cold_call">Cold Call</button>
+  <button class="tab-btn px-4 py-2.5 text-sm font-medium" style="color:#64748b;" onclick="setTab('replied')" data-tab="replied">Replied</button>
+  <button class="tab-btn px-4 py-2.5 text-sm font-medium" style="color:#64748b;" onclick="setTab('complete')" data-tab="complete">Complete</button>
+  <span id="countDisplay" style="margin-left:auto;font-size:12px;color:#334155;padding-right:4px;">— leads</span>
+</div>
+
+<!-- Scrollable Table -->
+<div id="tableWrap">
+  <div id="loadingState" style="padding:80px 24px;text-align:center;color:#334155;font-size:13px;">
+    Fetching leads from ClickUp...
+  </div>
+  <table id="leadsTable" style="width:100%;border-collapse:collapse;display:none;">
+    <thead>
+      <tr>
+        <th style="padding-left:24px;width:220px;">Clinic</th>
+        <th style="width:180px;">City / Location</th>
+        <th style="width:150px;">Phone</th>
+        <th>Email</th>
+        <th style="width:120px;">Stage</th>
+        <th style="width:90px;">Type</th>
+        <th style="width:70px;">Region</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div id="emptyState" style="padding:64px 24px;text-align:center;color:#334155;font-size:14px;display:none;">
+    No leads match your filters.
+  </div>
+</div>
+
+<script>
+let ALL_LEADS = [];
+let currentTab = 'all';
+let lastFetch = 0;
+let refreshTimer = null;
+
+function isCanada(city = '') {
+  const c = city.toLowerCase();
+  return c.includes('ontario') || c.includes(' on') || c.includes('london,') ||
+    c.includes('toronto') || c.includes('brampton') || c.includes('oakville') ||
+    c.includes('mississauga') || c.includes('ottawa') || c.includes('canada') ||
+    c.includes('bc') || c.includes('alberta') || c.includes('calgary') ||
+    c.includes('vancouver') || c.includes('quebec') || c.includes('waterloo st') ||
+    c.includes('british columbia');
+}
+
+function stageBadge(s) {
+  if (s === 'replied') return '<span class="badge badge-replied">Replied</span>';
+  if (s === 'proposal_sent') return '<span class="badge badge-proposal">Proposal</span>';
+  if (s === 'cold_call') return '<span class="badge badge-coldcall">Cold Call</span>';
+  if (s === 'in_sequence') return '<span class="badge badge-sequence">In Sequence</span>';
+  if (s === 'complete') return '<span class="badge badge-contact">Complete</span>';
+  return '<span class="badge badge-contact">To Contact</span>';
+}
+
+function setTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    const active = btn.dataset.tab === tab;
+    btn.classList.toggle('active', active);
+    btn.style.color = active ? '' : '#64748b';
+  });
+  renderTable();
+}
+
+function getFiltered() {
+  const search = document.getElementById('search').value.toLowerCase();
+  const type = document.getElementById('typeFilter').value;
+  const geo = document.getElementById('geoFilter').value;
+  return ALL_LEADS.filter(lead => {
+    if (currentTab !== 'all' && lead.stage !== currentTab) return false;
+    if (type === 'dental' && lead.isMedspa) return false;
+    if (type === 'medspa' && !lead.isMedspa) return false;
+    const ca = isCanada(lead.city);
+    if (geo === 'canada' && !ca) return false;
+    if (geo === 'us' && ca) return false;
+    if (search) {
+      const hay = (lead.name + ' ' + lead.city + ' ' + lead.phone + ' ' + lead.email + ' ' + lead.owner).toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+function renderTable() {
+  if (!ALL_LEADS.length) return;
+  const filtered = getFiltered();
+  document.getElementById('countDisplay').textContent = filtered.length.toLocaleString() + ' leads';
+  document.getElementById('loadingState').style.display = 'none';
+
+  if (filtered.length === 0) {
+    document.getElementById('leadsTable').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('leadsTable').style.display = 'table';
+
+  document.getElementById('tbody').innerHTML = filtered.map(lead => {
+    const ca = isCanada(lead.city);
+    const regionBadge = ca ? '<span class="badge badge-ca">CA</span>' : '<span class="badge badge-us">US</span>';
+    const typeBadge = lead.isMedspa ? '<span class="badge badge-medspa">MedSpa</span>' : '<span class="badge badge-dental">Dental</span>';
+    const phone = lead.phone ? `<a href="tel:${lead.phone}" class="phone-link text-sm">${lead.phone}</a>` : '<span style="color:#1e293b;">—</span>';
+    const email = lead.email ? `<a href="mailto:${lead.email}" class="email-link">${lead.email}</a>` : '<span style="color:#1e293b;">—</span>';
+    const owner = lead.owner ? `<div style="color:#334155;font-size:11px;margin-top:2px;">${lead.owner}</div>` : '';
+    return `<tr class="lead-row">
+      <td style="padding-left:24px;">
+        <div style="font-size:13px;font-weight:500;color:#e2e8f0;line-height:1.4;max-width:200px;">${lead.name}</div>${owner}
+      </td>
+      <td style="font-size:12px;color:#64748b;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${lead.city || '<span style="color:#1e293b;">—</span>'}</td>
+      <td style="white-space:nowrap;">${phone}</td>
+      <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${email}</td>
+      <td>${stageBadge(lead.stage)}</td>
+      <td>${typeBadge}</td>
+      <td>${regionBadge}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderStats() {
+  const stats = [
+    { label: 'Total Leads', value: ALL_LEADS.length, color: '#2dd4bf' },
+    { label: 'To Contact', value: ALL_LEADS.filter(l => l.stage === 'to_contact').length, color: '#94a3b8' },
+    { label: 'In Sequence', value: ALL_LEADS.filter(l => l.stage === 'in_sequence').length, color: '#60a5fa' },
+    { label: 'Cold Call', value: ALL_LEADS.filter(l => l.stage === 'cold_call').length, color: '#fbbf24' },
+    { label: 'Replied', value: ALL_LEADS.filter(l => l.stage === 'replied').length, color: '#34d399' },
+    { label: 'Canada', value: ALL_LEADS.filter(l => isCanada(l.city)).length, color: '#f87171' },
+  ];
+  document.getElementById('statsBar').innerHTML = stats.map(s => `
+    <div class="stat-card rounded-xl" style="padding:12px 16px;">
+      <div style="font-size:22px;font-weight:700;color:${s.color};letter-spacing:-0.03em;line-height:1;">${s.value.toLocaleString()}</div>
+      <div style="font-size:10px;color:#334155;margin-top:4px;text-transform:uppercase;letter-spacing:0.07em;">${s.label}</div>
+    </div>`).join('');
+}
+
+function setLiveStatus(state, label) {
+  const dot = document.getElementById('liveDot');
+  dot.className = 'live-dot' + (state === 'ok' ? '' : state === 'stale' ? ' stale' : ' error');
+  document.getElementById('liveLabel').textContent = label;
+}
+
+async function fetchLeads(force = false) {
+  const endpoint = force ? 'http://localhost:3001/api/refresh' : 'http://localhost:3001/api/leads';
+  const res = await fetch(endpoint);
+  if (!res.ok) throw new Error('API error');
+  return await res.json();
+}
+
+async function loadLeads(force = false) {
+  try {
+    setLiveStatus('stale', force ? 'Refreshing...' : 'Checking...');
+    const icon = document.getElementById('refreshIcon');
+    if (force) icon.classList.add('spinning');
+
+    const result = await fetchLeads(force);
+    ALL_LEADS = result.leads;
+    lastFetch = Date.now();
+
+    renderStats();
+    renderTable();
+
+    const ago = result.cached ? `${result.age}s ago` : 'just now';
+    setLiveStatus('ok', `Updated ${ago}`);
+    if (force) icon.classList.remove('spinning');
+
+    scheduleNext();
+  } catch (e) {
+    setLiveStatus('error', 'API offline');
+    document.getElementById('refreshIcon').classList.remove('spinning');
+    console.error('Failed to fetch leads:', e);
+    scheduleNext();
+  }
+}
+
+function scheduleNext() {
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => loadLeads(false), 60 * 1000);
+}
+
+function forceRefresh() {
+  clearTimeout(refreshTimer);
+  loadLeads(true);
+}
+
+// Init
+loadLeads(false);
+</script>
+</body>
+</html>
