@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>VisionLab AI — Post Image</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      background: #010101;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .canvas {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      background: #010101;
+      overflow: hidden;
+    }
+
+    /* Grain texture */
+    .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Background glows */
+    .glow-purple {
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 103, 232, 0.22) 0%, transparent 60%);
+      top: -360px;
+      right: -260px;
+      z-index: 0;
+    }
+
+    .glow-pink {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(250, 147, 250, 0.13) 0%, transparent 60%);
+      bottom: -220px;
+      left: -160px;
+      z-index: 0;
+    }
+
+    .glow-deep {
+      position: absolute;
+      width: 460px;
+      height: 460px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(152, 58, 214, 0.1) 0%, transparent 65%);
+      top: 380px;
+      left: 120px;
+      z-index: 0;
+    }
+
+    /* Diagonal gradient line accent */
+    .accent-line {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 3px;
+      height: 380px;
+      background: linear-gradient(180deg, transparent, #C967E8, #FA93FA, transparent);
+      opacity: 0.35;
+      z-index: 2;
+    }
+
+    /* Content */
+    .content {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 56px 76px 62px;
+    }
+
+    /* Top badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(28, 27, 36, 0.55);
+      border: 1px solid rgba(201, 103, 232, 0.22);
+      border-radius: 100px;
+      padding: 11px 22px;
+      width: fit-content;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .zap-box {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #FA93FA 0%, #C967E8 55%, #983AD6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 12px rgba(201, 103, 232, 0.55),
+        0 0 28px rgba(201, 103, 232, 0.2);
+      flex-shrink: 0;
+    }
+
+    .badge-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.65);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Middle */
+    .middle {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 44px 0 0;
+    }
+
+    /* Pickup indicator row */
+    .indicator-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .phone-box {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      background: rgba(201, 103, 232, 0.09);
+      border: 1px solid rgba(201, 103, 232, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow:
+        0 0 0 1px rgba(250, 147, 250, 0.08),
+        0 4px 24px rgba(201, 103, 232, 0.15);
+    }
+
+    .indicator-text {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #FA93FA 0%, #C967E8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Divider */
+    .divider {
+      width: 64px;
+      height: 2px;
+      background: linear-gradient(90deg, #FA93FA, #C967E8, rgba(152, 58, 214, 0));
+      border-radius: 2px;
+      margin-bottom: 42px;
+    }
+
+    /* Headline */
+    .headline {
+      font-size: 80px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 32px;
+    }
+
+    .hl-white {
+      color: #ffffff;
+      display: block;
+    }
+
+    .hl-grad {
+      display: block;
+      background: linear-gradient(135deg, #FA93FA 0%, #C967E8 45%, #983AD6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subline */
+    .subline {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.62);
+      max-width: 660px;
+    }
+
+    /* Stat cards row */
+    .stats {
+      display: flex;
+      align-items: stretch;
+      gap: 14px;
+      margin-top: 44px;
+    }
+
+    .stat {
+      flex: 1;
+      border-radius: 20px;
+      padding: 22px 28px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .stat.s1 {
+      background: rgba(201, 103, 232, 0.08);
+      border: 1px solid rgba(201, 103, 232, 0.22);
+      box-shadow: 0 0 0 1px rgba(250, 147, 250, 0.06) inset;
+    }
+
+    .stat.s2 {
+      background: rgba(250, 147, 250, 0.06);
+      border: 1px solid rgba(250, 147, 250, 0.15);
+    }
+
+    .stat.s3 {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .stat-num {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat.s1 .stat-num {
+      background: linear-gradient(135deg, #FA93FA, #C967E8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat.s2 .stat-num {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .stat.s3 .stat-num {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 36px;
+    }
+
+    .stat-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.42);
+      line-height: 1.5;
+    }
+
+    /* Bottom */
+    .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(28, 27, 36, 0.5);
+      border: 1px solid rgba(201, 103, 232, 0.22);
+      border-radius: 100px;
+      padding: 13px 26px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .cta-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.01em;
+    }
+
+    .cta-keyword {
+      font-weight: 700;
+      background: linear-gradient(135deg, #FA93FA, #C967E8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-wrap img {
+      height: 52px;
+      width: auto;
+      opacity: 0.9;
+      filter: brightness(0) invert(1);
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+
+    <!-- Grain -->
+    <svg class="grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain)"/>
+    </svg>
+
+    <!-- Background glows -->
+    <div class="glow-purple"></div>
+    <div class="glow-pink"></div>
+    <div class="glow-deep"></div>
+
+    <!-- Accent line -->
+    <div class="accent-line"></div>
+
+    <div class="content">
+
+      <!-- Top section: badge + indicator -->
+      <div>
+        <div class="badge">
+          <div class="zap-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2L4.09 12.87a1 1 0 0 0 .77 1.63H11l-1 7.5 9.09-10.87a1 1 0 0 0-.77-1.63H13l1-7.5z" fill="white"/>
+            </svg>
+          </div>
+          <span class="badge-text">8:14 PM — Tuesday Night</span>
+        </div>
+
+        <!-- Pickup indicator -->
+        <div class="indicator-row">
+          <div class="phone-box">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.62 10.79C8.06 13.62 10.38 15.93 13.21 17.38L15.41 15.18C15.68 14.91 16.08 14.82 16.43 14.94C17.55 15.31 18.76 15.51 20 15.51C20.55 15.51 21 15.96 21 16.51V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="#C967E8"/>
+            </svg>
+          </div>
+          <span class="indicator-text">Answered — Ring 2</span>
+        </div>
+      </div>
+
+      <!-- Middle -->
+      <div class="middle">
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Headline -->
+        <div class="headline">
+          <span class="hl-white">Front desk closed.</span>
+          <span class="hl-grad">AI picked up.</span>
+        </div>
+
+        <!-- Subline -->
+        <div class="subline">
+          Booked a cleaning in 27 seconds.<br>Patient had no idea it wasn't a person.
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat s1">
+            <div class="stat-num">62%</div>
+            <div class="stat-desc">Of voicemail callers never<br>call back — they move on</div>
+          </div>
+          <div class="stat s2">
+            <div class="stat-num">27 sec</div>
+            <div class="stat-desc">First ring to booking<br>confirmed</div>
+          </div>
+          <div class="stat s3">
+            <div class="stat-num">4 days</div>
+            <div class="stat-desc">Build to<br>go-live</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom -->
+      <div class="bottom">
+        <div class="cta-pill">
+          <span class="cta-label">DM <span class="cta-keyword">"CALL"</span> — I'll send the recording</span>
+        </div>
+        <div class="logo-wrap"></div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
