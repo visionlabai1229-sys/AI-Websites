@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisionLab AI | AI Receptionist for Dental Clinics</title>
+<meta name="description" content="VisionLab AI builds AI voice receptionists for dental clinics — answer every call 24/7, book appointments automatically, and never lose a patient to voicemail again.">
+
+<!-- Open Graph / LinkedIn / Social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://visionlabai.ca/">
+<meta property="og:title" content="VisionLab AI | AI Receptionist for Dental Clinics">
+<meta property="og:description" content="Your dental clinic answers every call, books appointments, and handles FAQs — automatically, 24/7. No voicemail. No missed patients.">
+<meta property="og:image" content="https://visionlabai.ca/brand_assests/VisionLab_AI_Logo.png">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VisionLab AI | AI Receptionist for Dental Clinics">
+<meta name="twitter:description" content="Your dental clinic answers every call, books appointments, and handles FAQs — automatically, 24/7.">
+<meta name="twitter:image" content="https://visionlabai.ca/brand_assests/VisionLab_AI_Logo.png">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://visionlabai.ca/">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HXY9F2VDQP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HXY9F2VDQP');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04060E;--fg:#fff;
+  --teal:#00C2D4;--teal2:#2AE0F0;
+  --orange:#F08C00;--orange2:#FFB200;
+  --muted:rgba(255,255,255,.52);--muted2:rgba(255,255,255,.28);
+  --border:rgba(255,255,255,.06);--card:rgba(255,255,255,.028);
+  --sp:cubic-bezier(.2,.8,.2,1);
+  --sp2:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--fg);
+  font-family:'Space Grotesk',sans-serif;overflow:hidden;
+  -webkit-font-smoothing:antialiased}
+
+/* ── WARP CANVAS (full-page persistent) ── */
+#warp{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+/* ── GRAIN ── */
+#nebula{position:fixed;inset:0;pointer-events:none;z-index:1;
+  transition:background 2s ease,opacity 2s ease;opacity:1}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;mix-blend-mode:overlay}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;gap:32px;padding:20px 52px;
+  background:transparent;
+  transition:background .5s ease,backdrop-filter .5s ease,border-color .5s ease,padding .3s ease}
+nav.scrolled{background:transparent;backdrop-filter:none;
+  border-bottom:none;padding:14px 52px}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;flex-shrink:0}
+.nav-logo svg{width:24px;height:24px}
+.nav-logoname{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.nav-links{display:flex;list-style:none;gap:26px;font-size:13px;margin-right:auto}
+.nav-links a{color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;
+  background:var(--teal);transition:width .25s var(--sp)}
+.nav-links a:hover{color:#fff}.nav-links a:hover::after{width:100%}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;
+  font-size:13px;font-weight:500;color:#07090F;flex-shrink:0;
+  background:linear-gradient(170deg,#fff 0%,#d0d0d0 100%);
+  border:none;border-radius:999px;cursor:pointer;text-decoration:none;
+  box-shadow:0 0 0 1px rgba(255,255,255,.1),0 6px 24px rgba(0,194,212,.3);
+  transition:transform .2s,box-shadow .2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(0,194,212,.55),0 12px 32px rgba(0,194,212,.45)}
+#hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;z-index:300}
+#hbg span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,.85);transform-origin:center;transition:transform .3s,opacity .3s}
+#hbg.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+#hbg.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+#hbg.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mmenu{position:fixed;inset:0;z-index:150;background:rgba(4,6,14,.97);
+  backdrop-filter:blur(28px);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:32px;opacity:0;pointer-events:none;transition:opacity .35s}
+#mmenu.open{opacity:1;pointer-events:all}
+#mmenu a{color:rgba(255,255,255,.82);text-decoration:none;font-size:28px;font-weight:600;
+  letter-spacing:-.02em;transition:color .2s,transform .25s}
+#mmenu a:hover{color:var(--teal);transform:translateX(8px)}
+
+/* ── SIDE DOTS ── */
+#dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:200;
+  display:flex;flex-direction:column;gap:10px}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;
+  transition:background .35s,transform .35s,box-shadow .35s}
+.dot.active{background:var(--teal);transform:scale(1.55);box-shadow:0 0 10px rgba(0,194,212,.75)}
+
+/* ── SCROLLER ── */
+#scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;
+  scrollbar-width:none;position:relative;z-index:10;perspective:1200px;perspective-origin:50% 50%}
+#scroller::-webkit-scrollbar{display:none}
+
+/* ── SECTIONS ── */
+section{scroll-snap-align:start;height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transform-style:preserve-3d}
+
+/* ── SCROLL INDICATOR ── */
+.si{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:10;opacity:.6}
+.si-ring{width:26px;height:26px;border:1.5px solid rgba(0,194,212,.4);border-radius:50%;
+  display:flex;align-items:flex-start;justify-content:center;padding-top:4px}
+.si-dot{width:3px;height:3px;border-radius:50%;background:var(--teal);animation:siP 2.2s ease-in-out infinite}
+@keyframes siP{0%,100%{transform:translateY(0);opacity:1}55%{transform:translateY(7px);opacity:.25}}
+
+/* ── DEPTH ENTRANCE ── */
+/* Sections start deep (far away) and zoom toward viewer on scroll */
+.depth-enter{
+  opacity:0;
+  transform:translateZ(-120px) translateY(30px) scale(.92);
+  filter:blur(6px);
+  transition:opacity .9s var(--sp2), transform .9s var(--sp2), filter .7s ease;
+  will-change:transform,opacity;
+}
+.depth-enter.arrived{
+  opacity:1;
+  transform:translateZ(0) translateY(0) scale(1);
+  filter:none;
+}
+.depth-enter[data-d="1"]{transition-delay:.08s}
+.depth-enter[data-d="2"]{transition-delay:.2s}
+.depth-enter[data-d="3"]{transition-delay:.33s}
+.depth-enter[data-d="4"]{transition-delay:.48s}
+.depth-enter[data-d="5"]{transition-delay:.64s}
+.depth-enter[data-d="6"]{transition-delay:.8s}
+
+/* From left/right */
+.de-l{transform:translateX(-60px) translateZ(-60px) scale(.94);filter:blur(5px)}
+.de-l.arrived{transform:none;filter:none}
+.de-r{transform:translateX(60px) translateZ(-60px) scale(.94);filter:blur(5px)}
+.de-r.arrived{transform:none;filter:none}
+
+/* Hero load */
+.hl{opacity:0;transform:translateY(24px) scale(.97);filter:blur(6px);
+  transition:opacity 1s var(--sp2),transform 1s var(--sp2),filter .8s ease}
+.hl.in{opacity:1;transform:none;filter:none}
+
+/* Word-by-word reveal (adapted scroll-reveal — arrival-triggered, not continuous-scroll, per scroll-snap constraint) */
+.word-span{display:inline-block;opacity:.15;filter:blur(2px);transition:opacity .5s ease,filter .5s ease}
+.word-span.in{opacity:1;filter:none}
+
+/* Arrival focus-cue: background canvas briefly defocuses then resolves as section content locks in */
+.focus-canvas{transition:filter .6s ease}
+.focus-canvas.dip{filter:blur(6px) brightness(.65);transition:none}
+
+/* Persistent hero glow — always visible, no interaction required */
+.hero-glow{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:min(1100px,95vw);height:520px;
+  z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 55% 50% at 50% 42%,rgba(0,194,212,.4) 0%,rgba(0,194,212,.18) 35%,rgba(240,140,0,.16) 55%,transparent 78%);
+  filter:blur(30px);animation:heroGlowPulse 5s ease-in-out infinite}
+@keyframes heroGlowPulse{0%,100%{opacity:.85;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.1)}}
+
+/* ── TYPOGRAPHY ── */
+.sec-label{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:14px;
+  padding:7px 16px 7px 12px;border-left:2px solid var(--orange);
+  background:rgba(240,140,0,.09);border-radius:0 999px 999px 0;
+  box-shadow:0 0 28px rgba(240,140,0,.14),inset 0 1px 0 rgba(255,255,255,.05);
+  text-shadow:0 0 20px rgba(240,140,0,.4)}
+.sec-h2{font-size:clamp(30px,3.8vw,56px);font-weight:600;line-height:1.08;letter-spacing:-.03em}
+.sec-h2-c{font-size:clamp(30px,3.8vw,56px);font-weight:600;line-height:1.08;letter-spacing:-.03em;text-align:center}
+.sec-h2-xl{font-size:clamp(38px,5.8vw,82px);font-weight:600;line-height:1.05;letter-spacing:-.035em;text-align:center}
+.body-sm{font-size:15px;line-height:1.74;color:var(--muted)}
+.tc{color:var(--teal)}.oc{color:var(--orange)}
+.rule{display:inline-block;width:32px;height:2px;background:linear-gradient(90deg,var(--teal),var(--orange));border-radius:2px;margin-bottom:16px}
+.rule.rev{background:linear-gradient(90deg,var(--orange),var(--teal))}
+
+/* ── MICRO-LABEL TYPEFACE (third typographic voice: mono, for eyebrows/indices/stat labels) ── */
+.sec-label,.card-label,.pc-tier,.stat-lbl,.roi-label,.icon-caption{font-family:'Space Mono',monospace}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 24px;
+  border:1px solid rgba(0,194,212,.42);border-radius:999px;
+  font:500 13px 'Space Grotesk',sans-serif;color:#fff;text-decoration:none;
+  cursor:pointer;background:transparent;position:relative;overflow:hidden;
+  transition:border-color .25s,color .25s;letter-spacing:.01em}
+.btn::before{content:'';position:absolute;inset:0;border-radius:inherit;
+  background:rgba(0,194,212,.09);transform:translateX(-105%);transition:transform .4s var(--sp)}
+.btn:hover::before{transform:translateX(0)}.btn:hover{border-color:var(--teal);color:var(--teal)}
+.btn .arr{font-size:11px;transition:transform .25s var(--sp)}.btn:hover .arr{transform:translate(3px,-3px)}
+.btn-oc{border-color:rgba(240,140,0,.42)}.btn-oc::before{background:rgba(240,140,0,.09)}
+.btn-oc:hover{border-color:var(--orange);color:var(--orange2)}
+/* Final CTA (s11) — the single most important click on the site, most refined button treatment */
+.btn-final-cta{outline:1px solid rgba(240,140,0,.35);outline-offset:-3px;
+  box-shadow:0 0 0 1px rgba(240,140,0,.15),0 8px 34px rgba(240,140,0,.28),inset 0 1px 0 rgba(255,255,255,.04);
+  animation:btnFinalGlow 3s ease-in-out infinite}
+.btn-final-cta:hover{outline-color:rgba(240,140,0,.6);animation-play-state:paused;
+  box-shadow:0 0 0 1px rgba(240,140,0,.35),0 16px 50px rgba(240,140,0,.45),inset 0 1px 0 rgba(255,255,255,.08)}
+@keyframes btnFinalGlow{
+  0%,100%{box-shadow:0 0 0 1px rgba(240,140,0,.15),0 8px 34px rgba(240,140,0,.28),inset 0 1px 0 rgba(255,255,255,.04)}
+  50%{box-shadow:0 0 0 1px rgba(240,140,0,.3),0 10px 46px rgba(240,140,0,.42),inset 0 1px 0 rgba(255,255,255,.08)}
+}
+.btn-hero{color:#060810;background:linear-gradient(165deg,#fff 0%,#ccc 100%);border:none;
+  font-size:14px;padding:14px 30px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.12),0 12px 40px rgba(0,194,212,.35),inset 0 -1px 0 rgba(0,0,0,.12);
+  animation:btnHeroGlow 3s ease-in-out infinite}
+.btn-hero::before{background:rgba(0,194,212,.15)}
+.btn-hero:hover{color:#060810;border:none;animation-play-state:paused;
+  box-shadow:0 0 0 1px rgba(0,194,212,.55),0 20px 50px rgba(0,194,212,.55)}
+@keyframes btnHeroGlow{
+  0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.12),0 12px 40px rgba(0,194,212,.35),inset 0 -1px 0 rgba(0,0,0,.12)}
+  50%{box-shadow:0 0 0 1px rgba(0,194,212,.3),0 14px 52px rgba(0,194,212,.55),inset 0 -1px 0 rgba(0,0,0,.12)}
+}
+.btn-play{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);backdrop-filter:blur(10px);cursor:pointer;
+  transition:background .2s,transform .2s}
+.btn-play:hover{background:rgba(255,255,255,.1);transform:scale(1.08)}
+.btn-play svg{width:14px;height:14px;fill:#fff;margin-left:2px}
+.btn-play::before{content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid rgba(0,194,212,.35);opacity:0;
+  animation:ringOut 2.6s ease-out 1.8s infinite}
+@keyframes ringOut{0%{transform:scale(.8);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+
+/* ── GLASS CARD ── */
+.gcard{
+  background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.02) 100%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:26px 24px;
+  box-shadow:0 12px 44px rgba(0,0,0,.5),0 0 26px rgba(0,194,212,.07),inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(12px);
+  transition:border-color .3s,box-shadow .35s,transform .4s var(--sp);
+  position:relative;overflow:hidden;
+}
+.gcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--teal),var(--orange));border-radius:16px 16px 0 0;
+  box-shadow:0 0 12px rgba(0,194,212,.6)}
+.gcard.oc::after{background:linear-gradient(90deg,var(--orange),var(--teal));box-shadow:0 0 12px rgba(240,140,0,.6)}
+.gcard::before{content:'';position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(circle at 0% 0%,rgba(0,194,212,.07) 0%,transparent 60%);
+  opacity:0;transition:opacity .35s}
+.gcard:hover{border-color:rgba(0,194,212,.25);
+  outline:1px solid rgba(0,194,212,.28);outline-offset:-2px;
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(0,194,212,.1),inset 0 1px 0 rgba(255,255,255,.08);
+  transform:translateY(-8px) scale(1.012)}
+.gcard:hover::before{opacity:1}
+.gcard.oc::before{background:radial-gradient(circle at 0% 0%,rgba(240,140,0,.07) 0%,transparent 60%)}
+.gcard.oc:hover{border-color:rgba(240,140,0,.25);outline-color:rgba(240,140,0,.28);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(240,140,0,.1),inset 0 1px 0 rgba(255,255,255,.08)}
+.card-label{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.card-label.oc{color:var(--orange)}
+.card-body{font-size:13.5px;line-height:1.7;color:var(--muted)}
+.phase-num{font-size:clamp(64px,7vw,96px);font-weight:700;letter-spacing:-.05em;line-height:1;
+  position:absolute;top:-10px;left:-4px;user-select:none;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.01));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ── H-CIRCLES (services) ── */
+.hc{border-radius:50%;border:1.5px solid rgba(0,194,212,.2);
+  background:radial-gradient(circle at center,rgba(0,194,212,.06) 0%,transparent 75%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 20px rgba(0,194,212,.05),0 0 0 1px rgba(0,194,212,.06);
+  transition:border-color .4s,box-shadow .4s,transform .4s var(--sp);
+  animation:hcFloat 5s ease-in-out infinite}
+.hc:nth-child(2){animation-delay:-1.25s}.hc:nth-child(3){animation-delay:-2.5s}.hc:nth-child(4){animation-delay:-3.75s}
+@keyframes hcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hc:hover{border-color:rgba(0,194,212,.55);
+  box-shadow:inset 0 0 30px rgba(0,194,212,.1),0 0 32px rgba(0,194,212,.18);
+  transform:scale(1.07)!important}
+.hc.oc{border-color:rgba(240,140,0,.2);background:radial-gradient(circle at center,rgba(240,140,0,.06) 0%,transparent 75%);
+  box-shadow:inset 0 0 20px rgba(240,140,0,.05),0 0 0 1px rgba(240,140,0,.06)}
+.hc.oc:hover{border-color:rgba(240,140,0,.55);box-shadow:inset 0 0 30px rgba(240,140,0,.1),0 0 32px rgba(240,140,0,.18)}
+
+/* ── STAT ── */
+.stat-num{font-size:clamp(28px,3.4vw,46px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.stat-lbl{font-size:10px;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;margin-top:5px}
+
+/* ── PRICING ── */
+.pc{background:linear-gradient(135deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.02) 100%);
+  border:1px solid rgba(0,194,212,.1);border-radius:16px;padding:28px 22px 22px;
+  display:flex;flex-direction:column;position:relative;cursor:pointer;overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter:blur(12px);
+  transition:border-color .3s,box-shadow .35s,transform .4s var(--sp),background .3s}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--teal),var(--orange));border-radius:16px 16px 0 0;opacity:.75;
+  box-shadow:0 0 12px rgba(0,194,212,.5)}
+.pc:hover{border-color:rgba(0,194,212,.3);transform:translateY(-6px);
+  box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 32px rgba(0,194,212,.12)}
+.pc.active{background:linear-gradient(135deg,rgba(0,194,212,.1) 0%,rgba(0,194,212,.03) 100%);
+  border-color:rgba(0,194,212,.55);transform:translateY(-8px);
+  outline:1.5px solid rgba(0,194,212,.55);outline-offset:-2px;
+  box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 70px rgba(0,194,212,.32),inset 0 1px 0 rgba(0,194,212,.2);
+  animation:pcActiveGlow 3.4s ease-in-out infinite}
+.pc.active::before{opacity:1;height:3px}
+@keyframes pcActiveGlow{
+  0%,100%{box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 70px rgba(0,194,212,.32),inset 0 1px 0 rgba(0,194,212,.2)}
+  50%{box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 96px rgba(0,194,212,.48),inset 0 1px 0 rgba(0,194,212,.3)}
+}
+.pc-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(90deg,var(--teal),rgba(0,194,212,.75));color:#07090F;
+  font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 14px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 2px 16px rgba(0,194,212,.45),0 0 0 1px rgba(0,194,212,.25)}
+.pc-tier{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.pc-price{font-size:clamp(28px,3.2vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:4px}
+.pc-per{font-size:11px;color:var(--muted2);margin-bottom:20px;line-height:1.5}
+.pc-setup{font-size:11.5px;color:var(--muted2);margin-bottom:18px}
+.pc-div{width:100%;height:1px;background:rgba(0,194,212,.09);margin-bottom:16px}
+.pc-list{list-style:none;flex:1;margin-bottom:20px;display:flex;flex-direction:column;gap:9px}
+.pc-list li{display:flex;align-items:center;gap:9px;font-size:12.5px}
+.pc-list li.inc{opacity:.9}.pc-list li.exc{opacity:.28}
+.fc{width:14px;height:14px;flex-shrink:0;color:var(--teal);font-size:11px;font-weight:700}
+.fx{width:14px;height:14px;flex-shrink:0;color:var(--muted2);font-size:10px}
+
+/* ── TEAM ── */
+.t-border{background:linear-gradient(135deg,var(--teal),var(--orange));border-radius:50%;
+  padding:2.5px;display:inline-block;
+  transition:box-shadow .35s,transform .35s var(--sp)}
+.t-border:hover{box-shadow:0 0 0 5px rgba(0,194,212,.12),0 12px 40px rgba(0,194,212,.28);transform:translateY(-4px)}
+.t-wrap{background:var(--bg);border-radius:50%;overflow:hidden}
+.t-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:grayscale(88%) brightness(.72) contrast(1.1);transition:filter .4s}
+.t-border:hover .t-wrap img{filter:grayscale(60%) brightness(.85) contrast(1.05)}
+.fl{color:var(--muted2);font-size:12px;text-decoration:none;transition:color .2s}
+.fl:hover{color:var(--teal)}
+
+@keyframes pulseDot{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.2);opacity:0}}
+@keyframes waveBar{0%,100%{height:3px}50%{height:12px}}
+.wave{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.wave span{display:block;width:2.5px;background:currentColor;border-radius:2px;animation:waveBar .9s ease-in-out infinite}
+.wave span:nth-child(1){animation-delay:0s}.wave span:nth-child(2){animation-delay:.15s}
+.wave span:nth-child(3){animation-delay:.3s}.wave span:nth-child(4){animation-delay:.45s}
+
+#s8{overflow:visible;justify-content:flex-start;}
+.roi-bar{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;align-items:center;width:100%;max-width:960px;margin-bottom:32px;background:linear-gradient(135deg,rgba(0,194,212,.06) 0%,rgba(255,255,255,.03) 100%);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,194,212,.18);border-radius:16px;padding:32px 0;box-shadow:0 0 40px rgba(0,194,212,.06),inset 0 1px 0 rgba(255,255,255,.06);}
+.roi-stat{text-align:center;padding:0 32px;}
+.roi-num{font-family:'Instrument Serif',serif;font-size:clamp(26px,2.8vw,38px);color:#fff;letter-spacing:-.03em;line-height:1;font-weight:400;}
+.roi-num.tc{color:var(--teal);text-shadow:0 0 24px rgba(0,194,212,.4);}
+.roi-label{font-size:11.5px;color:rgba(255,255,255,.58);margin-top:8px;line-height:1.55;max-width:150px;margin-left:auto;margin-right:auto;}
+.roi-div{width:1px;height:48px;background:rgba(0,194,212,.18);}
+@media(max-width:640px){
+  .nav-links{display:none}
+  #hbg{display:flex;margin-left:auto}
+  .nav-cta{display:none}
+  #dots{display:none}
+  section{padding:40px 20px!important}
+  #s8{height:auto;min-height:100vh;}
+  .roi-bar{grid-template-columns:1fr;padding:24px 20px;gap:20px;}
+  .roi-div{width:40px;height:1px;margin:0 auto;}
+  .roi-stat{padding:0 16px;}
+  .pricing-grid{grid-template-columns:1fr!important;gap:16px!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- WARP CANVAS -->
+<canvas id="warp"></canvas>
+<!-- PER-SECTION NEBULA -->
+<div id="nebula"></div>
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo" onclick="goTo(0);return false;" aria-label="VisionLab AI" style="display:flex;align-items:center;gap:0;">
+    <img src="brand_assests/VisionLab_AI_Logo_nav.png" alt="VisionLab AI" style="height:36px;width:auto;display:block;flex-shrink:0;filter:drop-shadow(0 0 6px rgba(0,194,212,.7)) drop-shadow(0 0 14px rgba(0,194,212,.35)) drop-shadow(0 0 2px rgba(240,140,0,.5));">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="goTo(0);return false;">Home</a></li>
+    <li><a href="#" onclick="goTo(1);return false;">Services</a></li>
+    <li><a href="#" onclick="goTo(6);return false;">Method</a></li>
+    <li><a href="#" onclick="goTo(8);return false;">Pricing</a></li>
+    <li><a href="#" onclick="goTo(10);return false;">About</a></li>
+    <li><a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener">Contact</a></li>
+  </ul>
+  <a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="nav-cta">
+    Book a Demo
+    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4.5M9 3V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <button id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mmenu" aria-hidden="true">
+  <a href="#" onclick="goTo(0);closeM();return false;">Home</a>
+  <a href="#" onclick="goTo(1);closeM();return false;">Services</a>
+  <a href="#" onclick="goTo(6);closeM();return false;">Method</a>
+  <a href="#" onclick="goTo(8);closeM();return false;">Pricing</a>
+  <a href="#" onclick="goTo(10);closeM();return false;">About</a>
+  <a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" onclick="closeM();">Book a Demo</a>
+</div>
+
+<!-- DOTS -->
+<div id="dots"></div>
+
+<!-- SCROLLER -->
+<div id="scroller">
+
+<!-- ══ S0 HERO ══ -->
+<section id="s0" style="padding:0 32px;">
+  <!-- Perspective grid plane -->
+  <canvas id="cvHero" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:.45;"></canvas>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div style="position:relative;z-index:5;text-align:center;max-width:940px;width:100%;padding-top:72px;">
+    <!-- Live badge -->
+    <div class="hl" style="display:inline-flex;align-items:center;gap:9px;
+        padding:5px 16px 5px 9px;border:1px solid rgba(255,255,255,.07);border-radius:999px;
+        background:rgba(255,255,255,.025);backdrop-filter:blur(16px);
+        font-size:11.5px;color:var(--muted);margin-bottom:14px;">
+      <span style="position:relative;width:12px;height:12px;border-radius:50%;display:block;flex-shrink:0;
+          background:radial-gradient(circle at 30% 30%,var(--teal),#006f7a);
+          box-shadow:0 0 0 3px rgba(0,194,212,.12),0 0 12px rgba(0,194,212,.55);">
+        <span style="position:absolute;inset:-2px;border-radius:50%;border:1px solid rgba(0,194,212,.5);
+            animation:pulseDot 2s ease-out infinite;"></span>
+      </span>
+      <span class="wave" style="color:var(--teal);margin:0 2px;"><span></span><span></span><span></span><span></span></span>
+      Now live — <strong style="color:#fff;font-weight:500;">AI Receptionist</strong>
+    </div>
+    <!-- Headline -->
+    <h1 class="hl" style="font-size:clamp(32px,4.8vw,68px);font-weight:500;line-height:.95;
+        letter-spacing:-.036em;margin:0 auto 14px;transition-delay:.14s;perspective:600px;">
+      <div id="heroParallax" style="will-change:transform;">
+        <span class="hero-3d-white" style="display:block;">More Calls Answered.</span>
+        <span class="hero-3d-orange" style="display:block;font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.022em;">
+          More Appointments Booked.
+        </span>
+      </div>
+    </h1>
+    <style>
+      .hero-3d-white{
+        position:relative;display:block;
+        background:linear-gradient(135deg,
+          #6ee8f8 0%,#b8eeff 10%,#ffffff 20%,#e0fbff 30%,
+          #7ad4e8 42%,#ffffff 54%,
+          #c8f6ff 64%,#ffffff 74%,#90e0f0 85%,#e8faff 100%);
+        background-size:400% 400%;
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        filter:
+          drop-shadow(0 1px 0 rgba(0,194,212,.9))
+          drop-shadow(0 2px 0 rgba(0,170,200,.7))
+          drop-shadow(0 4px 0 rgba(0,140,170,.5))
+          drop-shadow(0 6px 0 rgba(0,100,130,.3))
+          drop-shadow(0 10px 20px rgba(0,0,0,.7));
+        animation:shineW 5.5s linear infinite;
+      }
+      .hero-3d-orange{
+        position:relative;display:block;
+        background:linear-gradient(135deg,
+          #ffe066 0%,#ffcc00 10%,#fff8a0 20%,#ffb300 30%,
+          #fff3a0 42%,#f08c00 54%,
+          #ffd060 64%,#fff8c0 74%,#ff9500 85%,#ffe580 100%);
+        background-size:400% 400%;
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        filter:
+          drop-shadow(0 1px 0 rgba(240,140,0,.9))
+          drop-shadow(0 2px 0 rgba(200,100,0,.7))
+          drop-shadow(0 4px 0 rgba(160,70,0,.5))
+          drop-shadow(0 6px 0 rgba(100,40,0,.3))
+          drop-shadow(0 10px 20px rgba(0,0,0,.7));
+        animation:shineO 5.5s linear infinite;
+      }
+      @keyframes shineW{
+        0%{background-position:100% 50%}
+        100%{background-position:-300% 50%}
+      }
+      @keyframes shineO{
+        0%{background-position:100% 50%}
+        100%{background-position:-300% 50%}
+      }
+    </style>
+    <!-- Sub -->
+    <p class="hl" style="max-width:560px;margin:0 auto 18px;text-align:center;font-size:14px;
+        line-height:1.65;color:var(--muted);transition-delay:.28s;">
+      VisionLab AI builds AI-powered systems for dental clinics and service businesses — so your phones are always answered, your schedules stay full, and your team can focus on delivering great care.
+    </p>
+    <!-- CTAs -->
+    <div class="hl" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:center;transition-delay:.42s;">
+      <a href="#" class="btn btn-hero" onclick="goTo(1);return false;">
+        Explore Our Services
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4.5M9 3V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button type="button" class="btn-play" id="demo-btn" title="Talk to AI demo" style="padding:0;">
+        <svg viewBox="0 0 14 14" id="demo-btn-svg"><path d="M3 2 L11 7 L3 12Z" fill="currentColor"/></svg>
+      </button>
+      <span style="font-size:12px;color:var(--muted2);">Call our live AI</span>
+    </div>
+    <p class="hl" style="margin-top:8px;font-size:11px;color:var(--muted2);letter-spacing:.04em;transition-delay:.54s;">
+      Talk to our AI receptionist live — right in your browser.
+    </p>
+    <!-- Tech Stack Marquee -->
+    <div class="hl" style="margin-top:18px;transition-delay:.58s;">
+      <p style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;">Powered by</p>
+      <div style="position:relative;overflow:hidden;width:100%;padding:10px 0 4px;
+          mask-image:linear-gradient(to right,transparent,black 12%,black 88%,transparent);
+          -webkit-mask-image:linear-gradient(to right,transparent,black 12%,black 88%,transparent);">
+        <div id="techTrack" style="display:flex;gap:10px;width:max-content;padding-bottom:4px;">
+          <!-- Cards repeated twice for seamless loop -->
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes techScrollExact{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+      #techTrack:hover{animation-play-state:paused}
+      .tcard{
+        display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+        width:60px;height:60px;border-radius:12px;flex-shrink:0;cursor:default;
+        background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+        transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s,background .3s;
+        transform-style:preserve-3d;
+      }
+      .tcard:hover{
+        transform:translateY(-6px) rotateX(8deg) scale(1.08);
+        background:rgba(0,194,212,.07);
+        border-color:rgba(0,194,212,.35);
+        box-shadow:0 12px 32px rgba(0,194,212,.25),0 0 0 1px rgba(0,194,212,.2);
+      }
+      .tcard svg{width:28px;height:28px;flex-shrink:0}
+      .tcard span{font-size:9.5px;color:var(--muted2);letter-spacing:.04em;font-weight:500}
+    </style>
+    <script>
+    (function(){
+      const tools = [
+        { name:'OpenAI', color:'#00C2D4', svg:`<circle cx="14" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="19" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="19" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="14" y1="14" x2="7" y2="15" stroke="currentColor" stroke-width="1.2"/><line x1="14" y1="14" x2="21" y2="15" stroke="currentColor" stroke-width="1.2"/>` },
+        { name:'Claude', color:'#F08C00', svg:`<path d="M14 5c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 13c0-2.2 1.8-4 4-4s4 1.8 4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="14" cy="16" r="1.5" fill="currentColor"/>` },
+        { name:'Twilio', color:'#00C2D4', svg:`<circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10" r="2" fill="currentColor"/><circle cx="18" cy="10" r="2" fill="currentColor"/><circle cx="10" cy="18" r="2" fill="currentColor"/><circle cx="18" cy="18" r="2" fill="currentColor"/>` },
+        { name:'Cal.com', color:'#00C2D4', svg:`<rect x="5" y="6" width="18" height="17" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="4" x2="9" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="4" x2="19" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="5" y1="11" x2="23" y2="11" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="14" width="3" height="3" rx="1" fill="currentColor" opacity=".7"/>` },
+        { name:'n8n', color:'#00C2D4', svg:`<circle cx="6" cy="14" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="7" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="22" cy="14" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="21" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="13" x2="11" y2="9" stroke="currentColor" stroke-width="1.2"/><line x1="17" y1="9" x2="19" y2="13" stroke="currentColor" stroke-width="1.2"/><line x1="19" y1="15" x2="17" y2="19" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="19" x2="9" y2="15" stroke="currentColor" stroke-width="1.2"/>` },
+        { name:'ElevenLabs', color:'#F08C00', svg:`<line x1="4" y1="14" x2="4" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="10" x2="8" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="7" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="10" x2="16" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="12" x2="20" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="24" y1="13" x2="24" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>` },
+        { name:'Stripe', color:'#00C2D4', svg:`<rect x="4" y="7" width="20" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="11" x2="24" y2="11" stroke="currentColor" stroke-width="1.5"/><rect x="7" y="14" width="5" height="2" rx="1" fill="currentColor" opacity=".7"/>` },
+      ];
+      const track = document.getElementById('techTrack');
+      const makeCard = (t) => {
+        const div = document.createElement('div');
+        div.className = 'tcard';
+        div.innerHTML = `<svg viewBox="0 0 28 28" fill="none" style="color:${t.color}">${t.svg}</svg><span>${t.name}</span>`;
+        div.addEventListener('mousemove', e => {
+          const r = div.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          div.style.transform = `translateY(-6px) rotateX(${-y*18}deg) rotateY(${x*18}deg) scale(1.08)`;
+        });
+        div.addEventListener('mouseleave', () => { div.style.transform = ''; });
+        return div;
+      };
+      // Render FOUR copies so wrap is invisible (always cards on both sides)
+      const N = tools.length;
+      [...tools, ...tools, ...tools, ...tools].forEach(t => track.appendChild(makeCard(t)));
+      let pos = 0, paused = false, oneSetW = 0;
+      track.addEventListener('mouseenter', ()=>{ paused=true; });
+      track.addEventListener('mouseleave', ()=>{ paused=false; });
+      function measure(){
+        const cards = track.children;
+        if(cards.length >= N*2){
+          // Distance from first card of copy 1 to first card of copy 2
+          oneSetW = cards[N].offsetLeft - cards[0].offsetLeft;
+        }
+      }
+      // Scroll-velocity signal: marquee briefly speeds up while the page is being scrolled,
+      // decaying back to resting speed when scrolling stops (motionsites.ai NovaAI/Mostar-inspired,
+      // adapted for scroll-snap — global velocity rather than section-local continuous scrub)
+      let lastScrollTop = 0, rawVelocity = 0, smoothVelocity = 0;
+      const scrollEl = document.getElementById('scroller');
+      if(scrollEl){
+        lastScrollTop = scrollEl.scrollTop;
+        scrollEl.addEventListener('scroll', ()=>{
+          const t = scrollEl.scrollTop;
+          rawVelocity = Math.min(Math.abs(t - lastScrollTop), 40);
+          lastScrollTop = t;
+        }, {passive:true});
+      }
+      function loop(){
+        if(!oneSetW) measure();
+        smoothVelocity += (rawVelocity - smoothVelocity) * 0.1;
+        rawVelocity *= 0.9;
+        if(!paused && oneSetW){
+          pos += 0.4 + smoothVelocity * 0.12;
+          if(pos >= oneSetW) pos -= oneSetW;
+        }
+        track.style.transform = `translate3d(-${pos}px,0,0)`;
+        requestAnimationFrame(loop);
+      }
+      window.addEventListener('resize', ()=>{ oneSetW = 0; });
+      // Wait for layout
+      setTimeout(()=>{ measure(); requestAnimationFrame(loop); }, 100);
+    })();
+
+    // Restrained pointer-parallax on the hero headline (lerped, small range — B2B-appropriate)
+    (function(){
+      const el = document.getElementById('heroParallax');
+      if(!el) return;
+      let mx = 0, my = 0, tx = 0, ty = 0;
+      window.addEventListener('pointermove', e=>{
+        mx = e.clientX / window.innerWidth - 0.5;
+        my = e.clientY / window.innerHeight - 0.5;
+      }, {passive:true});
+      function raf(){
+        tx += (mx - tx) * 0.06;
+        ty += (my - ty) * 0.06;
+        el.style.transform = `translate3d(${tx*6}px,${ty*4}px,0)`;
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    })();
+    </script>
+    <!-- Stats -->
+    <div class="hl" style="display:flex;justify-content:center;gap:clamp(28px,5vw,76px);
+        margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.05);
+        transition-delay:.66s;">
+      <div><div class="stat-num" style="color:var(--orange);text-shadow:0 0 30px rgba(240,140,0,.4);">24/7</div><div class="stat-lbl">Call Coverage</div></div>
+      <div><div class="stat-num" style="color:#fff;">3×</div><div class="stat-lbl">More Bookings</div></div>
+      <div><div class="stat-num" style="color:var(--teal);text-shadow:0 0 30px rgba(0,194,212,.4);">&lt;60s</div><div class="stat-lbl">Response Time</div></div>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S1 SERVICES OVERVIEW ══ -->
+<section id="s1" style="padding:44px 60px;">
+  <div style="display:flex;gap:clamp(14px,2.5vw,32px);align-items:flex-start;margin-bottom:48px;">
+    <div class="depth-enter" style="display:flex;flex-direction:column;align-items:center;gap:13px;">
+      <div class="hc-magnet" style="will-change:transform;">
+        <div class="hc" style="width:clamp(92px,12vw,160px);height:clamp(92px,12vw,160px);">
+          <svg width="50" height="50" viewBox="0 0 56 56" fill="none">
+            <rect x="18" y="9" width="16" height="28" rx="3" stroke="rgba(0,194,212,.82)" stroke-width="1.5" fill="rgba(0,194,212,.07)"/>
+            <rect x="20" y="13" width="12" height="18" rx="1.5" fill="rgba(0,194,212,.08)" stroke="rgba(0,194,212,.22)" stroke-width=".8"/>
+            <rect x="23" y="10.5" width="6" height="2" rx="1" fill="rgba(0,194,212,.5)"/>
+            <circle cx="26" cy="33" r="2" stroke="rgba(0,194,212,.5)" stroke-width="1.2" fill="none"/>
+            <path d="M35 17C38 19.5 38 26.5 35 29" stroke="rgba(0,194,212,.65)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M38 14C43 17.5 43 28.5 38 32" stroke="rgba(0,194,212,.38)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-caption" style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);">Voice Agent</span>
+    </div>
+    <div class="depth-enter" data-d="1" style="display:flex;flex-direction:column;align-items:center;gap:13px;">
+      <div class="hc-magnet" style="will-change:transform;">
+        <div class="hc oc" style="width:clamp(92px,12vw,160px);height:clamp(92px,12vw,160px);">
+          <svg width="50" height="50" viewBox="0 0 56 56" fill="none">
+            <rect x="10" y="14" width="32" height="28" rx="3" stroke="rgba(240,140,0,.75)" stroke-width="1.5" fill="rgba(240,140,0,.07)"/>
+            <line x1="18" y1="11" x2="18" y2="17" stroke="rgba(240,140,0,.65)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="34" y1="11" x2="34" y2="17" stroke="rgba(240,140,0,.65)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="10" y1="22" x2="42" y2="22" stroke="rgba(240,140,0,.35)" stroke-width="1"/>
+            <circle cx="19" cy="29" r="2.2" fill="#F08C00" fill-opacity=".9"/>
+            <circle cx="26" cy="29" r="2.2" fill="rgba(240,140,0,.55)"/>
+            <circle cx="33" cy="29" r="2.2" fill="rgba(240,140,0,.35)"/>
+            <circle cx="19" cy="36" r="2.2" fill="rgba(240,140,0,.55)"/>
+            <circle cx="26" cy="36" r="2.2" fill="#F08C00" fill-opacity=".9"/>
+            <circle cx="33" cy="36" r="2.2" fill="rgba(240,140,0,.35)"/>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-caption" style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);">Retention</span>
+    </div>
+    <div class="depth-enter" data-d="2" style="display:flex;flex-direction:column;align-items:center;gap:13px;">
+      <div class="hc-magnet" style="will-change:transform;">
+        <div class="hc" style="width:clamp(92px,12vw,160px);height:clamp(92px,12vw,160px);">
+          <svg width="50" height="50" viewBox="0 0 56 56" fill="none">
+            <rect x="6" y="13" width="44" height="31" rx="4" stroke="rgba(0,194,212,.82)" stroke-width="1.5" fill="rgba(0,194,212,.05)"/>
+            <line x1="6" y1="22" x2="50" y2="22" stroke="rgba(0,194,212,.4)" stroke-width="1"/>
+            <circle cx="13" cy="17.5" r="2.2" fill="rgba(0,194,212,.65)"/>
+            <circle cx="19.5" cy="17.5" r="2.2" fill="rgba(0,194,212,.42)"/>
+            <rect x="11" y="26" width="22" height="4" rx="1.5" fill="rgba(0,194,212,.5)"/>
+            <rect x="11" y="33" width="15" height="3" rx="1" fill="rgba(0,194,212,.28)"/>
+            <rect x="11" y="38" width="13" height="5" rx="2" stroke="rgba(0,194,212,.75)" stroke-width="1" fill="rgba(0,194,212,.15)"/>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-caption" style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);">AI Website</span>
+    </div>
+    <div class="depth-enter" data-d="3" style="display:flex;flex-direction:column;align-items:center;gap:13px;">
+      <div class="hc-magnet" style="will-change:transform;">
+        <div class="hc oc" style="width:clamp(92px,12vw,160px);height:clamp(92px,12vw,160px);">
+          <svg width="50" height="50" viewBox="0 0 56 56" fill="none">
+            <line x1="8" y1="44" x2="48" y2="44" stroke="rgba(240,140,0,.45)" stroke-width="1.2" stroke-linecap="round"/>
+            <rect x="11" y="33" width="7" height="11" rx="1.5" fill="rgba(240,140,0,.32)" stroke="rgba(240,140,0,.5)" stroke-width=".8"/>
+            <rect x="21" y="25" width="7" height="19" rx="1.5" fill="rgba(240,140,0,.55)" stroke="rgba(240,140,0,.72)" stroke-width=".8"/>
+            <rect x="31" y="15" width="7" height="29" rx="1.5" fill="rgba(240,140,0,.82)" stroke="rgba(240,140,0,.95)" stroke-width=".8"/>
+            <path d="M14 33 L24 25 L34 15" stroke="rgba(240,140,0,.6)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="3 2"/>
+            <circle cx="34" cy="14" r="3" fill="rgba(240,140,0,.6)"/>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-caption" style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);">Results</span>
+    </div>
+  </div>
+  <h2 class="sec-h2-c depth-enter" data-d="2">One Agency. Three Solutions.</h2>
+  <p class="depth-enter body-sm" data-d="3" style="text-align:center;margin-top:20px;max-width:620px;">
+    VisionLab AI delivers three AI-powered systems purpose-built for service businesses: an <span class="tc">AI Voice Receptionist</span> that never misses a call, a <span class="oc">Patient Retention Suite</span> that keeps clients coming back, and an <span class="tc">AI Website</span> that converts visitors into booked appointments.
+  </p>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S2 VOICE RECEPTIONIST ══ -->
+<section id="s2" style="padding:0 clamp(32px,6vw,90px);">
+  <canvas id="cvVoice" class="focus-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+  <div style="position:absolute;inset:0;z-index:5;display:flex;align-items:center;padding:0 clamp(32px,6vw,90px);">
+    <div style="max-width:520px;">
+      <span class="sec-label depth-enter de-l">01 — Products</span>
+      <div class="rule depth-enter de-l" data-d="1"></div>
+      <h2 class="sec-h2 depth-enter de-l" data-d="2" style="margin-bottom:20px;">AI Voice<br>Receptionist</h2>
+      <p class="body-sm depth-enter de-l" data-d="3" style="max-width:420px;margin-bottom:32px;">Your AI receptionist answers every call, 24/7 — qualifying new clients, booking appointments, and handling routine inquiries so your front desk can focus on in-person service. Powered by Retell AI + Twilio, integrated with your booking system.</p>
+      <div class="depth-enter de-l" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="btn">Book a Free Demo <span class="arr">↗</span></a></div>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S3 PATIENT RETENTION ══ -->
+<section id="s3" style="padding:0 clamp(32px,6vw,90px);">
+  <canvas id="cvRet" class="focus-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+  <div style="position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:flex-end;padding:0 clamp(32px,6vw,90px);">
+    <div style="max-width:520px;text-align:right;">
+      <span class="sec-label depth-enter de-r">02 — Products</span>
+      <div class="rule rev depth-enter de-r" data-d="1" style="margin-left:auto;"></div>
+      <h2 class="sec-h2 depth-enter de-r" data-d="2" style="margin-bottom:20px;">Patient Retention<br>Suite</h2>
+      <p class="body-sm depth-enter de-r" data-d="3" style="max-width:420px;margin-bottom:32px;margin-left:auto;">Our automation stack keeps clients engaged between visits — automated appointment reminders reduce no-shows, post-visit review requests build your reputation, and re-booking flows turn missed calls into rescheduled appointments.</p>
+      <div style="display:flex;justify-content:flex-end;" class="depth-enter de-r" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="btn btn-oc">See How It Works <span class="arr">↗</span></a></div>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S4 AI WEBSITE ══ -->
+<section id="s4" style="padding:0 clamp(32px,6vw,90px);">
+  <canvas id="cvWeb" class="focus-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+  <div style="position:absolute;inset:0;z-index:5;display:flex;align-items:center;padding:0 clamp(32px,6vw,90px);">
+    <div style="max-width:520px;">
+      <span class="sec-label depth-enter de-l">03 — Products</span>
+      <div class="rule depth-enter de-l" data-d="1"></div>
+      <h2 class="sec-h2 depth-enter de-l" data-d="2" style="margin-bottom:20px;">AI-Powered<br>Website</h2>
+      <p class="body-sm depth-enter de-l" data-d="3" style="max-width:420px;margin-bottom:32px;">A conversion-optimized website built to turn visitors into booked appointments — with integrated online booking, an AI chat widget, and copy built around your services and clients. Designed for service businesses that want their online presence to actually drive revenue.</p>
+      <div class="depth-enter de-l" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="btn">Book a Free Demo <span class="arr">↗</span></a></div>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S5 BUILT FOR SERVICE BUSINESSES ══ -->
+<section id="s5" style="padding:0 clamp(32px,6vw,90px);">
+  <canvas id="cvNet" class="focus-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+  <div style="position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:flex-end;padding:0 clamp(32px,6vw,90px);">
+    <div style="max-width:520px;text-align:right;">
+      <span class="sec-label depth-enter de-r">04 — Why Us</span>
+      <div class="rule rev depth-enter de-r" data-d="1" style="margin-left:auto;"></div>
+      <h2 class="sec-h2 depth-enter de-r" data-d="2" style="margin-bottom:20px;">Built for Service<br>Businesses</h2>
+      <p class="body-sm depth-enter de-r" data-d="3" style="max-width:420px;margin-bottom:32px;margin-left:auto;">Unlike generic AI tools, VisionLab AI builds and manages everything for you — purpose-built for dental clinics and service businesses. We handle setup, integration, and ongoing optimization. Our systems are trained on your practice, priced on a flat monthly retainer, and designed to pay for themselves in the first month.</p>
+      <div style="display:flex;justify-content:flex-end;" class="depth-enter de-r" data-d="4"><a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="btn btn-oc">Start the Conversation <span class="arr">↗</span></a></div>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S6 THE VISIONLAB METHOD ══ -->
+<section id="s6" style="padding:44px 60px;text-align:center;">
+  <canvas id="cvOrb" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+  <div style="position:relative;z-index:5;max-width:660px;">
+    <span class="sec-label depth-enter" style="display:block;width:fit-content;margin:0 auto 14px;">Our Process</span>
+    <h2 style="font-size:clamp(46px,6.8vw,92px);font-weight:600;letter-spacing:-.036em;line-height:1.03;margin-bottom:26px;" class="depth-enter" data-d="1">
+      The VisionLab<br><span class="tc" style="text-shadow:0 0 60px rgba(0,194,212,.35);">Method</span>
+    </h2>
+    <p class="body-sm depth-enter" data-d="2" style="max-width:540px;margin:0 auto;">
+      Our proven AI delivery process, built for service businesses. Four phases, zero guesswork — getting you live and generating results from day one.<br>
+      <span class="word-span tc" style="transition-delay:0ms">Discover</span>
+      <span class="word-span" style="transition-delay:70ms">→</span>
+      <span class="word-span" style="transition-delay:140ms">Design</span>
+      <span class="word-span" style="transition-delay:210ms">→</span>
+      <span class="word-span" style="transition-delay:280ms">Deploy</span>
+      <span class="word-span" style="transition-delay:350ms">→</span>
+      <span class="word-span oc" style="transition-delay:420ms">Drive</span><span class="word-span" style="transition-delay:420ms">.</span>
+    </p>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S7 FROM VISION TO VISIBLE ══ -->
+<section id="s7" style="padding:44px 60px;">
+  <h2 class="sec-h2-xl depth-enter" style="margin-bottom:14px;">From Vision to <span class="oc">Visible</span></h2>
+  <p class="body-sm depth-enter" data-d="1" style="text-align:center;max-width:520px;margin-bottom:36px;">
+    Four phases. Zero guesswork. Live and driving results — then improving every month.
+  </p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%;max-width:980px;">
+    <div class="gcard depth-enter" data-d="2" style="min-height:200px;">
+      <div class="phase-num">01</div>
+      <div class="card-label" style="margin-top:34px;">Discover</div>
+      <div class="card-body">We audit your call flow, booking system, and patient journey to find exactly where revenue is leaking.</div>
+    </div>
+    <div class="gcard depth-enter" data-d="3" style="min-height:200px;">
+      <div class="phase-num">02</div>
+      <div class="card-label" style="margin-top:34px;">Design</div>
+      <div class="card-body">We build a custom AI script trained on your clinic, brand voice, and the real questions your callers ask.</div>
+    </div>
+    <div class="gcard depth-enter" data-d="4" style="min-height:200px;">
+      <div class="phase-num">03</div>
+      <div class="card-label" style="margin-top:34px;">Deploy</div>
+      <div class="card-body">We handle every technical step — phone number setup, booking integration, go-live testing. Zero effort from your team.</div>
+    </div>
+    <div class="gcard oc depth-enter" data-d="5" style="min-height:200px;">
+      <div class="phase-num" style="-webkit-text-fill-color:rgba(240,140,0,.06);">04</div>
+      <div class="card-label oc" style="margin-top:34px;">Drive</div>
+      <div class="card-body">Ongoing optimization, monthly reporting, and proactive improvements — your AI keeps getting better every month.</div>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S8 PRICING ══ -->
+<section id="s8" style="padding:100px 60px 44px;">
+  <span class="sec-label depth-enter" style="display:block;width:fit-content;margin:0 auto 14px;">Pricing</span>
+  <h2 class="sec-h2-c depth-enter" data-d="1" style="margin-bottom:28px;">Simple, Transparent <span class="tc">Pricing</span></h2>
+  <!-- ROI anchor -->
+  <div class="roi-bar depth-enter" data-d="2" id="roiBar">
+    <div class="roi-stat">
+      <div class="roi-num">$180K–$400K</div>
+      <div class="roi-label">average annual revenue lost to missed calls</div>
+    </div>
+    <div class="roi-div"></div>
+    <div class="roi-stat">
+      <div class="roi-num tc">3–5 patients</div>
+      <div class="roi-label">typically recovered per month</div>
+    </div>
+    <div class="roi-div"></div>
+    <div class="roi-stat">
+      <div class="roi-num">30 days</div>
+      <div class="roi-label">typical time to positive ROI</div>
+    </div>
+  </div>
+  <div class="pricing-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:960px;">
+    <div class="pc depth-enter" data-d="2" tabindex="0" role="button" aria-pressed="false">
+      <div class="pc-tier">Starter</div>
+      <div class="pc-price">$597<span style="font-size:15px;font-weight:500;opacity:.6;">/mo</span></div>
+      <div class="pc-per">150 min included · $0.30/min after</div>
+      <div class="pc-setup">Setup: $750</div>
+      <div class="pc-div"></div>
+      <ul class="pc-list">
+        <li class="inc"><span class="fc">✓</span>Appointment booking</li>
+        <li class="inc"><span class="fc">✓</span>After-hours handling</li>
+        <li class="inc"><span class="fc">✓</span>FAQ &amp; call routing</li>
+        <li class="exc"><span class="fx">—</span>SMS follow-up</li>
+        <li class="exc"><span class="fx">—</span>No-show reduction</li>
+        <li class="exc"><span class="fx">—</span>Review generation</li>
+        <li class="exc"><span class="fx">—</span>Call logging &amp; analytics</li>
+        <li class="exc"><span class="fx">—</span>Monthly reporting</li>
+        <li class="exc"><span class="fx">—</span>Multi-location</li>
+        <li class="exc"><span class="fx">—</span>Priority support</li>
+      </ul>
+      <a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="btn" style="justify-content:center;" onclick="event.stopPropagation();">Get Started <span class="arr">↗</span></a>
+    </div>
+    <div class="pc active depth-enter" data-d="3" tabindex="0" role="button" aria-pressed="true">
+      <div class="pc-badge">Most Popular</div>
+      <div class="pc-tier">Growth</div>
+      <div class="pc-price">$797<span style="font-size:15px;font-weight:500;opacity:.6;">/mo</span></div>
+      <div class="pc-per">500 min included · $0.30/min after</div>
+      <div class="pc-setup">Setup: $1,500</div>
+      <div class="pc-div"></div>
+      <ul class="pc-list">
+        <li class="inc"><span class="fc">✓</span>Appointment booking</li>
+        <li class="inc"><span class="fc">✓</span>After-hours handling</li>
+        <li class="inc"><span class="fc">✓</span>FAQ &amp; call routing</li>
+        <li class="inc"><span class="fc">✓</span>SMS follow-up</li>
+        <li class="inc"><span class="fc">✓</span>No-show reduction</li>
+        <li class="inc"><span class="fc">✓</span>Review generation</li>
+        <li class="inc"><span class="fc">✓</span>Call logging &amp; analytics</li>
+        <li class="inc"><span class="fc">✓</span>Monthly reporting</li>
+        <li class="exc"><span class="fx">—</span>Multi-location</li>
+        <li class="exc"><span class="fx">—</span>Priority support</li>
+      </ul>
+      <a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="btn" style="justify-content:center;" onclick="event.stopPropagation();">Get Started <span class="arr">↗</span></a>
+    </div>
+    <div class="pc depth-enter" data-d="4" tabindex="0" role="button" aria-pressed="false">
+      <div class="pc-tier" style="color:var(--orange);">Elite</div>
+      <div class="pc-price">$997<span style="font-size:15px;font-weight:500;opacity:.6;">/mo</span></div>
+      <div class="pc-per">800 min included · $0.30/min after</div>
+      <div class="pc-setup">Setup: $2,500</div>
+      <div class="pc-div" style="background:rgba(240,140,0,.12);"></div>
+      <ul class="pc-list">
+        <li class="inc"><span class="fc">✓</span>Appointment booking</li>
+        <li class="inc"><span class="fc">✓</span>After-hours handling</li>
+        <li class="inc"><span class="fc">✓</span>FAQ &amp; call routing</li>
+        <li class="inc"><span class="fc">✓</span>SMS follow-up</li>
+        <li class="inc"><span class="fc">✓</span>No-show reduction</li>
+        <li class="inc"><span class="fc">✓</span>Review generation</li>
+        <li class="inc"><span class="fc">✓</span>Call logging &amp; analytics</li>
+        <li class="inc"><span class="fc">✓</span>Monthly reporting</li>
+        <li class="inc"><span class="fc" style="color:var(--orange);">✓</span>Multi-location</li>
+        <li class="inc"><span class="fc" style="color:var(--orange);">✓</span>Priority support</li>
+      </ul>
+      <a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener" class="btn btn-oc" style="justify-content:center;" onclick="event.stopPropagation();">Get Started <span class="arr">↗</span></a>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S9 TESTIMONIAL ══ -->
+<section id="s9" style="padding:44px 60px;text-align:center;">
+  <div style="width:100%;max-width:760px;">
+    <span class="sec-label depth-enter" style="display:block;width:fit-content;margin:0 auto 14px;">Client Results</span>
+    <h2 class="sec-h2-c depth-enter" data-d="1" style="margin-bottom:44px;">Built for Real <span class="tc">Businesses</span></h2>
+    <div class="depth-enter" data-d="2" style="position:relative;">
+      <div style="font-size:110px;line-height:1;color:rgba(0,194,212,.1);font-family:Georgia,serif;
+          position:absolute;top:-32px;left:-18px;pointer-events:none;user-select:none;">&ldquo;</div>
+      <p class="word-reveal" style="font-size:clamp(16px,1.9vw,22px);line-height:1.8;color:rgba(255,255,255,.9);
+          font-weight:400;position:relative;z-index:1;padding:0 36px;">
+        Stephen Rivas facilitated the process of developing my new website efficiently and effectively. The final product is user-friendly and accurately represents my brand. Stephen was prompt in his communication, addressing modifications swiftly, and the overall timeline from initiation to completion was remarkably short. I highly recommend his services.
+      </p>
+      <div style="font-size:110px;line-height:1;color:rgba(0,194,212,.1);font-family:Georgia,serif;
+          position:absolute;bottom:-56px;right:-18px;pointer-events:none;user-select:none;">&rdquo;</div>
+    </div>
+    <div class="depth-enter" data-d="3" style="margin-top:48px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <div style="width:40px;height:2px;background:linear-gradient(90deg,transparent,var(--orange),transparent);margin-bottom:10px;border-radius:2px;"></div>
+      <div style="font-size:16px;font-weight:600;letter-spacing:.02em;">Dr. Michael Newman</div>
+      <div style="font-size:12px;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase;">Founder, Newman Integrative Health</div>
+      <a href="https://drmikenewman.ca" target="_blank" rel="noopener"
+         style="font-size:12px;color:rgba(0,194,212,.6);text-decoration:none;margin-top:4px;letter-spacing:.04em;transition:color .2s;"
+         onmouseover="this.style.color='#00C2D4'" onmouseout="this.style.color='rgba(0,194,212,.6)'">drmikenewman.ca ↗</a>
+      <div style="margin-top:6px;padding:3px 10px;border:1px solid rgba(240,140,0,.25);border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,140,0,.65);">AI Website Client</div>
+    </div>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S10 ABOUT ══ -->
+<section id="s10" style="padding:44px 60px;text-align:center;">
+  <span class="sec-label depth-enter" style="display:block;width:fit-content;margin:0 auto 14px;">The Founder</span>
+  <h2 class="sec-h2-c depth-enter" data-d="1" style="font-size:clamp(40px,5.5vw,68px);margin-bottom:36px;">About</h2>
+  <div class="depth-enter" data-d="2">
+    <div id="aboutPhoto" style="width:200px;height:230px;margin:0 auto 18px;border-radius:12px;background:transparent;overflow:hidden;will-change:transform;">
+      <img src="stephen-rivas-nobg.png" alt="Stephen Rivas"
+        style="width:100%;height:100%;object-fit:contain;object-position:center bottom;">
+    </div>
+    <div style="font-weight:600;font-size:16px;margin-bottom:5px;">Stephen Rivas</div>
+    <div style="font-size:12px;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px;">Founder &amp; CEO</div>
+    <p class="body-sm depth-enter word-reveal" data-d="3" style="max-width:360px;margin:0 auto;font-size:14.5px;">
+      Stephen builds, deploys, and manages AI systems for service businesses — working directly with every client from setup through ongoing optimization. His mission: give local service businesses access to enterprise-grade AI at a price that makes sense.
+    </p>
+  </div>
+  <div class="si"><div class="si-ring"><div class="si-dot"></div></div></div>
+</section>
+
+<!-- ══ S11 CTA + FOOTER ══ -->
+<section id="s11" style="padding:44px 60px;text-align:center;">
+  <canvas id="cvCTA" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+  <div style="position:relative;z-index:5;">
+    <span class="sec-label depth-enter" style="display:block;width:fit-content;margin:0 auto 14px;">Start Here</span>
+    <h2 class="sec-h2-xl depth-enter" data-d="1" style="margin-bottom:24px;">Let's Build <span class="oc" style="text-shadow:0 0 60px rgba(240,140,0,.35);">Together</span></h2>
+    <p class="body-sm depth-enter" data-d="2" style="max-width:560px;margin:0 auto 40px;">
+      Ready to stop missing calls and start booking more appointments? Book a free 15-minute call with Stephen — we'll walk you through exactly what an AI receptionist could do for your business.
+    </p>
+    <div class="depth-enter" data-d="3">
+      <a href="https://cal.com/stephen-rivas-cjfwbc/ai-audit" target="_blank" rel="noopener"
+         class="btn btn-oc btn-final-cta" style="font-size:14px;padding:14px 36px;">
+        Book a Free Call <span class="arr">↗</span>
+      </a>
+    </div>
+    <div style="width:60px;height:2px;background:linear-gradient(90deg,var(--orange),transparent);border-radius:2px;margin:52px auto 0;" class="depth-enter" data-d="4"></div>
+  </div>
+  <div style="position:absolute;bottom:24px;left:0;right:0;padding:0 52px;
+       display:flex;align-items:center;justify-content:space-between;z-index:5;flex-wrap:wrap;gap:12px;">
+    <div style="font-size:11px;color:var(--muted2);line-height:1.7;text-align:left;">
+      © 2026 VisionLab AI. All rights reserved.<br>Intelligent by design. Built for scale.
+    </div>
+    <a href="https://www.linkedin.com/in/stephen-r-7b7849380" target="_blank" rel="noopener" class="fl">LinkedIn ↗</a>
+    <div style="display:flex;gap:20px;">
+      <a href="tel:+13653604080" class="fl" title="Call our live AI receptionist demo">AI Demo: (365) 360-4080</a>
+      <a href="privacy-policy.html" class="fl">Privacy ↗</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /scroller -->
+
+<script>
+(()=>{
+'use strict';
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ══ TRUE 3D STARFIELD ══ */
+(()=>{
+  const cv = document.getElementById('warp');
+  const cx = cv.getContext('2d');
+  let W, H;
+  const FOCAL = 420;      // perspective focal length
+  const N     = reduce ? 0 : 380;
+  const DEPTH = 1400;     // max z-depth (universe size)
+  let speed = 3.5, targetSpeed = 3.5;
+  let warpT  = 0;         // warp burst timer
+  let stars  = [];
+
+  function mkStar(zOverride){
+    const r = 1 + Math.random() * 1.1;
+    return {
+      x: (Math.random() - .5) * DEPTH * 1.6,
+      y: (Math.random() - .5) * DEPTH * 1.1,
+      z: zOverride !== undefined ? zOverride : Math.random() * DEPTH,
+      pz: null,           // previous z for streak
+      r,
+      col: Math.random() < .68 ? [0,194,212] : Math.random() < .5 ? [240,140,0] : [255,255,255],
+    };
+  }
+
+  function resize(){
+    W = cv.width  = window.innerWidth;
+    H = cv.height = window.innerHeight;
+    stars = Array.from({length: N}, ()=> mkStar());
+  }
+
+  // Project 3D → 2D
+  function project(x, y, z){
+    const scale = FOCAL / Math.max(z, 1);
+    return {
+      sx: x * scale + W * .5,
+      sy: y * scale + H * .5,
+      scale,
+    };
+  }
+
+  function frame(){
+    // Soft trail — darker = longer streaks
+    const trailAlpha = warpT > 0 ? 0.12 : 0.22;
+    cx.fillStyle = `rgba(4,6,14,${trailAlpha})`;
+    cx.fillRect(0, 0, W, H);
+
+    // Central nebula glow — shifts teal↔orange over time
+    const t = performance.now() * .0004;
+    const ng = cx.createRadialGradient(W*.5, H*.5, 0, W*.5, H*.5, Math.min(W,H)*.6);
+    ng.addColorStop(0,   `rgba(0,194,212,${.04 + .02*Math.sin(t)})`);
+    ng.addColorStop(.45, `rgba(240,140,0,${.025 + .015*Math.cos(t+1)})`);
+    ng.addColorStop(1,   'rgba(0,0,0,0)');
+    cx.fillStyle = ng; cx.fillRect(0,0,W,H);
+
+    // Ease speed
+    if(warpT > 0) warpT--;
+    const warpBlend = warpT / 55;
+    targetSpeed = warpT > 0 ? 26 + warpBlend * 14 : 3.5;
+    speed += (targetSpeed - speed) * (warpT > 0 ? .18 : .04);
+
+    const dz = speed;
+
+    for(let i = 0; i < stars.length; i++){
+      const s = stars[i];
+      s.pz = s.z;
+      s.z -= dz;
+
+      // Reset star that passed through the viewer
+      if(s.z <= 1){
+        Object.assign(s, mkStar(DEPTH));
+        s.pz = null;
+        continue;
+      }
+
+      const cur  = project(s.x, s.y, s.z);
+      if(cur.sx < -60 || cur.sx > W+60 || cur.sy < -60 || cur.sy > H+60){
+        Object.assign(s, mkStar(DEPTH));
+        s.pz = null;
+        continue;
+      }
+
+      // Depth-based brightness & size
+      const proximity = 1 - s.z / DEPTH; // 0=far, 1=close
+      const alpha = Math.min(1, proximity * 1.6) * .85;
+      const dotR  = s.r * Math.max(.2, proximity * 1.8);
+      const [r,g,b] = s.col;
+
+      // Streak from previous frame position
+      if(s.pz && s.pz > 1){
+        const prev = project(s.x, s.y, s.pz);
+        const streakLen = Math.hypot(cur.sx - prev.sx, cur.sy - prev.sy);
+        if(streakLen > 0.4){
+          cx.strokeStyle = `rgba(${r},${g},${b},${(alpha * .7).toFixed(3)})`;
+          cx.lineWidth   = dotR * .9;
+          cx.beginPath();
+          cx.moveTo(prev.sx, prev.sy);
+          cx.lineTo(cur.sx, cur.sy);
+          cx.stroke();
+        }
+      }
+
+      // Dot at tip
+      cx.beginPath();
+      cx.arc(cur.sx, cur.sy, dotR, 0, Math.PI * 2);
+      cx.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
+      cx.fill();
+
+      // Halo on close stars
+      if(proximity > .7){
+        const haloR = dotR * 4;
+        const hg = cx.createRadialGradient(cur.sx, cur.sy, 0, cur.sx, cur.sy, haloR);
+        hg.addColorStop(0, `rgba(${r},${g},${b},${((proximity-.7)*.28).toFixed(3)})`);
+        hg.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        cx.beginPath(); cx.arc(cur.sx, cur.sy, haloR, 0, Math.PI*2);
+        cx.fillStyle = hg; cx.fill();
+      }
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  if(!reduce) frame();
+
+  // Warp burst on section change
+  window.addEventListener('sectionChange', ()=>{ warpT = 55; });
+})();
+
+/* ══ PERSPECTIVE GRID (hero) ══ */
+(()=>{
+  const cv = document.getElementById('cvHero');
+  if(!cv || reduce) return;
+  const cx = cv.getContext('2d');
+  let W, H, t = 0;
+  function resize(){ W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; }
+  window.addEventListener('resize', resize, {passive:true}); resize();
+
+  (function tick(){
+    cx.clearRect(0,0,W,H);
+    const vpX = W * .5, vpY = H * .62;
+    const cols = 16, rows = 12;
+    const halfW = W * .78;
+    const scroll = (t * .006) % 1; // animate rows scrolling toward viewer
+
+    // Vertical converging lines
+    for(let c = 0; c <= cols; c++){
+      const f  = c / cols;           // 0..1
+      const gx = (f - .5) * 2;       // -1..1
+      const farX  = vpX + gx * halfW * .08;
+      const nearX = vpX + gx * halfW * 1.12;
+      const a = .09 - Math.abs(gx) * .06;
+      cx.strokeStyle = `rgba(0,194,212,${Math.max(0,a).toFixed(3)})`;
+      cx.lineWidth = .6;
+      cx.beginPath();
+      cx.moveTo(farX,  vpY);
+      cx.lineTo(nearX, H * 1.05);
+      cx.stroke();
+    }
+
+    // Horizontal rows receding (scroll animation)
+    for(let r = 0; r <= rows; r++){
+      const f    = ((r / rows) + scroll) % 1;
+      const ease = Math.pow(f, 2.4);          // perspective compression
+      const y    = vpY + ease * (H * 1.05 - vpY);
+      const xSpan = halfW * ease * 1.12;
+      const a    = ease * .32;
+      cx.strokeStyle = `rgba(0,194,212,${a.toFixed(3)})`;
+      cx.lineWidth = .7;
+      cx.beginPath();
+      cx.moveTo(vpX - xSpan, y);
+      cx.lineTo(vpX + xSpan, y);
+      cx.stroke();
+    }
+
+    // Vanishing point glow — teal core, orange halo
+    const g1 = cx.createRadialGradient(vpX, vpY, 0, vpX, vpY, 90);
+    g1.addColorStop(0, `rgba(0,194,212,${.55 + .12*Math.sin(t*.04)})`);
+    g1.addColorStop(.35, `rgba(0,194,212,.18)`);
+    g1.addColorStop(.7,  `rgba(240,140,0,.06)`);
+    g1.addColorStop(1,   'rgba(0,0,0,0)');
+    cx.fillStyle = g1;
+    cx.beginPath(); cx.arc(vpX, vpY, 90, 0, Math.PI*2); cx.fill();
+
+    // Bright core dot
+    const g2 = cx.createRadialGradient(vpX, vpY, 0, vpX, vpY, 14);
+    g2.addColorStop(0,  `rgba(180,240,255,${.9 + .1*Math.sin(t*.06)})`);
+    g2.addColorStop(.5, 'rgba(0,194,212,.6)');
+    g2.addColorStop(1,  'rgba(0,194,212,0)');
+    cx.fillStyle = g2;
+    cx.beginPath(); cx.arc(vpX, vpY, 14, 0, Math.PI*2); cx.fill();
+
+    t++; requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══ S2 VOICE: 3D sphere ripples + phone + waveform ══ */
+(()=>{
+  const cv=document.getElementById('cvVoice');if(!cv||reduce)return;
+  const cx=cv.getContext('2d');let W,H,t=0;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  window.addEventListener('resize',resize,{passive:true});resize();
+  // 3D sphere rings — elliptical perspective
+  function drawSphereRing(cx,ox,oy,r,tiltY,alpha,color){
+    cx.save();
+    cx.translate(ox,oy);
+    cx.scale(1, Math.sin(tiltY)); // perspective squash
+    cx.beginPath();cx.arc(0,0,r,0,Math.PI*2);
+    cx.strokeStyle=`rgba(${color},${alpha})`;cx.lineWidth=1.4;cx.stroke();
+    cx.restore();
+  }
+  (function tick(){
+    cx.clearRect(0,0,W,H);
+    const ox=W*.67,oy=H*.5;
+    // 3D ripple spheres expanding outward with perspective
+    [0,28,56].forEach((off,i)=>{
+      const age=(t%120-off+120)%120;
+      if(age<100){
+        const r=age*2.8;
+        const a=(1-age/100)*.45;
+        const tiltY=0.35+0.15*Math.sin(t*.02+i); // wobbling tilt
+        drawSphereRing(cx,ox,oy,r,tiltY,a,'0,200,255');
+        // equatorial ring (flat)
+        drawSphereRing(cx,ox,oy,r*.95,0.18,a*.6,'0,194,212');
+      }
+    });
+    // Core sphere glow
+    const pulse=.5+.5*Math.sin(t*.045);
+    const g=cx.createRadialGradient(ox,oy,0,ox,oy,56+pulse*18);
+    g.addColorStop(0,`rgba(0,210,255,${.38+pulse*.12})`);g.addColorStop(.5,`rgba(0,194,212,.12)`);g.addColorStop(1,'rgba(0,194,212,0)');
+    cx.beginPath();cx.arc(ox,oy,56+pulse*18,0,Math.PI*2);cx.fillStyle=g;cx.fill();
+    // 3D phone (slight perspective tilt)
+    const b=((t%110)<12)?1+.07*Math.sin(((t%110)/12)*Math.PI):1;
+    cx.save();cx.translate(ox,oy);
+    cx.transform(b,0,.08*b,b*0.96,0,0); // slight 3D skew
+    cx.beginPath();if(cx.roundRect)cx.roundRect(-16,-28,32,54,5);else cx.rect(-16,-28,32,54);
+    cx.strokeStyle='rgba(0,220,255,.9)';cx.lineWidth=1.8;cx.stroke();cx.fillStyle='rgba(0,194,212,.07)';cx.fill();
+    // Screen
+    cx.beginPath();if(cx.roundRect)cx.roundRect(-12,-22,24,34,2);else cx.rect(-12,-22,24,34);
+    cx.strokeStyle='rgba(0,194,212,.28)';cx.lineWidth=.8;cx.stroke();
+    // Speaker slot
+    cx.beginPath();if(cx.roundRect)cx.roundRect(-6,-25,12,3,1.5);else cx.rect(-6,-25,12,3);
+    cx.fillStyle='rgba(0,210,255,.6)';cx.fill();
+    // Home dot
+    cx.beginPath();cx.arc(0,22,3.5,0,Math.PI*2);cx.strokeStyle='rgba(0,194,212,.55)';cx.lineWidth=1.2;cx.stroke();
+    cx.restore();
+    // Waveform below (3D floor perspective)
+    const wY=oy+120,bars=24,bw=3,gap=4.2,tw=bars*(bw+gap);
+    for(let i=0;i<bars;i++){
+      const bx=ox-tw/2+i*(bw+gap);
+      const amp=Math.abs(Math.sin(i*.55+t*.068));
+      const bh=3+amp*30;
+      // perspective: bars get smaller toward edges
+      const scl=1-Math.abs(i-bars/2)/(bars*1.4);
+      cx.beginPath();
+      if(cx.roundRect)cx.roundRect(bx,wY-bh*scl/2,bw*scl,bh*scl,1);
+      else cx.rect(bx,wY-bh*scl/2,bw*scl,bh*scl);
+      cx.fillStyle=`rgba(0,210,255,${(.15+amp*.65).toFixed(2)})`;cx.fill();
+    }
+    t++;requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══ S3 RETENTION: 3D tilted calendar + arcing notifications ══ */
+(()=>{
+  const cv=document.getElementById('cvRet');if(!cv||reduce)return;
+  const cx=cv.getContext('2d');let W,H,t=0,cells=[],notifs=[];
+  const COLS=7,ROWS=5;
+  // 3D tilt matrix (isometric-ish)
+  const TILT={a:1,b:-.18,c:.04,d:.88};
+  function tx(x,y){return{x:x*TILT.a+y*TILT.c,y:x*TILT.b+y*TILT.d};}
+  function buildCells(){
+    cells=[];
+    const calW=Math.min(W*.36,260),calH=Math.min(H*.48,200);
+    const ox=W*.32-calW/2,oy=H*.46-calH/2,cw=calW/COLS,ch=calH/ROWS;
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const cx2=ox+c*cw+cw/2,cy2=oy+r*ch+ch/2;
+      const p=tx(cx2-W*.32,cy2-H*.46);
+      cells.push({x:W*.32+p.x,y:H*.46+p.y,w:(cw-3)*TILT.a,h:(ch-3)*TILT.d,has:Math.random()<.4,glow:0,rx:cx2,ry:cy2});
+    }
+  }
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;buildCells();}
+  window.addEventListener('resize',resize,{passive:true});resize();
+  (function tick(){
+    cx.clearRect(0,0,W,H);
+    if(Math.random()<.022){
+      const c=cells[Math.floor(Math.random()*cells.length)];
+      c.has=true;c.glow=1;
+      notifs.push({x:c.x,y:c.y,vx:(Math.random()-.5)*1.2,vy:-1.4,life:1,lbl:Math.random()<.5?'✓ Booked':'📱 Reminder'});
+    }
+    cells.forEach(c=>{
+      if(c.glow>0)c.glow-=.011;
+      // Draw as parallelogram (3D face)
+      cx.beginPath();
+      const hw=c.w/2,hh=c.h/2;
+      cx.moveTo(c.x-hw,c.y-hh);
+      cx.lineTo(c.x+hw,c.y-hh);
+      cx.lineTo(c.x+hw,c.y+hh);
+      cx.lineTo(c.x-hw,c.y+hh);
+      cx.closePath();
+      if(c.has){
+        cx.fillStyle=`rgba(240,140,0,${.08+c.glow*.22})`;cx.fill();
+        cx.strokeStyle=`rgba(240,140,0,${.25+c.glow*.65})`;cx.lineWidth=.9;cx.stroke();
+        cx.beginPath();cx.arc(c.x,c.y,2.8,0,Math.PI*2);
+        cx.fillStyle=`rgba(255,160,0,${.65+c.glow*.35})`;cx.fill();
+      }else{
+        cx.strokeStyle='rgba(240,140,0,.09)';cx.lineWidth=.7;cx.stroke();
+      }
+    });
+    // Notifications arc upward
+    for(let i=notifs.length-1;i>=0;i--){
+      const n=notifs[i];n.x+=n.vx;n.y+=n.vy;n.life-=.013;
+      if(n.life<=0){notifs.splice(i,1);continue;}
+      cx.save();cx.globalAlpha=Math.min(1,n.life*2);
+      cx.font='bold 10.5px Space Grotesk,sans-serif';cx.fillStyle='rgba(255,160,30,1)';
+      cx.textAlign='left';cx.fillText(n.lbl,n.x+8,n.y);cx.restore();
+    }
+    t++;requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══ S4 WEBSITE: 3D perspective browser + cursor ══ */
+(()=>{
+  const cv=document.getElementById('cvWeb');if(!cv||reduce)return;
+  const cx=cv.getContext('2d');let W,H,t=0;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  window.addEventListener('resize',resize,{passive:true});resize();
+  // Draw a 3D-perspective box face
+  function face3d(cx,x,y,w,h,skewX,skewY,fill,stroke){
+    cx.beginPath();
+    cx.moveTo(x+skewX,      y+skewY);
+    cx.lineTo(x+w+skewX,    y+skewY);
+    cx.lineTo(x+w,          y+h);
+    cx.lineTo(x,            y+h);
+    cx.closePath();
+    if(fill){cx.fillStyle=fill;cx.fill();}
+    if(stroke){cx.strokeStyle=stroke;cx.lineWidth=.8;cx.stroke();}
+  }
+  (function tick(){
+    cx.clearRect(0,0,W,H);
+    const bx=W*.63,by=H*.46;
+    const bw=Math.min(W*.38,290),bh=Math.min(H*.54,215);
+    const ox=bx-bw/2,oy=by-bh/2;
+    // 3D perspective: slight rotation — top edge shifted right, bottom normal
+    const skX=bw*.06, skY=-bh*.04;
+    // Main face
+    face3d(cx,ox,oy,bw,bh,skX,skY,'rgba(0,150,255,.04)','rgba(0,170,255,.32)');
+    // Top chrome bar
+    face3d(cx,ox,oy,bw,22,skX,skY,'rgba(0,150,255,.07)',null);
+    cx.strokeStyle='rgba(0,150,255,.18)';cx.lineWidth=.7;
+    cx.beginPath();cx.moveTo(ox+skX,oy+skY+22);cx.lineTo(ox+bw+skX,oy+skY+22);cx.stroke();
+    // Traffic dots
+    [[.14,'rgba(0,200,255,.7)'],[.25,'rgba(0,150,255,.5)'],[.36,'rgba(0,100,200,.35)']].forEach(([f,cl])=>{
+      cx.beginPath();cx.arc(ox+skX+bw*f,oy+skY+11,3.5,0,Math.PI*2);cx.fillStyle=cl;cx.fill();
+    });
+    // Content bars
+    [[.07,.06,bw*.5,9,.55],[.07,.22,bw*.35,7,.32],[.07,.36,bw*.4,7,.22],[.07,.5,bw*.26,13,.45]].forEach(([fx,fy,fw,fh,fa])=>{
+      const bpx=ox+skX*(1-fy)+bw*fx, bpy=oy+skY*(1-fy)+22+bh*fy;
+      cx.beginPath();if(cx.roundRect)cx.roundRect(bpx,bpy,fw,fh,2);else cx.rect(bpx,bpy,fw,fh);
+      cx.fillStyle=`rgba(0,180,255,${fa})`;cx.fill();
+    });
+    // Right image placeholder
+    const ipx=ox+skX*.3+bw*.62,ipy=oy+skY*.3+22+bh*.07;
+    cx.beginPath();if(cx.roundRect)cx.roundRect(ipx,ipy,bw*.3,bh*.54,4);else cx.rect(ipx,ipy,bw*.3,bh*.54);
+    cx.strokeStyle='rgba(0,150,255,.22)';cx.lineWidth=.8;cx.stroke();cx.fillStyle='rgba(0,150,255,.05)';cx.fill();
+    // Side face (3D depth illusion)
+    cx.beginPath();
+    cx.moveTo(ox+bw+skX,oy+skY);cx.lineTo(ox+bw,oy);
+    cx.lineTo(ox+bw,oy+bh);cx.lineTo(ox+bw+skX,oy+skY+bh);cx.closePath();
+    cx.fillStyle='rgba(0,100,200,.08)';cx.fill();
+    cx.strokeStyle='rgba(0,150,255,.2)';cx.lineWidth=.7;cx.stroke();
+    // Cursor
+    const ph=t*.011;
+    const curX=bx+Math.cos(ph)*bw*.21+Math.sin(ph*1.3)*bw*.08;
+    const curY=by+Math.sin(ph*.88)*bh*.19+Math.cos(ph*1.55)*bh*.06;
+    // cursor shadow for 3D depth
+    cx.save();cx.translate(curX+3,curY+5);cx.globalAlpha=.15;
+    cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,14);cx.lineTo(3.5,10);cx.lineTo(5.5,14);cx.lineTo(7,13);cx.lineTo(5,8);cx.lineTo(9,8);cx.closePath();
+    cx.fillStyle='rgba(0,0,0,1)';cx.fill();cx.restore();
+    cx.save();cx.translate(curX,curY);
+    cx.beginPath();cx.moveTo(0,0);cx.lineTo(0,14);cx.lineTo(3.5,10);cx.lineTo(5.5,14);cx.lineTo(7,13);cx.lineTo(5,8);cx.lineTo(9,8);cx.closePath();
+    cx.fillStyle='rgba(0,200,255,.92)';cx.fill();cx.restore();
+    if(t%150<20){
+      const rt=(t%150)/20;
+      cx.beginPath();cx.arc(curX,curY,rt*20,0,Math.PI*2);
+      cx.strokeStyle=`rgba(0,200,255,${(1-rt)*.4})`;cx.lineWidth=1;cx.stroke();
+    }
+    t++;requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══ S5 NETWORK: true 3D node positions + arc edges ══ */
+(()=>{
+  const cv=document.getElementById('cvNet');if(!cv||reduce)return;
+  const cx=cv.getContext('2d');let W,H,t=0;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  window.addEventListener('resize',resize,{passive:true});resize();
+  // 3D node positions (x,y,z) — project with focal=600
+  const FOCAL=600;
+  const ns3d=[
+    {x:-.28,y:-.12,z:.1,  lbl:'Your Clinic',    col:'240,140,0'},
+    {x: .02,y: .08,z:-.15,lbl:'AI Receptionist', col:'0,194,212'},
+    {x:-.28,y: .22,z:-.05,lbl:'Booking System',  col:'0,194,212'},
+    {x: .02,y:-.14,z:.08, lbl:'Analytics',       col:'0,194,212'},
+    {x:-.14,y:-.28,z:.06, lbl:'SMS / Email',      col:'240,140,0'},
+  ];
+  const edges=[[0,1],[1,2],[1,3],[1,4],[0,4]];
+  function proj(n, rot){
+    // rotate around Y axis
+    const cosR=Math.cos(rot), sinR=Math.sin(rot);
+    const rx=n.x*cosR+n.z*sinR;
+    const rz=-n.x*sinR+n.z*cosR;
+    const scale=FOCAL/(FOCAL+rz*300);
+    return {
+      sx: W*.35 + rx*W*.38*scale,
+      sy: H*.5  + n.y*H*.45*scale,
+      scale, z:rz
+    };
+  }
+  let packets=[];
+  (function tick(){
+    cx.clearRect(0,0,W,H);
+    const rot=t*.005; // slow rotation
+    const projected=ns3d.map(n=>proj(n,rot));
+    // Sort edges back-to-front
+    edges.forEach(([a,b])=>{
+      const pa=projected[a],pb=projected[b];
+      const avgZ=(pa.z+pb.z)/2;
+      // Curved arc for 3D feel
+      const mx=(pa.sx+pb.sx)/2, my=(pa.sy+pb.sy)/2;
+      const curve=-(pa.z-pb.z)*60;
+      cx.beginPath();cx.moveTo(pa.sx,pa.sy);
+      cx.quadraticCurveTo(mx,my+curve,pb.sx,pb.sy);
+      cx.strokeStyle=`rgba(120,80,255,${.06+avgZ*.04})`;cx.lineWidth=1;cx.stroke();
+    });
+    // Spawn packets on edges
+    if(t%35===0){
+      const e=edges[Math.floor(Math.random()*edges.length)];
+      const flip=Math.random()<.5;
+      packets.push({from:flip?e[1]:e[0],to:flip?e[0]:e[1],prog:0,spd:.018+Math.random()*.01});
+    }
+    // Draw packets
+    for(let i=packets.length-1;i>=0;i--){
+      const pk=packets[i];pk.prog+=pk.spd;
+      if(pk.prog>1){packets.splice(i,1);continue;}
+      const pa=projected[pk.from],pb=projected[pk.to];
+      const ease=pk.prog<.5?2*pk.prog*pk.prog:1-Math.pow(-2*pk.prog+2,2)/2;
+      const ppx=pa.sx+(pb.sx-pa.sx)*ease, ppy=pa.sy+(pb.sy-pa.sy)*ease;
+      const pscale=(pa.scale+pb.scale)/2;
+      cx.beginPath();cx.arc(ppx,ppy,5*pscale,0,Math.PI*2);
+      cx.fillStyle='rgba(120,80,255,.92)';cx.fill();
+      cx.beginPath();cx.arc(ppx,ppy,10*pscale,0,Math.PI*2);
+      cx.fillStyle='rgba(120,80,255,.18)';cx.fill();
+    }
+    // Nodes — sorted back to front by z
+    [...projected.entries()].sort((a,b)=>a[1].z-b[1].z).forEach(([i,p])=>{
+      const n=ns3d[i];
+      const pulse=.5+.5*Math.sin(t*.05+i*.8);
+      const r=12*p.scale, gR=36*p.scale;
+      const g=cx.createRadialGradient(p.sx,p.sy,0,p.sx,p.sy,gR+pulse*10);
+      g.addColorStop(0,`rgba(${n.col},${.28+pulse*.1})`);g.addColorStop(1,`rgba(${n.col},0)`);
+      cx.beginPath();cx.arc(p.sx,p.sy,gR+pulse*10,0,Math.PI*2);cx.fillStyle=g;cx.fill();
+      cx.beginPath();cx.arc(p.sx,p.sy,r,0,Math.PI*2);
+      cx.fillStyle=`rgba(${n.col},${.72+pulse*.2})`;cx.fill();
+      cx.font=`600 ${Math.round(10*p.scale+2)}px Space Grotesk,sans-serif`;
+      cx.fillStyle=`rgba(255,255,255,${.55+pulse*.2})`;
+      cx.textAlign='left';cx.fillText(n.lbl,p.sx+r+4,p.sy+4);
+    });
+    t++;requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══ S6 METHOD: 3D orbital rings with perspective ellipses ══ */
+(()=>{
+  const cv=document.getElementById('cvOrb');if(!cv||reduce)return;
+  const cx=cv.getContext('2d');let W,H,t=0;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  window.addEventListener('resize',resize,{passive:true});resize();
+  // Each orbit: radius fraction, speed, phase offset, color, dot count, tilt (X rotation)
+  const orbits=[
+    {fr:.42,spd:.0022,off:0,   col:'0,194,212',nd:4,tilt:Math.PI*.2},
+    {fr:.28,spd:-.005,off:1.6, col:'240,140,0',nd:2,tilt:Math.PI*.45},
+    {fr:.17,spd:.009, off:3.0, col:'0,194,212',nd:1,tilt:Math.PI*.12},
+  ];
+  function drawOrbit(ox,oy,rad,tilt,col,a){
+    // Ellipse = orbit seen at tilt angle
+    cx.beginPath();
+    cx.ellipse(ox,oy,rad,rad*Math.abs(Math.cos(tilt)),0,0,Math.PI*2);
+    cx.strokeStyle=`rgba(${col},${a})`;cx.lineWidth=1;cx.stroke();
+  }
+  (function tick(){
+    cx.clearRect(0,0,W,H);
+    const ox=W*.5,oy=H*.5;
+    orbits.forEach(o=>{
+      const rad=o.fr*Math.min(W,H);
+      const tiltNow=o.tilt+Math.sin(t*.008)*0.1;
+      drawOrbit(ox,oy,rad,tiltNow,o.col,.09);
+      for(let d=0;d<o.nd;d++){
+        const ang=t*o.spd+o.off+d*(Math.PI*2/o.nd);
+        // 3D position on tilted orbit
+        const x3=Math.cos(ang)*rad;
+        const y3=Math.sin(ang)*rad*Math.cos(tiltNow);
+        const z3=Math.sin(ang)*rad*Math.sin(tiltNow);
+        // Depth-based scale
+        const depth=1+z3/(rad*2);
+        const dr=ox+x3, dy2=oy+y3;
+        const dotR=5*depth+1;
+        const gR=18*depth;
+        const pulse=.5+.5*Math.sin(t*.05+d*1.5);
+        const g=cx.createRadialGradient(dr,dy2,0,dr,dy2,gR+pulse*6);
+        g.addColorStop(0,`rgba(${o.col},${.35+pulse*.1})`);g.addColorStop(1,`rgba(${o.col},0)`);
+        cx.beginPath();cx.arc(dr,dy2,gR+pulse*6,0,Math.PI*2);cx.fillStyle=g;cx.fill();
+        cx.beginPath();cx.arc(dr,dy2,dotR,0,Math.PI*2);
+        cx.fillStyle=`rgba(${o.col},${.8+pulse*.2})`;cx.fill();
+      }
+    });
+    const p=.5+.5*Math.sin(t*.038);
+    const cg=cx.createRadialGradient(ox,oy,0,ox,oy,75+p*24);
+    cg.addColorStop(0,`rgba(0,194,212,${.24+p*.1})`);cg.addColorStop(1,'rgba(0,194,212,0)');
+    cx.beginPath();cx.arc(ox,oy,75+p*24,0,Math.PI*2);cx.fillStyle=cg;cx.fill();
+    // Bright core
+    const cc=cx.createRadialGradient(ox,oy,0,ox,oy,12);
+    cc.addColorStop(0,'rgba(180,240,255,.9)');cc.addColorStop(1,'rgba(0,194,212,0)');
+    cx.beginPath();cx.arc(ox,oy,12,0,Math.PI*2);cx.fillStyle=cc;cx.fill();
+    t++;requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══ S11 CTA: 3D warp tunnel — perspective shrinking rings ══ */
+(()=>{
+  const cv=document.getElementById('cvCTA');if(!cv||reduce)return;
+  const cx=cv.getContext('2d');let W,H,t=0;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  window.addEventListener('resize',resize,{passive:true});resize();
+  const N_RINGS=12;
+  (function tick(){
+    cx.clearRect(0,0,W,H);
+    const ox=W*.5,oy=H*.5;
+    const maxR=Math.min(W,H)*.58;
+    // Rings spawn at edge and travel to center (tunnel fly-through)
+    for(let i=0;i<N_RINGS;i++){
+      const phase=((t*.014+i/N_RINGS))%1;
+      const ease=Math.pow(1-phase,2.5); // perspective: compress near center
+      const r=ease*maxR;
+      const a=(1-ease)*.28;
+      // Squash slightly for 3D tunnel perspective
+      const squash=.68+ease*.32;
+      cx.beginPath();
+      cx.ellipse(ox,oy,r,r*squash,0,0,Math.PI*2);
+      cx.strokeStyle=`rgba(240,140,0,${a})`;cx.lineWidth=1.2;cx.stroke();
+      // Subtle fill glow
+      if(a>.08){
+        const gf=cx.createRadialGradient(ox,oy,0,ox,oy,r);
+        gf.addColorStop(0,`rgba(240,140,0,0)`);gf.addColorStop(.85,`rgba(240,140,0,0)`);gf.addColorStop(1,`rgba(240,140,0,${a*.35})`);
+        cx.beginPath();cx.ellipse(ox,oy,r,r*squash,0,0,Math.PI*2);cx.fillStyle=gf;cx.fill();
+      }
+    }
+    // Core glow
+    const p=.5+.5*Math.sin(t*.03);
+    const cg=cx.createRadialGradient(ox,oy,0,ox,oy,Math.min(W,H)*.3+p*28);
+    cg.addColorStop(0,`rgba(240,140,0,${.18+p*.08})`);cg.addColorStop(1,'rgba(240,140,0,0)');
+    cx.beginPath();cx.arc(ox,oy,Math.min(W,H)*.3+p*28,0,Math.PI*2);cx.fillStyle=cg;cx.fill();
+    // Bright center star
+    const sc=cx.createRadialGradient(ox,oy,0,ox,oy,10);
+    sc.addColorStop(0,`rgba(255,200,80,.9)`);sc.addColorStop(1,'rgba(240,140,0,0)');
+    cx.beginPath();cx.arc(ox,oy,10,0,Math.PI*2);cx.fillStyle=sc;cx.fill();
+    t++;requestAnimationFrame(tick);
+  })();
+})();
+
+/* ══ PER-SECTION NEBULA ══ */
+const NEBULAS = [
+  // S0 hero — deep space teal
+  'radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,194,212,.22) 0%, rgba(0,100,130,.12) 50%, rgba(4,6,14,0) 100%)',
+  // S1 services — teal + orange split
+  'radial-gradient(ellipse 70% 50% at 30% 50%, rgba(0,194,212,.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 75% 50%, rgba(240,140,0,.15) 0%, transparent 60%)',
+  // S2 voice — electric cyan
+  'radial-gradient(ellipse 90% 70% at 70% 50%, rgba(0,220,255,.28) 0%, rgba(0,140,180,.14) 45%, rgba(4,6,14,0) 100%)',
+  // S3 retention — amber warmth
+  'radial-gradient(ellipse 85% 65% at 30% 50%, rgba(240,140,0,.26) 0%, rgba(180,80,0,.12) 50%, rgba(4,6,14,0) 100%)',
+  // S4 website — ocean blue
+  'radial-gradient(ellipse 85% 65% at 65% 50%, rgba(0,150,255,.22) 0%, rgba(0,100,200,.1) 50%, rgba(4,6,14,0) 100%)',
+  // S5 why us — indigo/purple + teal
+  'radial-gradient(ellipse 70% 60% at 70% 50%, rgba(100,60,240,.2) 0%, rgba(0,194,212,.1) 55%, rgba(4,6,14,0) 100%)',
+  // S6 method — crystalline teal
+  'radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,194,212,.3) 0%, rgba(0,80,120,.15) 55%, rgba(4,6,14,0) 100%)',
+  // S7 phases — dark navy
+  'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,60,100,.35) 0%, rgba(0,30,60,.2) 55%, rgba(4,6,14,0) 100%)',
+  // S8 pricing — cool teal glow
+  'radial-gradient(ellipse 85% 65% at 50% 50%, rgba(0,194,212,.2) 0%, rgba(0,80,140,.1) 55%, rgba(4,6,14,0) 100%)',
+  // S9 testimonial — warm gold
+  'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,180,0,.16) 0%, rgba(180,80,0,.1) 55%, rgba(4,6,14,0) 100%)',
+  // S10 about — soft violet
+  'radial-gradient(ellipse 75% 60% at 50% 45%, rgba(120,60,200,.18) 0%, rgba(60,20,120,.1) 55%, rgba(4,6,14,0) 100%)',
+  // S11 CTA — hot orange
+  'radial-gradient(ellipse 85% 65% at 50% 45%, rgba(240,140,0,.3) 0%, rgba(180,60,0,.16) 50%, rgba(4,6,14,0) 100%)',
+];
+const nebulaEl = document.getElementById('nebula');
+function setNebula(idx){
+  nebulaEl.style.background = NEBULAS[Math.min(idx, NEBULAS.length-1)];
+}
+const scroller = document.getElementById('scroller');
+const nav = document.getElementById('main-nav');
+const sections = [...document.querySelectorAll('section')];
+const dotsEl = document.getElementById('dots');
+let lastIdx = 0;
+
+window.goTo = i => { if(sections[i]) sections[i].scrollIntoView({behavior:'smooth'}); };
+
+// Hamburger
+const hbg = document.getElementById('hbg');
+const mmenu = document.getElementById('mmenu');
+hbg.addEventListener('click',()=>{
+  const o = hbg.classList.toggle('open');
+  mmenu.classList.toggle('open',o);
+  mmenu.setAttribute('aria-hidden',String(!o));
+});
+window.closeM = ()=>{ hbg.classList.remove('open');mmenu.classList.remove('open');mmenu.setAttribute('aria-hidden','true'); };
+
+// Nav
+scroller.addEventListener('scroll',()=>{ nav.classList.toggle('scrolled',scroller.scrollTop>40); },{passive:true});
+
+// Dots
+sections.forEach((_,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot'+(i===0?' active':'');
+  d.addEventListener('click',()=>goTo(i));
+  dotsEl.appendChild(d);
+});
+
+// Section intersection → depth-enter + warp burst
+setNebula(0);
+const secObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx = sections.indexOf(e.target);
+      if(idx !== lastIdx){ window.dispatchEvent(new Event('sectionChange')); lastIdx = idx; }
+      setNebula(idx);
+      document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+    }
+  });
+},{threshold:.55, root:scroller});
+sections.forEach(s=>secObs.observe(s));
+
+// Count-up: animates any numbers inside an element's text from 0 to their final value,
+// preserving surrounding characters (works for "$180K–$400K", "3–5 patients", "30 days" alike)
+function countUpText(el, duration=900){
+  const finalText = el.textContent.trim();
+  const targets = (finalText.match(/\d+/g) || []).map(Number);
+  if(!targets.length) return;
+  const start = performance.now();
+  function frame(now){
+    const t = Math.min((now-start)/duration, 1);
+    const eased = 1 - Math.pow(1-t, 3);
+    let i = 0;
+    el.textContent = finalText.replace(/\d+/g, () => String(Math.round(targets[i++] * eased)));
+    if(t < 1) requestAnimationFrame(frame);
+    else el.textContent = finalText;
+  }
+  requestAnimationFrame(frame);
+}
+
+// Word-by-word reveal setup: splits plain-text .word-reveal elements into staggered spans.
+// Elements with mixed inline formatting (e.g. the s6 process line) are hand-marked with
+// .word-span in the HTML instead, so this only runs on the safe plain-text cases.
+document.querySelectorAll('.word-reveal').forEach(el=>{
+  const words = el.textContent.trim().split(/\s+/);
+  el.textContent = '';
+  words.forEach((w,i)=>{
+    const span = document.createElement('span');
+    span.className = 'word-span';
+    span.style.transitionDelay = (i*28)+'ms';
+    span.textContent = w;
+    el.appendChild(span);
+    el.appendChild(document.createTextNode(' '));
+  });
+});
+
+// Depth enter on scroll
+const depthObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('arrived');
+      if(e.target.id === 'roiBar'){ e.target.querySelectorAll('.roi-num').forEach(el=>countUpText(el)); }
+      e.target.querySelectorAll('.word-span').forEach(w=>w.classList.add('in'));
+      depthObs.unobserve(e.target);
+    }
+  });
+},{threshold:.12, root:scroller});
+document.querySelectorAll('.depth-enter').forEach(el=>depthObs.observe(el));
+
+// Arrival focus-cue: product section backgrounds (s2-s5) briefly defocus then resolve to
+// clarity as their content locks in, echoing the motionsites.ai transition-blur technique
+// (adapted to arrival-trigger since the site uses scroll-snap, not continuous scroll-scrub)
+const focusObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('dip');
+      requestAnimationFrame(()=>requestAnimationFrame(()=>e.target.classList.remove('dip')));
+    }
+  });
+},{threshold:.5, root:scroller});
+document.querySelectorAll('.focus-canvas').forEach(c=>focusObs.observe(c));
+
+// Restrained magnetic cursor-follow on the About photo — small range, professional headshot
+(function(){
+  const el = document.getElementById('aboutPhoto');
+  if(!el) return;
+  const strength = 12;
+  el.addEventListener('mousemove', e=>{
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width/2, cy = r.top + r.height/2;
+    const dx = (e.clientX - cx) / strength, dy = (e.clientY - cy) / strength;
+    el.style.transition = 'transform .3s ease-out';
+    el.style.transform = `translate3d(${dx}px,${dy}px,0)`;
+  });
+  el.addEventListener('mouseleave', ()=>{
+    el.style.transition = 'transform .6s ease-in-out';
+    el.style.transform = 'translate3d(0,0,0)';
+  });
+})();
+
+// Same restrained magnetic hover on the s1 service icons — wrapped separately from .hc so it
+// doesn't fight that element's own float animation / hover scale (which uses !important)
+document.querySelectorAll('.hc-magnet').forEach(el=>{
+  const strength = 14;
+  el.addEventListener('mousemove', e=>{
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width/2, cy = r.top + r.height/2;
+    const dx = (e.clientX - cx) / strength, dy = (e.clientY - cy) / strength;
+    el.style.transition = 'transform .3s ease-out';
+    el.style.transform = `translate3d(${dx}px,${dy}px,0)`;
+  });
+  el.addEventListener('mouseleave', ()=>{
+    el.style.transition = 'transform .6s ease-in-out';
+    el.style.transform = 'translate3d(0,0,0)';
+  });
+});
+
+// Hero load
+window.addEventListener('load',()=>{
+  requestAnimationFrame(()=>document.querySelectorAll('.hl').forEach(el=>el.classList.add('in')));
+  // Trigger hero depth-enters immediately
+  document.querySelectorAll('#s0 .depth-enter').forEach(el=>el.classList.add('arrived'));
+});
+
+// Pricing
+document.querySelectorAll('.pc').forEach(c=>{
+  function sel(){
+    document.querySelectorAll('.pc').forEach(x=>{ x.classList.remove('active'); x.setAttribute('aria-pressed','false'); });
+    c.classList.add('active'); c.setAttribute('aria-pressed','true');
+  }
+  c.addEventListener('click',sel);
+  c.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();sel();} });
+});
+
+})();
+</script>
+<script type="module">
+import { RetellWebClient } from 'https://esm.sh/retell-client-js-sdk@2.0.8';
+
+const TOKEN_URL = window.location.hostname === 'localhost'
+  ? '/create-web-call'
+  : 'https://visionlabai.app.n8n.cloud/webhook/create-web-call';
+
+const btn = document.getElementById('demo-btn');
+const svg = document.getElementById('demo-btn-svg');
+
+const PLAY = '<path d="M3 2 L11 7 L3 12Z" fill="currentColor"/>';
+const STOP = '<rect x="3" y="3" width="8" height="8" fill="currentColor"/>';
+
+let client = null;
+let active = false;
+
+function setIcon(type) {
+  svg.innerHTML = type === 'stop' ? STOP : PLAY;
+  btn.style.background = type === 'stop' ? 'rgba(239,68,68,.18)' : '';
+}
+
+async function startCall() {
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  try {
+    const res = await fetch(TOKEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+    const data = await res.json();
+    console.log('[demo] token response', res.status, data);
+    const { access_token } = data;
+
+    // Ensure mic permission is actually granted before starting the call.
+    // The SDK enables the mic internally without awaiting/catching errors,
+    // so a denied/failed getUserMedia here would otherwise fail silently.
+    const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    micStream.getTracks().forEach(t => t.stop());
+
+    client = new RetellWebClient();
+    client.on('call_started', async () => {
+      console.log('[demo] call_started');
+      try {
+        await client.room.localParticipant.setMicrophoneEnabled(true);
+        console.log('[demo] microphone enabled');
+      } catch(err) {
+        console.log('[demo] microphone enable failed', err);
+        alert('Could not access your microphone. Please check your browser/system mic permissions and try again.');
+        resetCall();
+        return;
+      }
+      active = true;
+      btn.disabled = false;
+      btn.style.opacity = '';
+      btn.title = 'End call';
+      setIcon('stop');
+    });
+    client.on('call_ended', () => { console.log('[demo] call_ended'); resetCall(); });
+    client.on('error', (e) => { console.log('[demo] error', e); resetCall(); });
+    await client.startCall({ accessToken: access_token });
+    console.log('[demo] startCall resolved');
+  } catch(e) {
+    console.log('[demo] caught error', e);
+    if (e && (e.name === 'NotAllowedError' || e.name === 'PermissionDeniedError')) {
+      alert('Microphone access is required for the AI demo. Please allow microphone access and try again.');
+    }
+    resetCall();
+  }
+}
+
+function resetCall() {
+  active = false;
+  if (client) { try { client.stopCall(); } catch(e) {} client = null; }
+  btn.disabled = false;
+  btn.style.opacity = '';
+  btn.title = 'Talk to AI demo';
+  setIcon('play');
+}
+
+btn.addEventListener('click', () => { active ? resetCall() : startCall(); });
+</script>
+</body>
+</html>

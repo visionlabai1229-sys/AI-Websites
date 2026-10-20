@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stephen Rivas — AI Automation & Voice Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --bg:#04060E;--fg:#fff;
+  --teal:#00C2D4;--teal2:#2AE0F0;
+  --orange:#F08C00;--orange2:#FFB200;
+  --muted:rgba(255,255,255,.52);--muted2:rgba(255,255,255,.28);
+  --sp:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.serif{font-family:'Instrument Serif',serif}
+.tc{color:var(--teal)}.oc{color:var(--orange)}
+.rule{display:inline-block;width:32px;height:2px;background:linear-gradient(90deg,var(--teal),var(--orange));border-radius:2px}
+
+/* grain texture */
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:1;mix-blend-mode:overlay}
+
+/* layered gradient backdrop */
+.bg-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bg-glow::before{content:'';position:absolute;top:-20%;left:-10%;width:60%;height:70%;
+  background:radial-gradient(circle,rgba(0,194,212,.16) 0%,transparent 70%);filter:blur(40px)}
+.bg-glow::after{content:'';position:absolute;bottom:-25%;right:-10%;width:65%;height:75%;
+  background:radial-gradient(circle,rgba(240,140,0,.14) 0%,transparent 70%);filter:blur(40px)}
+
+/* elevated surface w/ layered tinted shadow */
+.surface{
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset,
+             0 20px 40px -20px rgba(0,194,212,.10),
+             0 30px 60px -30px rgba(0,0,0,.6);
+  transition:transform .4s var(--sp),box-shadow .4s var(--sp),border-color .4s var(--sp);
+}
+.surface:hover{
+  transform:translateY(-4px);
+  border-color:rgba(0,194,212,.35);
+  box-shadow:0 1px 0 rgba(255,255,255,.06) inset,
+             0 24px 50px -18px rgba(0,194,212,.22),
+             0 40px 70px -30px rgba(0,0,0,.7);
+}
+
+.tag{
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;
+  background:rgba(0,194,212,.09);border:1px solid rgba(0,194,212,.28);color:var(--teal2);
+}
+.tag.o{background:rgba(240,140,0,.10);border-color:rgba(240,140,0,.32);color:var(--orange2)}
+
+.btn{
+  position:relative;display:inline-flex;align-items:center;gap:9px;
+  font:600 14px 'Space Grotesk',sans-serif;color:#04060E;
+  background:linear-gradient(135deg,var(--teal),var(--teal2));
+  padding:14px 26px;border-radius:11px;text-decoration:none;
+  box-shadow:0 14px 30px -10px rgba(0,194,212,.45);
+  transition:transform .3s var(--sp),box-shadow .3s var(--sp),filter .3s var(--sp);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 38px -8px rgba(0,194,212,.6);filter:brightness(1.05)}
+.btn:active{transform:translateY(0px) scale(.98)}
+.btn:focus-visible{outline:2px solid var(--orange2);outline-offset:3px}
+
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:9px;
+  font:600 14px 'Space Grotesk',sans-serif;color:var(--fg);
+  border:1px solid rgba(255,255,255,.18);padding:13px 24px;border-radius:11px;text-decoration:none;
+  transition:border-color .3s var(--sp),color .3s var(--sp),transform .3s var(--sp);
+}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange2);transform:translateY(-2px)}
+.btn-ghost:active{transform:translateY(0)}
+.btn-ghost:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+.stack-pill{
+  font-size:12.5px;color:var(--muted);border:1px solid rgba(255,255,255,.1);
+  padding:6px 13px;border-radius:8px;background:rgba(255,255,255,.02);
+  transition:border-color .25s var(--sp),color .25s var(--sp);
+}
+.stack-pill:hover{border-color:rgba(0,194,212,.4);color:var(--teal2)}
+
+a.link-row{transition:gap .3s var(--sp),color .3s var(--sp)}
+a.link-row:hover{gap:12px;color:var(--teal2)}
+a.link-row:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
+
+.section-label{font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--orange)}
+</style>
+</head>
+<body class="antialiased">
+
+<svg class="grain" width="100%" height="100%">
+  <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#n)"/>
+</svg>
+
+<!-- NAV -->
+<header class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pt-8 flex items-center justify-between">
+  <img src="brand_assests/VisionLab_AI_Logo_nav.png" alt="VisionLab AI" style="height:32px;filter:drop-shadow(0 0 14px rgba(0,194,212,.35))">
+  <a href="mailto:stephen@visionlabai.ca" class="btn-ghost !py-2.5 !px-5 text-[13px]">Get in touch</a>
+</header>
+
+<!-- HERO -->
+<section class="relative">
+  <div class="bg-glow"></div>
+  <div class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pt-20 pb-24 md:pt-28 md:pb-32">
+    <span class="section-label">AI Automation &amp; Voice Systems</span>
+    <h1 class="serif mt-5 leading-[1.02]" style="font-size:clamp(40px,7vw,84px);letter-spacing:-.03em">
+      Stephen Rivas
+    </h1>
+    <p class="mt-6 max-w-2xl text-[16px] md:text-[18px] leading-[1.7]" style="color:var(--muted)">
+      Founder of <span class="tc">VisionLab AI</span>. I build AI voice receptionists, n8n automation systems, and integrated websites for service businesses — shipped to production, running on real phone lines and real client workflows, not demos.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-4">
+      <a href="mailto:stephen@visionlabai.ca" class="btn">
+        Email me <span aria-hidden="true">→</span>
+      </a>
+      <a href="https://visionlabai.ca" target="_blank" rel="noopener" class="btn-ghost">
+        Visit visionlabai.ca
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED WORK -->
+<section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pb-8">
+  <div class="flex items-center gap-4 mb-10">
+    <span class="rule"></span>
+    <span class="section-label">Selected Work</span>
+  </div>
+
+  <div class="grid md:grid-cols-1 gap-6">
+
+    <!-- Project 1 -->
+    <article class="surface p-7 md:p-9">
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">AI Voice Receptionist</h2>
+        <div class="flex gap-2 flex-wrap justify-end">
+          <span class="tag">Retell AI</span>
+          <span class="tag o">Twilio</span>
+          <span class="tag">Cal.com</span>
+        </div>
+      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">
+        Full conversational voice agent handling live inbound calls end to end — booking, cancelling, and rescheduling appointments directly against a real calendar, answering FAQs, and routing callback requests. Runs on a dedicated Twilio number, backed by an n8n webhook layer for booking logic and ClickUp for record-keeping. Built, tested, and running in production — not a sandbox prototype.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="stack-pill">System prompt design</span>
+        <span class="stack-pill">Conversation flow QA</span>
+        <span class="stack-pill">Cal.com booking API</span>
+        <span class="stack-pill">Webhook orchestration</span>
+      </div>
+    </article>
+
+    <!-- Project 2 -->
+    <article class="surface p-7 md:p-9">
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">n8n Automation Suite</h2>
+        <div class="flex gap-2 flex-wrap justify-end">
+          <span class="tag">n8n</span>
+          <span class="tag o">ClickUp</span>
+          <span class="tag">Twilio SMS</span>
+        </div>
+      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">
+        A set of production workflows running daily for real client and internal operations: appointment reminder sequences, post-visit review requests, no-show re-booking flows, inbound call logging with automatic routing and tagging, and reply detection across email inboxes that flags leads and drafts responses automatically. Eight independent workflows live at once, each built for a specific operational gap — not a single generic template.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="stack-pill">Webhook design</span>
+        <span class="stack-pill">CRM sync (ClickUp API)</span>
+        <span class="stack-pill">SMS/email triggers</span>
+        <span class="stack-pill">Multi-client routing logic</span>
+      </div>
+    </article>
+
+    <!-- Project 3 -->
+    <article class="surface p-7 md:p-9">
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">Lead Generation &amp; Outreach System</h2>
+        <div class="flex gap-2 flex-wrap justify-end">
+          <span class="tag">Trigger.dev</span>
+          <span class="tag o">TypeScript</span>
+          <span class="tag">ClickUp CRM</span>
+        </div>
+      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">
+        Scheduled lead-sourcing job built on Trigger.dev that queries local business data, qualifies leads, and pushes them straight into a ClickUp pipeline — paired with a personalized outreach engine that researches contacts, drafts sequenced emails, and tracks replies automatically across a multi-touch follow-up cadence.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="stack-pill">Scheduled jobs</span>
+        <span class="stack-pill">Places/data APIs</span>
+        <span class="stack-pill">Pipeline automation</span>
+        <span class="stack-pill">Email deliverability</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 py-16">
+  <div class="flex items-center gap-4 mb-8">
+    <span class="rule rev" style="background:linear-gradient(90deg,var(--orange),var(--teal))"></span>
+    <span class="section-label">Core Stack</span>
+  </div>
+  <div class="flex flex-wrap gap-2.5">
+    <span class="stack-pill">Retell AI</span>
+    <span class="stack-pill">n8n</span>
+    <span class="stack-pill">Twilio</span>
+    <span class="stack-pill">Cal.com</span>
+    <span class="stack-pill">ClickUp API</span>
+    <span class="stack-pill">Trigger.dev</span>
+    <span class="stack-pill">TypeScript</span>
+    <span class="stack-pill">Stripe</span>
+    <span class="stack-pill">Zoho SMTP</span>
+    <span class="stack-pill">REST APIs &amp; Webhooks</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pb-28">
+  <div class="surface p-9 md:p-12 text-center">
+    <h2 class="serif" style="font-size:clamp(30px,4.5vw,46px);letter-spacing:-.02em">Let's build something.</h2>
+    <p class="mt-4 max-w-xl mx-auto text-[15px] leading-[1.7]" style="color:var(--muted)">
+      Open to freelance and partnership work in AI voice systems and automation — happy to walk through any of the builds above live on a call.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4 justify-center">
+      <a href="mailto:stephen@visionlabai.ca" class="btn">Email me <span aria-hidden="true">→</span></a>
+      <a href="https://visionlabai.ca" target="_blank" rel="noopener" class="btn-ghost">visionlabai.ca</a>
+    </div>
+  </div>
+</section>
+
+<footer class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pb-10 flex items-center justify-between text-[12px]" style="color:var(--muted2)">
+  <span>&copy; 2026 VisionLab AI</span>
+  <span>Built by Stephen Rivas</span>
+</footer>
+
+</body>
+</html>
