@@ -24,7 +24,10 @@ const MIME = {
   '.woff2': 'font/woff2',
 };
 
-const RETELL_API_KEY = 'key_0937cbf88d07a81dfacb712b0997';
+// The key lives in ../automations/dental-leads/.env, never in this file (this repo is public).
+const RETELL_API_KEY = process.env.RETELL_API_KEY || await readFile(join(__dirname, '../automations/dental-leads/.env'), 'utf8')
+  .then(env => (env.match(/^RETELL_API_KEY\s*=\s*"?([^"\n]+)"?/m) || [])[1]?.trim() || '')
+  .catch(() => '');
 const DEMO_AGENT_ID = 'agent_53d1895c687078491d33e83f5e';
 
 const server = createServer(async (req, res) => {
