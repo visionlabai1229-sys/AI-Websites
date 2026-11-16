@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stephen Rivas — AI Automation & Voice Systems</title>
+<title>Stephen Rivas | AI Workflows &amp; Voice Systems</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ html,body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-
 .grain{position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:1;mix-blend-mode:overlay}
 
 /* layered gradient backdrop */
-.bg-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bg-glow{position:absolute;inset:0 0 -30% 0;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
 .bg-glow::before{content:'';position:absolute;top:-20%;left:-10%;width:60%;height:70%;
   background:radial-gradient(circle,rgba(0,194,212,.16) 0%,transparent 70%);filter:blur(40px)}
 .bg-glow::after{content:'';position:absolute;bottom:-25%;right:-10%;width:65%;height:75%;
@@ -91,6 +91,19 @@ a.link-row:hover{gap:12px;color:var(--teal2)}
 a.link-row:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
 
 .section-label{font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--orange)}
+
+/* motion: transform + opacity only */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--sp),transform .8s var(--sp);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+.wave{display:flex;align-items:center;gap:5px;height:56px}
+.wave i{display:block;width:4px;height:100%;border-radius:4px;background:linear-gradient(180deg,var(--teal2),var(--orange));transform:scaleY(.25);transform-origin:center;animation:wv 1.5s var(--sp) infinite alternate;animation-delay:calc(var(--i)*-.13s);opacity:.85}
+@keyframes wv{0%{transform:scaleY(.18)}50%{transform:scaleY(.95)}100%{transform:scaleY(.4)}}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--teal2);position:relative}
+.live-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--teal2);animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.7}100%{transform:scale(3.2);opacity:0}}
+.stat-n{font-family:'Instrument Serif',serif;font-size:clamp(38px,5vw,56px);line-height:1;letter-spacing:-.03em;background:linear-gradient(135deg,#fff,var(--teal2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.quote{border-left:2px solid var(--orange);padding-left:16px;font-family:'Instrument Serif',serif;font-style:italic;font-size:20px;color:#fff}
+@media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}.wave i,.live-dot::after{animation:none}}
 </style>
 </head>
 <body class="antialiased">
@@ -103,136 +116,128 @@ a.link-row:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border
 <!-- NAV -->
 <header class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pt-8 flex items-center justify-between">
   <img src="brand_assests/VisionLab_AI_Logo_nav.png" alt="VisionLab AI" style="height:32px;filter:drop-shadow(0 0 14px rgba(0,194,212,.35))">
-  <a href="mailto:stephen@visionlabai.ca" class="btn-ghost !py-2.5 !px-5 text-[13px]">Get in touch</a>
+  <a href="mailto:stephenrivas24@icloud.com" class="btn-ghost !py-2.5 !px-5 text-[13px]">Get in touch</a>
 </header>
 
 <!-- HERO -->
 <section class="relative">
   <div class="bg-glow"></div>
-  <div class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pt-20 pb-24 md:pt-28 md:pb-32">
-    <span class="section-label">AI Automation &amp; Voice Systems</span>
-    <h1 class="serif mt-5 leading-[1.02]" style="font-size:clamp(40px,7vw,84px);letter-spacing:-.03em">
+  <div class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pt-20 pb-20 md:pt-28 md:pb-24">
+    <span class="section-label reveal">AI Workflows &amp; Voice Systems</span>
+    <h1 class="serif mt-5 leading-[1.02] reveal" style="font-size:clamp(40px,7vw,84px);letter-spacing:-.03em;--d:.08s">
       Stephen Rivas
     </h1>
-    <p class="mt-6 max-w-2xl text-[16px] md:text-[18px] leading-[1.7]" style="color:var(--muted)">
-      Founder of <span class="tc">VisionLab AI</span>. I build AI voice receptionists, n8n automation systems, and integrated websites for service businesses — shipped to production, running on real phone lines and real client workflows, not demos.
+    <p class="serif mt-5 reveal" style="font-size:clamp(22px,3.2vw,34px);letter-spacing:-.02em;line-height:1.2;--d:.16s">
+      For 11 years I was the voice on the phone. <span class="tc">Now I build the voice.</span>
     </p>
-    <div class="mt-9 flex flex-wrap gap-4">
-      <a href="mailto:stephen@visionlabai.ca" class="btn">
-        Email me <span aria-hidden="true">→</span>
-      </a>
-      <a href="https://visionlabai.ca" target="_blank" rel="noopener" class="btn-ghost">
-        Visit visionlabai.ca
-      </a>
+    <div class="wave mt-8 reveal" aria-hidden="true" style="--d:.24s"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19"></i><i style="--i:20"></i><i style="--i:21"></i></div>
+    <p class="mt-8 max-w-2xl text-[16px] md:text-[18px] leading-[1.7] reveal" style="color:var(--muted);--d:.3s">
+      Founder of <span class="tc">VisionLab AI</span>. I build AI voice receptionists, lead and outreach systems, inbox automations and internal tools as agentic workflows. I find where a team's time goes, redesign the work, and build the AI for the parts that shouldn't need a person. Where a mistake would cost trust, a person signs off first.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-4 reveal" style="--d:.38s">
+      <a href="tel:+13653604080" class="btn">Call my AI receptionist <span aria-hidden="true">&rarr;</span></a>
+      <a href="mailto:stephenrivas24@icloud.com" class="btn-ghost">Email me</a>
+      <a href="https://visionlabai.ca" target="_blank" rel="noopener" class="btn-ghost">Visit visionlabai.ca</a>
     </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pb-20">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
+    <div class="reveal" style="--d:0s"><div class="stat-n"><span data-count="16">16</span></div><div class="mt-2 text-[13px] leading-snug" style="color:var(--muted)">workflows in production</div></div>
+    <div class="reveal" style="--d:0.08s"><div class="stat-n"><span data-count="600">600</span>+</div><div class="mt-2 text-[13px] leading-snug" style="color:var(--muted)">businesses found and qualified, no manual searching</div></div>
+    <div class="reveal" style="--d:0.16s"><div class="stat-n"><span data-count="2">2</span></div><div class="mt-2 text-[13px] leading-snug" style="color:var(--muted)">voice agents live today</div></div>
+    <div class="reveal" style="--d:0.24s"><div class="stat-n"><span data-count="4">4</span></div><div class="mt-2 text-[13px] leading-snug" style="color:var(--muted)">days from no website to a live client site</div></div>
   </div>
 </section>
 
 <!-- SELECTED WORK -->
 <section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pb-8">
-  <div class="flex items-center gap-4 mb-10">
+  <div class="flex items-center gap-4 mb-10 reveal">
     <span class="rule"></span>
     <span class="section-label">Selected Work</span>
   </div>
-
   <div class="grid md:grid-cols-1 gap-6">
-
-    <!-- Project 1 -->
-    <article class="surface p-7 md:p-9">
+    <article class="surface reveal p-7 md:p-9">
       <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
-        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">AI Voice Receptionist</h2>
-        <div class="flex gap-2 flex-wrap justify-end">
-          <span class="tag">Retell AI</span>
-          <span class="tag o">Twilio</span>
-          <span class="tag">Cal.com</span>
-        </div>
+        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">AI Voice Receptionists</h2>
+        <div class="flex gap-2 flex-wrap justify-end"><span class="tag">Retell AI</span><span class="tag o">Twilio</span><span class="tag">Cal.com</span></div>
       </div>
-      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">
-        Full conversational voice agent handling live inbound calls end to end — booking, cancelling, and rescheduling appointments directly against a real calendar, answering FAQs, and routing callback requests. Runs on a dedicated Twilio number, backed by an n8n webhook layer for booking logic and ClickUp for record-keeping. Built, tested, and running in production — not a sandbox prototype.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-2">
-        <span class="stack-pill">System prompt design</span>
-        <span class="stack-pill">Conversation flow QA</span>
-        <span class="stack-pill">Cal.com booking API</span>
-        <span class="stack-pill">Webhook orchestration</span>
-      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">Voice agents that answer live calls end to end. They book, reschedule, cancel and look up appointments against a real calendar, log every call to the CRM, and hand the caller to a person when they need one. Built for my own business and for partner demos, with two live today on a phone line and a website. Every version is tested on real calls before it ships, including the edge cases: rescheduling twice, cancelling after a reschedule, callers with two bookings.</p>
+      <a href="tel:+13653604080" class="link-row mt-5 inline-flex items-center gap-2 text-[14px] font-semibold tc" style="text-decoration:none"><span class="live-dot"></span>&nbsp; Call one now: (365) 360-4080 <span aria-hidden="true">&rarr;</span></a>
+      <div class="mt-6 flex flex-wrap gap-2"><span class="stack-pill">Prompt and agent configuration</span><span class="stack-pill">Call flow QA</span><span class="stack-pill">Booking API</span><span class="stack-pill">Human handoff</span></div>
     </article>
-
-    <!-- Project 2 -->
-    <article class="surface p-7 md:p-9">
+    <article class="surface reveal p-7 md:p-9">
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">AI Operating System</h2>
+        <div class="flex gap-2 flex-wrap justify-end"><span class="tag">Claude Code</span><span class="tag o">MCP</span><span class="tag">APIs</span></div>
+      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">One workspace that holds the full context of the business, with n8n, the CRM, email and calendar connected through APIs and MCP, and Claude Code as the interface. A morning check that used to mean seven open tabs is now one command that pulls the calendar, pipeline and follow-ups and drafts the day's post. Internal agents turn call notes into draft proposals, research leads and tag the CRM. Since moving to this setup I ship two to three times as much in the same hours.</p>
+      <div class="mt-6 flex flex-wrap gap-2"><span class="stack-pill">Agentic workflows</span><span class="stack-pill">Custom skills and commands</span><span class="stack-pill">Prioritized roadmap</span><span class="stack-pill">Daily briefing</span></div>
+    </article>
+    <article class="surface reveal p-7 md:p-9">
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">Lead and Outreach Systems</h2>
+        <div class="flex gap-2 flex-wrap justify-end"><span class="tag">Trigger.dev</span><span class="tag o">TypeScript</span><span class="tag">Claude Agent SDK</span></div>
+      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">Scheduled jobs pull local businesses from the Google Places API and score them, AI agents research each owner and a verified email, and the pipeline lands in the CRM. It found and qualified 600+ businesses with no manual searching. 8-step email sequences went to 400+ of them, with my approval before every send. AI workflows read the replies, update the CRM and draft the responses. I piloted cold email, measured it against my other channels, and shifted my time to direct outreach, where I was getting more conversations.</p>
+      <div class="mt-6 flex flex-wrap gap-2"><span class="stack-pill">Scheduled jobs</span><span class="stack-pill">Data APIs</span><span class="stack-pill">Human-in-the-loop</span><span class="stack-pill">Reply handling</span></div>
+    </article>
+    <article class="surface reveal p-7 md:p-9">
       <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
         <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">n8n Automation Suite</h2>
-        <div class="flex gap-2 flex-wrap justify-end">
-          <span class="tag">n8n</span>
-          <span class="tag o">ClickUp</span>
-          <span class="tag">Twilio SMS</span>
-        </div>
+        <div class="flex gap-2 flex-wrap justify-end"><span class="tag">n8n</span><span class="tag o">ClickUp</span><span class="tag">Twilio SMS</span></div>
       </div>
-      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">
-        A set of production workflows running daily for real client and internal operations: appointment reminder sequences, post-visit review requests, no-show re-booking flows, inbound call logging with automatic routing and tagging, and reply detection across email inboxes that flags leads and drafts responses automatically. Eight independent workflows live at once, each built for a specific operational gap — not a single generic template.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-2">
-        <span class="stack-pill">Webhook design</span>
-        <span class="stack-pill">CRM sync (ClickUp API)</span>
-        <span class="stack-pill">SMS/email triggers</span>
-        <span class="stack-pill">Multi-client routing logic</span>
-      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">16 workflows in production: appointment reminders, review requests, no-show re-booking, call logging with routing and tagging, booking reminders, a monthly performance report, and inbox automations that sort replies and draft responses. Every workflow has an error alert. One failure the alerts could not see, cancellations rejected by the calendar system while each run logged as a success, was traced, fixed and tested end to end.</p>
+      <div class="mt-6 flex flex-wrap gap-2"><span class="stack-pill">Webhook design</span><span class="stack-pill">CRM sync</span><span class="stack-pill">SMS and email triggers</span><span class="stack-pill">Error handling</span></div>
     </article>
-
-    <!-- Project 3 -->
-    <article class="surface p-7 md:p-9">
+    <article class="surface reveal p-7 md:p-9">
       <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
-        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">Lead Generation &amp; Outreach System</h2>
-        <div class="flex gap-2 flex-wrap justify-end">
-          <span class="tag">Trigger.dev</span>
-          <span class="tag o">TypeScript</span>
-          <span class="tag">ClickUp CRM</span>
-        </div>
+        <h2 class="serif text-[28px] md:text-[32px] leading-tight" style="letter-spacing:-.02em">Websites</h2>
+        <div class="flex gap-2 flex-wrap justify-end"><span class="tag">Design</span><span class="tag o">Build</span><span class="tag">Deploy</span></div>
       </div>
-      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">
-        Scheduled lead-sourcing job built on Trigger.dev that queries local business data, qualifies leads, and pushes them straight into a ClickUp pipeline — paired with a personalized outreach engine that researches contacts, drafts sequenced emails, and tracks replies automatically across a multi-touch follow-up cadence.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-2">
-        <span class="stack-pill">Scheduled jobs</span>
-        <span class="stack-pill">Places/data APIs</span>
-        <span class="stack-pill">Pipeline automation</span>
-        <span class="stack-pill">Email deliverability</span>
-      </div>
+      <p class="text-[14.5px] leading-[1.75]" style="color:var(--muted)">Websites for my business, my portfolio and client work. Dr. Michael Newman's coaching practice went from no website to live in 4 days, revisions and live calendar booking included. I built it, deployed it and still maintain it.</p>
+      <p class="quote mt-6">&ldquo;Tremendously fantastic.&rdquo; <span style="font-family:'Space Grotesk',sans-serif;font-style:normal;font-size:13px;color:var(--muted)">Dr. Michael Newman, drmikenewman.ca</span></p>
+      <div class="mt-6 flex flex-wrap gap-2"><span class="stack-pill">Responsive design</span><span class="stack-pill">Live booking</span><span class="stack-pill">Stripe payment links</span><span class="stack-pill">Ongoing maintenance</span></div>
     </article>
+  </div>
+</section>
 
+<!-- HOW I WORK -->
+<section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pt-16">
+  <div class="flex items-center gap-4 mb-8 reveal">
+    <span class="rule"></span>
+    <span class="section-label">How I Work</span>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="surface reveal p-6" style="--d:0s"><h3 class="serif text-[22px]" style="letter-spacing:-.02em">Start from the work</h3><p class="mt-3 text-[14px] leading-[1.7]" style="color:var(--muted)">Eleven years on the phones at TD, 40 to 60 calls a day, taught me where work slows down and which steps never needed a person. I map that before I build anything.</p></div>
+    <div class="surface reveal p-6" style="--d:0.08s"><h3 class="serif text-[22px]" style="letter-spacing:-.02em">Know where AI fails</h3><p class="mt-3 text-[14px] leading-[1.7]" style="color:var(--muted)">I test before I trust. I call the systems myself, check the edge cases, and stop what the numbers don't support. AI answers on its own where it's safe and hands off where it isn't.</p></div>
+    <div class="surface reveal p-6" style="--d:0.16s"><h3 class="serif text-[22px]" style="letter-spacing:-.02em">Teach it</h3><p class="mt-3 text-[14px] leading-[1.7]" style="color:var(--muted)">A tool nobody uses is worth nothing. I run live demos, write plain-language guides for every workflow, and coached new hires for years. The build is the easy half.</p></div>
   </div>
 </section>
 
 <!-- STACK -->
 <section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 py-16">
-  <div class="flex items-center gap-4 mb-8">
+  <div class="flex items-center gap-4 mb-8 reveal">
     <span class="rule rev" style="background:linear-gradient(90deg,var(--orange),var(--teal))"></span>
     <span class="section-label">Core Stack</span>
   </div>
-  <div class="flex flex-wrap gap-2.5">
-    <span class="stack-pill">Retell AI</span>
-    <span class="stack-pill">n8n</span>
-    <span class="stack-pill">Twilio</span>
-    <span class="stack-pill">Cal.com</span>
-    <span class="stack-pill">ClickUp API</span>
-    <span class="stack-pill">Trigger.dev</span>
-    <span class="stack-pill">TypeScript</span>
-    <span class="stack-pill">Stripe</span>
-    <span class="stack-pill">Zoho SMTP</span>
-    <span class="stack-pill">REST APIs &amp; Webhooks</span>
+  <div class="flex flex-wrap gap-2.5 reveal">
+    <span class="stack-pill">Claude</span><span class="stack-pill">Claude Code</span><span class="stack-pill">Claude Agent SDK</span><span class="stack-pill">MCP</span><span class="stack-pill">n8n</span><span class="stack-pill">Retell AI</span><span class="stack-pill">Twilio</span><span class="stack-pill">Cal.com</span><span class="stack-pill">ClickUp API</span><span class="stack-pill">Trigger.dev</span><span class="stack-pill">TypeScript</span><span class="stack-pill">Google Places API</span><span class="stack-pill">Stripe</span><span class="stack-pill">REST APIs &amp; Webhooks</span>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="relative z-10 max-w-5xl mx-auto px-6 md:px-8 pb-28">
-  <div class="surface p-9 md:p-12 text-center">
-    <h2 class="serif" style="font-size:clamp(30px,4.5vw,46px);letter-spacing:-.02em">Let's build something.</h2>
+  <div class="surface reveal p-9 md:p-12 text-center">
+    <h2 class="serif" style="font-size:clamp(30px,4.5vw,46px);letter-spacing:-.02em">Let's talk.</h2>
     <p class="mt-4 max-w-xl mx-auto text-[15px] leading-[1.7]" style="color:var(--muted)">
-      Open to freelance and partnership work in AI voice systems and automation — happy to walk through any of the builds above live on a call.
+      <span id="open-line">Open to full-time roles and select projects.</span> Happy to walk through any of these builds live on a call.
     </p>
     <div class="mt-8 flex flex-wrap gap-4 justify-center">
-      <a href="mailto:stephen@visionlabai.ca" class="btn">Email me <span aria-hidden="true">→</span></a>
-      <a href="https://visionlabai.ca" target="_blank" rel="noopener" class="btn-ghost">visionlabai.ca</a>
+      <a href="mailto:stephenrivas24@icloud.com" class="btn">Email me <span aria-hidden="true">&rarr;</span></a>
+      <a href="tel:+13653604080" class="btn-ghost">Call the AI: (365) 360-4080</a>
     </div>
   </div>
 </section>
@@ -242,5 +247,17 @@ a.link-row:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border
   <span>Built by Stephen Rivas</span>
 </footer>
 
+<script>
+document.documentElement.classList.add('js');
+// Business link: add ?biz to the URL. Default (no ?biz) is the job-application version.
+if(/[?&]biz\b/.test(location.search)){
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>a.href='mailto:stephen@visionlabai.ca');
+  const o=document.getElementById('open-line'); if(o) o.textContent='Open to freelance and partnership work in AI voice systems and automation.';
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');
+ e.target.querySelectorAll('[data-count]').forEach(n=>{const t=+n.dataset.count;if(t<10||matchMedia('(prefers-reduced-motion:reduce)').matches)return;let s=null;const f=ts=>{s=s||ts;const p=Math.min((ts-s)/1100,1);n.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)});
+ io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
